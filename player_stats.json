@@ -1,0 +1,3038 @@
+{
+  "Nickeil Alexander-Walker": {
+    "minutes": 31,
+    "usage": 30,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Dyson Daniels": {
+    "minutes": 33,
+    "usage": 25,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "N'Faly Dante": {
+    "minutes": 24,
+    "usage": 21,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Nikola Durisic": {
+    "minutes": 28,
+    "usage": 27,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Mouhamed Gueye": {
+    "minutes": 26,
+    "usage": 19,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Caleb Houstan": {
+    "minutes": 23,
+    "usage": 29,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Jalen Johnson": {
+    "minutes": 23,
+    "usage": 27,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Luke Kennard": {
+    "minutes": 33,
+    "usage": 22,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Vit Krejci": {
+    "minutes": 36,
+    "usage": 23,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Eli John N'Diaye": {
+    "minutes": 30,
+    "usage": 22,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Asa Newell": {
+    "minutes": 23,
+    "usage": 30,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Onyeka Okongwu": {
+    "minutes": 29,
+    "usage": 25,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Kristaps Porzingis": {
+    "minutes": 30,
+    "usage": 18,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Zaccharie Risacher": {
+    "minutes": 26,
+    "usage": 25,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jacob Toppin": {
+    "minutes": 28,
+    "usage": 17,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Keaton Wallace": {
+    "minutes": 29,
+    "usage": 25,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Trae Young": {
+    "minutes": 31,
+    "usage": 18,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Chris Boucher": {
+    "minutes": 24,
+    "usage": 20,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Jaylen Brown": {
+    "minutes": 23,
+    "usage": 22,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Luka Garza": {
+    "minutes": 27,
+    "usage": 21,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Hugo Gonzalez": {
+    "minutes": 36,
+    "usage": 28,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Ron Harper Jr.": {
+    "minutes": 22,
+    "usage": 24,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Sam Hauser": {
+    "minutes": 36,
+    "usage": 20,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Josh Minott": {
+    "minutes": 26,
+    "usage": 26,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Payton Pritchard": {
+    "minutes": 26,
+    "usage": 23,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Neemias Queta": {
+    "minutes": 30,
+    "usage": 21,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Baylor Scheierman": {
+    "minutes": 32,
+    "usage": 29,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Max Shulga": {
+    "minutes": 26,
+    "usage": 17,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Anfernee Simons": {
+    "minutes": 36,
+    "usage": 22,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Jayson Tatum": {
+    "minutes": 36,
+    "usage": 24,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Xavier Tillman": {
+    "minutes": 29,
+    "usage": 17,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Jordan Walsh": {
+    "minutes": 23,
+    "usage": 26,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Derrick White": {
+    "minutes": 30,
+    "usage": 28,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Amari Williams": {
+    "minutes": 36,
+    "usage": 25,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Nic Claxton": {
+    "minutes": 27,
+    "usage": 17,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Noah Clowney": {
+    "minutes": 30,
+    "usage": 29,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Egor Demin": {
+    "minutes": 28,
+    "usage": 24,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Tyson Etienne": {
+    "minutes": 36,
+    "usage": 27,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Haywood Highsmith": {
+    "minutes": 23,
+    "usage": 26,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "E.J. Liddell": {
+    "minutes": 30,
+    "usage": 27,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Terance Mann": {
+    "minutes": 31,
+    "usage": 26,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Tyrese Martin": {
+    "minutes": 25,
+    "usage": 29,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Michael Porter Jr.": {
+    "minutes": 23,
+    "usage": 17,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Drake Powell": {
+    "minutes": 34,
+    "usage": 20,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Ben Saraf": {
+    "minutes": 22,
+    "usage": 22,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Day'Ron Sharpe": {
+    "minutes": 27,
+    "usage": 29,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Cam Thomas": {
+    "minutes": 22,
+    "usage": 23,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Nolan Traore": {
+    "minutes": 24,
+    "usage": 21,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Ziaire Williams": {
+    "minutes": 33,
+    "usage": 22,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Jalen Wilson": {
+    "minutes": 36,
+    "usage": 20,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Danny Wolf": {
+    "minutes": 29,
+    "usage": 20,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "LaMelo Ball": {
+    "minutes": 23,
+    "usage": 28,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Miles Bridges": {
+    "minutes": 33,
+    "usage": 27,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Pat Connaughton": {
+    "minutes": 27,
+    "usage": 26,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Moussa Diabate": {
+    "minutes": 32,
+    "usage": 17,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Josh Green": {
+    "minutes": 36,
+    "usage": 26,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Sion James": {
+    "minutes": 27,
+    "usage": 26,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Ryan Kalkbrenner": {
+    "minutes": 30,
+    "usage": 18,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Kon Knueppel": {
+    "minutes": 36,
+    "usage": 27,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Tre Mann": {
+    "minutes": 23,
+    "usage": 20,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Liam McNeeley": {
+    "minutes": 36,
+    "usage": 18,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Brandon Miller": {
+    "minutes": 32,
+    "usage": 20,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Drew Peterson": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Mason Plumlee": {
+    "minutes": 24,
+    "usage": 17,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Antonio Reeves": {
+    "minutes": 25,
+    "usage": 25,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Tidjane Salaun": {
+    "minutes": 22,
+    "usage": 28,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Collin Sexton": {
+    "minutes": 28,
+    "usage": 17,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "KJ Simpson": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Grant Williams": {
+    "minutes": 25,
+    "usage": 29,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Matas Buzelis": {
+    "minutes": 29,
+    "usage": 19,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Jevon Carter": {
+    "minutes": 32,
+    "usage": 18,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Zach Collins": {
+    "minutes": 31,
+    "usage": 21,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Ayo Dosunmu": {
+    "minutes": 23,
+    "usage": 19,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Noa Essengue": {
+    "minutes": 22,
+    "usage": 26,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Trentyn Flowers": {
+    "minutes": 29,
+    "usage": 27,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Josh Giddey": {
+    "minutes": 30,
+    "usage": 19,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Kevin Huerter": {
+    "minutes": 29,
+    "usage": 29,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Tre Jones": {
+    "minutes": 30,
+    "usage": 25,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Emanuel Miller": {
+    "minutes": 27,
+    "usage": 27,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Isaac Okoro": {
+    "minutes": 23,
+    "usage": 30,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Lachlan Olbrich": {
+    "minutes": 24,
+    "usage": 19,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Julian Phillips": {
+    "minutes": 32,
+    "usage": 27,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Jalen Smith": {
+    "minutes": 29,
+    "usage": 18,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Dalen Terry": {
+    "minutes": 25,
+    "usage": 29,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Nikola Vucevic": {
+    "minutes": 29,
+    "usage": 24,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Coby White": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Patrick Williams": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Jarrett Allen": {
+    "minutes": 26,
+    "usage": 29,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Lonzo Ball": {
+    "minutes": 31,
+    "usage": 20,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Thomas Bryant": {
+    "minutes": 29,
+    "usage": 21,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Darius Garland": {
+    "minutes": 35,
+    "usage": 24,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "De'Andre Hunter": {
+    "minutes": 25,
+    "usage": 29,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Chris Livingston": {
+    "minutes": 22,
+    "usage": 29,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Sam Merrill": {
+    "minutes": 31,
+    "usage": 19,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Donovan Mitchell": {
+    "minutes": 29,
+    "usage": 18,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Evan Mobley": {
+    "minutes": 33,
+    "usage": 21,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Larry Nance Jr.": {
+    "minutes": 31,
+    "usage": 26,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Craig Porter Jr.": {
+    "minutes": 22,
+    "usage": 19,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Tyrese Proctor": {
+    "minutes": 23,
+    "usage": 20,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Max Strus": {
+    "minutes": 22,
+    "usage": 26,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Nae'Qwan Tomlin": {
+    "minutes": 32,
+    "usage": 20,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Luke Travers": {
+    "minutes": 22,
+    "usage": 21,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Jaylon Tyson": {
+    "minutes": 23,
+    "usage": 27,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Dean Wade": {
+    "minutes": 30,
+    "usage": 28,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Max Christie": {
+    "minutes": 30,
+    "usage": 17,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Moussa Cisse": {
+    "minutes": 24,
+    "usage": 29,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Anthony Davis": {
+    "minutes": 22,
+    "usage": 22,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Dante Exum": {
+    "minutes": 22,
+    "usage": 19,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Cooper Flagg": {
+    "minutes": 33,
+    "usage": 19,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Daniel Gafford": {
+    "minutes": 29,
+    "usage": 26,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jaden Hardy": {
+    "minutes": 33,
+    "usage": 26,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Kyrie Irving": {
+    "minutes": 30,
+    "usage": 19,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Miles Kelly": {
+    "minutes": 25,
+    "usage": 17,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Dereck Lively II": {
+    "minutes": 24,
+    "usage": 23,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Naji Marshall": {
+    "minutes": 24,
+    "usage": 26,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Caleb Martin": {
+    "minutes": 34,
+    "usage": 18,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Ryan Nembhard": {
+    "minutes": 24,
+    "usage": 23,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Dwight Powell": {
+    "minutes": 26,
+    "usage": 18,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "D'Angelo Russell": {
+    "minutes": 25,
+    "usage": 27,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Klay Thompson": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "P.J. Washington": {
+    "minutes": 32,
+    "usage": 26,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Brandon Williams": {
+    "minutes": 33,
+    "usage": 18,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Tamar Bates": {
+    "minutes": 30,
+    "usage": 26,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Christian Braun": {
+    "minutes": 24,
+    "usage": 19,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Bruce Brown": {
+    "minutes": 32,
+    "usage": 29,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Aaron Gordon": {
+    "minutes": 30,
+    "usage": 22,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Tim Hardaway Jr.": {
+    "minutes": 27,
+    "usage": 17,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "DaRon Holmes II": {
+    "minutes": 36,
+    "usage": 24,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Cameron Johnson": {
+    "minutes": 35,
+    "usage": 30,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Nikola Jokic": {
+    "minutes": 31,
+    "usage": 28,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Curtis Jones": {
+    "minutes": 30,
+    "usage": 27,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Spencer Jones": {
+    "minutes": 27,
+    "usage": 25,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Jamal Murray": {
+    "minutes": 34,
+    "usage": 29,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Zeke Nnaji": {
+    "minutes": 23,
+    "usage": 29,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Jalen Pickett": {
+    "minutes": 35,
+    "usage": 22,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Julian Strawther": {
+    "minutes": 24,
+    "usage": 27,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Hunter Tyson": {
+    "minutes": 22,
+    "usage": 27,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Jonas Valanciunas": {
+    "minutes": 30,
+    "usage": 26,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Peyton Watson": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Jimmy Butler III": {
+    "minutes": 28,
+    "usage": 21,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Stephen Curry": {
+    "minutes": 28,
+    "usage": 26,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Draymond Green": {
+    "minutes": 30,
+    "usage": 27,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Buddy Hield": {
+    "minutes": 28,
+    "usage": 28,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Al Horford": {
+    "minutes": 27,
+    "usage": 19,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Trayce Jackson-Davis": {
+    "minutes": 28,
+    "usage": 21,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Jonathan Kuminga": {
+    "minutes": 31,
+    "usage": 21,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "De'Anthony Melton": {
+    "minutes": 31,
+    "usage": 20,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Moses Moody": {
+    "minutes": 35,
+    "usage": 21,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Gary Payton II": {
+    "minutes": 28,
+    "usage": 22,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Brandin Podziemski": {
+    "minutes": 35,
+    "usage": 27,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Quinten Post": {
+    "minutes": 29,
+    "usage": 22,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Will Richard": {
+    "minutes": 32,
+    "usage": 17,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jackson Rowe": {
+    "minutes": 33,
+    "usage": 24,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Gui Santos": {
+    "minutes": 33,
+    "usage": 27,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Pat Spencer": {
+    "minutes": 34,
+    "usage": 27,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Alex Toohey": {
+    "minutes": 25,
+    "usage": 18,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Steven Adams": {
+    "minutes": 34,
+    "usage": 30,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Clint Capela": {
+    "minutes": 33,
+    "usage": 17,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Isaiah Crawford": {
+    "minutes": 31,
+    "usage": 24,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "JD Davison": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Kevin Durant": {
+    "minutes": 25,
+    "usage": 20,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Tari Eason": {
+    "minutes": 27,
+    "usage": 19,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Dorian Finney-Smith": {
+    "minutes": 28,
+    "usage": 23,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Jeff Green": {
+    "minutes": 28,
+    "usage": 19,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Kevon Harris": {
+    "minutes": 23,
+    "usage": 23,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Aaron Holiday": {
+    "minutes": 31,
+    "usage": 30,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Josh Okogie": {
+    "minutes": 26,
+    "usage": 19,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Alperen Sengun": {
+    "minutes": 34,
+    "usage": 18,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Reed Sheppard": {
+    "minutes": 27,
+    "usage": 28,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Jabari Smith Jr.": {
+    "minutes": 30,
+    "usage": 27,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Jae'Sean Tate": {
+    "minutes": 33,
+    "usage": 25,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Amen Thompson": {
+    "minutes": 28,
+    "usage": 20,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Fred VanVleet": {
+    "minutes": 29,
+    "usage": 27,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Tony Bradley": {
+    "minutes": 24,
+    "usage": 19,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "RayJ Dennis": {
+    "minutes": 31,
+    "usage": 19,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Johnny Furphy": {
+    "minutes": 25,
+    "usage": 28,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Tyrese Haliburton": {
+    "minutes": 22,
+    "usage": 18,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Jay Huff": {
+    "minutes": 27,
+    "usage": 29,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Isaiah Jackson": {
+    "minutes": 28,
+    "usage": 28,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Quenton Jackson": {
+    "minutes": 23,
+    "usage": 27,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Kam Jones": {
+    "minutes": 23,
+    "usage": 22,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Bennedict Mathurin": {
+    "minutes": 30,
+    "usage": 30,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "T.J. McConnell": {
+    "minutes": 34,
+    "usage": 21,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Monte Morris": {
+    "minutes": 27,
+    "usage": 23,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Andrew Nembhard": {
+    "minutes": 22,
+    "usage": 22,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Aaron Nesmith": {
+    "minutes": 23,
+    "usage": 21,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Taelon Peter": {
+    "minutes": 32,
+    "usage": 27,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jeremiah Robinson-Earl": {
+    "minutes": 28,
+    "usage": 24,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Ben Sheppard": {
+    "minutes": 24,
+    "usage": 20,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Pascal Siakam": {
+    "minutes": 25,
+    "usage": 24,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Obi Toppin": {
+    "minutes": 23,
+    "usage": 22,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jarace Walker": {
+    "minutes": 34,
+    "usage": 22,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Nicolas Batum": {
+    "minutes": 31,
+    "usage": 19,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Bradley Beal": {
+    "minutes": 22,
+    "usage": 26,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Bogdan Bogdanovic": {
+    "minutes": 25,
+    "usage": 22,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Kobe Brown": {
+    "minutes": 22,
+    "usage": 22,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Cam Christie": {
+    "minutes": 22,
+    "usage": 19,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "John Collins": {
+    "minutes": 27,
+    "usage": 26,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Kris Dunn": {
+    "minutes": 28,
+    "usage": 21,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "James Harden": {
+    "minutes": 30,
+    "usage": 21,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Derrick Jones Jr.": {
+    "minutes": 34,
+    "usage": 18,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Kawhi Leonard": {
+    "minutes": 36,
+    "usage": 30,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Brook Lopez": {
+    "minutes": 33,
+    "usage": 20,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Jordan Miller": {
+    "minutes": 27,
+    "usage": 26,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Yanic Konan Niederhauser": {
+    "minutes": 35,
+    "usage": 23,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Chris Paul": {
+    "minutes": 24,
+    "usage": 28,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Kobe Sanders": {
+    "minutes": 23,
+    "usage": 20,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jahmyl Telfort": {
+    "minutes": 34,
+    "usage": 18,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Ivica Zubac": {
+    "minutes": 32,
+    "usage": 18,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Deandre Ayton": {
+    "minutes": 35,
+    "usage": 18,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Luka Doncic": {
+    "minutes": 27,
+    "usage": 21,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Rui Hachimura": {
+    "minutes": 28,
+    "usage": 28,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Jaxson Hayes": {
+    "minutes": 25,
+    "usage": 17,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Bronny James": {
+    "minutes": 22,
+    "usage": 28,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "LeBron James": {
+    "minutes": 26,
+    "usage": 26,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Maxi Kleber": {
+    "minutes": 32,
+    "usage": 18,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Dalton Knecht": {
+    "minutes": 28,
+    "usage": 27,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Christian Koloko": {
+    "minutes": 35,
+    "usage": 28,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Jake LaRavia": {
+    "minutes": 29,
+    "usage": 21,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Chris Manon": {
+    "minutes": 26,
+    "usage": 26,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Austin Reaves": {
+    "minutes": 33,
+    "usage": 26,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Marcus Smart": {
+    "minutes": 22,
+    "usage": 20,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Nick Smith Jr.": {
+    "minutes": 26,
+    "usage": 18,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Adou Thiero": {
+    "minutes": 25,
+    "usage": 24,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Jarred Vanderbilt": {
+    "minutes": 36,
+    "usage": 21,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Gabe Vincent": {
+    "minutes": 36,
+    "usage": 24,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Santi Aldama": {
+    "minutes": 24,
+    "usage": 21,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Kentavious Caldwell-Pope": {
+    "minutes": 35,
+    "usage": 26,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Brandon Clarke": {
+    "minutes": 30,
+    "usage": 24,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Cedric Coward": {
+    "minutes": 25,
+    "usage": 28,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Zach Edey": {
+    "minutes": 26,
+    "usage": 27,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "GG Jackson": {
+    "minutes": 35,
+    "usage": 25,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Jaren Jackson Jr.": {
+    "minutes": 26,
+    "usage": 17,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Ty Jerome": {
+    "minutes": 22,
+    "usage": 23,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "John Konchar": {
+    "minutes": 28,
+    "usage": 17,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Jock Landale": {
+    "minutes": 35,
+    "usage": 26,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Ja Morant": {
+    "minutes": 35,
+    "usage": 30,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Scotty Pippen Jr.": {
+    "minutes": 29,
+    "usage": 24,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Olivier-Maxence Prosper": {
+    "minutes": 29,
+    "usage": 17,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Javon Small": {
+    "minutes": 35,
+    "usage": 19,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Cam Spencer": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Jaylen Wells": {
+    "minutes": 26,
+    "usage": 30,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Vince Williams Jr.": {
+    "minutes": 28,
+    "usage": 17,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Bam Adebayo": {
+    "minutes": 25,
+    "usage": 27,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Simone Fontecchio": {
+    "minutes": 36,
+    "usage": 27,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Myron Gardner": {
+    "minutes": 29,
+    "usage": 28,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Vladislav Goldin": {
+    "minutes": 36,
+    "usage": 25,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Tyler Herro": {
+    "minutes": 31,
+    "usage": 24,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Kasparas Jakucionis": {
+    "minutes": 25,
+    "usage": 20,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Jaime Jaquez Jr.": {
+    "minutes": 26,
+    "usage": 30,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Keshad Johnson": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Nikola Jovic": {
+    "minutes": 25,
+    "usage": 27,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Pelle Larsson": {
+    "minutes": 28,
+    "usage": 26,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Davion Mitchell": {
+    "minutes": 29,
+    "usage": 25,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Norman Powell": {
+    "minutes": 27,
+    "usage": 24,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Terry Rozier": {
+    "minutes": 32,
+    "usage": 17,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Dru Smith": {
+    "minutes": 29,
+    "usage": 24,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Kel'el Ware": {
+    "minutes": 25,
+    "usage": 19,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Andrew Wiggins": {
+    "minutes": 32,
+    "usage": 17,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Jahmir Young": {
+    "minutes": 23,
+    "usage": 17,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Alex Antetokounmpo": {
+    "minutes": 35,
+    "usage": 21,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Giannis Antetokounmpo": {
+    "minutes": 29,
+    "usage": 28,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Thanasis Antetokounmpo": {
+    "minutes": 32,
+    "usage": 28,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Cole Anthony": {
+    "minutes": 30,
+    "usage": 23,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Amir Coffey": {
+    "minutes": 25,
+    "usage": 18,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "AJ Green": {
+    "minutes": 23,
+    "usage": 23,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Gary Harris": {
+    "minutes": 30,
+    "usage": 29,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Andre Jackson Jr.": {
+    "minutes": 23,
+    "usage": 28,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Kyle Kuzma": {
+    "minutes": 22,
+    "usage": 30,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Pete Nance": {
+    "minutes": 23,
+    "usage": 30,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Kevin Porter Jr.": {
+    "minutes": 26,
+    "usage": 22,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Bobby Portis": {
+    "minutes": 34,
+    "usage": 28,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Taurean Prince": {
+    "minutes": 35,
+    "usage": 18,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Ryan Rollins": {
+    "minutes": 22,
+    "usage": 28,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Mark Sears": {
+    "minutes": 25,
+    "usage": 30,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Jericho Sims": {
+    "minutes": 33,
+    "usage": 27,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Gary Trent Jr.": {
+    "minutes": 35,
+    "usage": 29,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Myles Turner": {
+    "minutes": 36,
+    "usage": 27,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Anthony Edwards": {
+    "minutes": 30,
+    "usage": 20,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Enrique Freeman": {
+    "minutes": 33,
+    "usage": 26,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Rudy Gobert": {
+    "minutes": 27,
+    "usage": 22,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Bones Hyland": {
+    "minutes": 29,
+    "usage": 28,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Joe Ingles": {
+    "minutes": 34,
+    "usage": 23,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Johnny Juzang": {
+    "minutes": 22,
+    "usage": 20,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Jaden McDaniels": {
+    "minutes": 26,
+    "usage": 21,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Leonard Miller": {
+    "minutes": 24,
+    "usage": 25,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Julius Randle": {
+    "minutes": 33,
+    "usage": 25,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Naz Reid": {
+    "minutes": 31,
+    "usage": 18,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Terrence Shannon Jr.": {
+    "minutes": 29,
+    "usage": 28,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Rocco Zikarsky": {
+    "minutes": 29,
+    "usage": 19,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Joan Beringer": {
+    "minutes": 22,
+    "usage": 19,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Jaylen Clark": {
+    "minutes": 34,
+    "usage": 19,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Mike Conley": {
+    "minutes": 27,
+    "usage": 25,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Donte DiVincenzo": {
+    "minutes": 23,
+    "usage": 26,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Rob Dillingham": {
+    "minutes": 36,
+    "usage": 19,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Trey Alexander": {
+    "minutes": 24,
+    "usage": 18,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Jose Alvarado": {
+    "minutes": 32,
+    "usage": 25,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Saddiq Bey": {
+    "minutes": 34,
+    "usage": 26,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Hunter Dickinson": {
+    "minutes": 29,
+    "usage": 20,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Jeremiah Fears": {
+    "minutes": 31,
+    "usage": 26,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Jordan Hawkins": {
+    "minutes": 31,
+    "usage": 27,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Herbert Jones": {
+    "minutes": 32,
+    "usage": 19,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "DeAndre Jordan": {
+    "minutes": 24,
+    "usage": 27,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Kevon Looney": {
+    "minutes": 28,
+    "usage": 17,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Karlo Matkovic": {
+    "minutes": 30,
+    "usage": 17,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Bryce McGowens": {
+    "minutes": 31,
+    "usage": 24,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Yves Missi": {
+    "minutes": 31,
+    "usage": 22,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Trey Murphy III": {
+    "minutes": 22,
+    "usage": 22,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Dejounte Murray": {
+    "minutes": 30,
+    "usage": 26,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Micah Peavy": {
+    "minutes": 32,
+    "usage": 25,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Jordan Poole": {
+    "minutes": 27,
+    "usage": 23,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Derik Queen": {
+    "minutes": 27,
+    "usage": 27,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Zion Williamson": {
+    "minutes": 29,
+    "usage": 21,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "OG Anunoby": {
+    "minutes": 35,
+    "usage": 27,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Mikal Bridges": {
+    "minutes": 35,
+    "usage": 27,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Jalen Brunson": {
+    "minutes": 35,
+    "usage": 18,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Jordan Clarkson": {
+    "minutes": 34,
+    "usage": 18,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Pacome Dadiet": {
+    "minutes": 28,
+    "usage": 27,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Mohamed Diawara": {
+    "minutes": 36,
+    "usage": 29,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Tosan Evbuomwan": {
+    "minutes": 35,
+    "usage": 28,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Josh Hart": {
+    "minutes": 34,
+    "usage": 20,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Ariel Hukporti": {
+    "minutes": 26,
+    "usage": 22,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Trey Jemison III": {
+    "minutes": 32,
+    "usage": 23,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Tyler Kolek": {
+    "minutes": 34,
+    "usage": 29,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Miles McBride": {
+    "minutes": 27,
+    "usage": 21,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Kevin McCullar Jr.": {
+    "minutes": 24,
+    "usage": 29,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Mitchell Robinson": {
+    "minutes": 32,
+    "usage": 23,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Landry Shamet": {
+    "minutes": 22,
+    "usage": 23,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Karl-Anthony Towns": {
+    "minutes": 30,
+    "usage": 30,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Guerschon Yabusele": {
+    "minutes": 36,
+    "usage": 27,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Lu Dort": {
+    "minutes": 28,
+    "usage": 18,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Shai Gilgeous-Alexander": {
+    "minutes": 28,
+    "usage": 27,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Isaiah Hartenstein": {
+    "minutes": 24,
+    "usage": 24,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Chet Holmgren": {
+    "minutes": 36,
+    "usage": 18,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Isaiah Joe": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Ajay Mitchell": {
+    "minutes": 22,
+    "usage": 23,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Thomas Sorber": {
+    "minutes": 34,
+    "usage": 29,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Nikola Topic": {
+    "minutes": 30,
+    "usage": 23,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Cason Wallace": {
+    "minutes": 22,
+    "usage": 17,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Aaron Wiggins": {
+    "minutes": 26,
+    "usage": 25,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Jalen Williams": {
+    "minutes": 26,
+    "usage": 18,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Jaylin Williams": {
+    "minutes": 23,
+    "usage": 25,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Kenrich Williams": {
+    "minutes": 29,
+    "usage": 22,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Chris Youngblood": {
+    "minutes": 30,
+    "usage": 21,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Brooks Barnhizer": {
+    "minutes": 34,
+    "usage": 25,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Branden Carlson": {
+    "minutes": 25,
+    "usage": 28,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Alex Caruso": {
+    "minutes": 34,
+    "usage": 25,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Ousmane Dieng": {
+    "minutes": 36,
+    "usage": 21,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Paolo Banchero": {
+    "minutes": 33,
+    "usage": 25,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Desmond Bane": {
+    "minutes": 26,
+    "usage": 24,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Goga Bitadze": {
+    "minutes": 28,
+    "usage": 19,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Anthony Black": {
+    "minutes": 25,
+    "usage": 28,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Jamal Cain": {
+    "minutes": 27,
+    "usage": 18,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Wendell Carter Jr.": {
+    "minutes": 34,
+    "usage": 20,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Colin Castleton": {
+    "minutes": 24,
+    "usage": 26,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Tristan da Silva": {
+    "minutes": 24,
+    "usage": 23,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Jett Howard": {
+    "minutes": 26,
+    "usage": 20,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Jonathan Isaac": {
+    "minutes": 30,
+    "usage": 22,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Tyus Jones": {
+    "minutes": 25,
+    "usage": 26,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Noah Penda": {
+    "minutes": 34,
+    "usage": 20,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Jase Richardson": {
+    "minutes": 30,
+    "usage": 24,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Orlando Robinson": {
+    "minutes": 32,
+    "usage": 23,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Jalen Suggs": {
+    "minutes": 22,
+    "usage": 19,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Franz Wagner": {
+    "minutes": 35,
+    "usage": 27,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Moritz Wagner": {
+    "minutes": 27,
+    "usage": 21,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Dominick Barlow": {
+    "minutes": 25,
+    "usage": 27,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Adem Bona": {
+    "minutes": 26,
+    "usage": 19,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Johni Broome": {
+    "minutes": 31,
+    "usage": 20,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Andre Drummond": {
+    "minutes": 34,
+    "usage": 28,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "VJ Edgecombe": {
+    "minutes": 22,
+    "usage": 25,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Justin Edwards": {
+    "minutes": 34,
+    "usage": 29,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Joel Embiid": {
+    "minutes": 23,
+    "usage": 26,
+    "hitRate": 0.65,
+    "backToBack": false
+  },
+  "Paul George": {
+    "minutes": 24,
+    "usage": 19,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Eric Gordon": {
+    "minutes": 28,
+    "usage": 28,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Quentin Grimes": {
+    "minutes": 32,
+    "usage": 23,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Kyle Lowry": {
+    "minutes": 33,
+    "usage": 28,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Tyrese Maxey": {
+    "minutes": 23,
+    "usage": 20,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Jared McCain": {
+    "minutes": 24,
+    "usage": 27,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Kelly Oubre Jr.": {
+    "minutes": 36,
+    "usage": 30,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Hunter Sallis": {
+    "minutes": 25,
+    "usage": 28,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Jabari Walker": {
+    "minutes": 24,
+    "usage": 17,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Trendon Watford": {
+    "minutes": 28,
+    "usage": 27,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Grayson Allen": {
+    "minutes": 30,
+    "usage": 22,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Devin Booker": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Koby Brea": {
+    "minutes": 30,
+    "usage": 20,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Dillon Brooks": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Ryan Dunn": {
+    "minutes": 23,
+    "usage": 26,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Rasheer Fleming": {
+    "minutes": 28,
+    "usage": 29,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Collin Gillespie": {
+    "minutes": 29,
+    "usage": 26,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Jordan Goodwin": {
+    "minutes": 28,
+    "usage": 20,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Jalen Green": {
+    "minutes": 34,
+    "usage": 30,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Nigel Hayes-Davis": {
+    "minutes": 31,
+    "usage": 24,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "CJ Huntley": {
+    "minutes": 27,
+    "usage": 19,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Oso Ighodaro": {
+    "minutes": 24,
+    "usage": 19,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Isaiah Livers": {
+    "minutes": 28,
+    "usage": 29,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Khaman Maluach": {
+    "minutes": 27,
+    "usage": 26,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Royce O'Neale": {
+    "minutes": 33,
+    "usage": 28,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "Nick Richards": {
+    "minutes": 24,
+    "usage": 18,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Mark Williams": {
+    "minutes": 34,
+    "usage": 30,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Jerami Grant": {
+    "minutes": 24,
+    "usage": 28,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Yang Hansen": {
+    "minutes": 36,
+    "usage": 18,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Scoot Henderson": {
+    "minutes": 24,
+    "usage": 30,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Jrue Holiday": {
+    "minutes": 28,
+    "usage": 28,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Damian Lillard": {
+    "minutes": 22,
+    "usage": 18,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Caleb Love": {
+    "minutes": 27,
+    "usage": 19,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Kris Murray": {
+    "minutes": 22,
+    "usage": 27,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Duop Reath": {
+    "minutes": 29,
+    "usage": 26,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Rayan Rupert": {
+    "minutes": 32,
+    "usage": 17,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Shaedon Sharpe": {
+    "minutes": 32,
+    "usage": 27,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Matisse Thybulle": {
+    "minutes": 31,
+    "usage": 21,
+    "hitRate": 0.49,
+    "backToBack": false
+  },
+  "Blake Wesley": {
+    "minutes": 22,
+    "usage": 18,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Robert Williams III": {
+    "minutes": 31,
+    "usage": 19,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Deni Avdija": {
+    "minutes": 36,
+    "usage": 27,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Toumani Camara": {
+    "minutes": 32,
+    "usage": 28,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Sidy Cissoko": {
+    "minutes": 26,
+    "usage": 20,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Donovan Clingan": {
+    "minutes": 36,
+    "usage": 25,
+    "hitRate": 0.6,
+    "backToBack": false
+  },
+  "Javonte Cooke": {
+    "minutes": 34,
+    "usage": 30,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Precious Achiuwa": {
+    "minutes": 25,
+    "usage": 24,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Dylan Cardwell": {
+    "minutes": 22,
+    "usage": 18,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Devin Carter": {
+    "minutes": 28,
+    "usage": 25,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Nique Clifford": {
+    "minutes": 33,
+    "usage": 29,
+    "hitRate": 0.51,
+    "backToBack": false
+  },
+  "DeMar DeRozan": {
+    "minutes": 28,
+    "usage": 18,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Keon Ellis": {
+    "minutes": 32,
+    "usage": 30,
+    "hitRate": 0.47,
+    "backToBack": false
+  },
+  "Drew Eubanks": {
+    "minutes": 28,
+    "usage": 21,
+    "hitRate": 0.58,
+    "backToBack": false
+  },
+  "Zach LaVine": {
+    "minutes": 30,
+    "usage": 29,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Doug McDermott": {
+    "minutes": 31,
+    "usage": 30,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Malik Monk": {
+    "minutes": 36,
+    "usage": 21,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Keegan Murray": {
+    "minutes": 32,
+    "usage": 19,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Daeqwon Plowden": {
+    "minutes": 26,
+    "usage": 18,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Maxime Raynaud": {
+    "minutes": 31,
+    "usage": 17,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Domantas Sabonis": {
+    "minutes": 24,
+    "usage": 28,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Dario Saric": {
+    "minutes": 27,
+    "usage": 17,
+    "hitRate": 0.66,
+    "backToBack": false
+  },
+  "Dennis Schroder": {
+    "minutes": 35,
+    "usage": 29,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Isaiah Stevens": {
+    "minutes": 35,
+    "usage": 27,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Russell Westbrook": {
+    "minutes": 26,
+    "usage": 24,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Harrison Barnes": {
+    "minutes": 22,
+    "usage": 21,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Bismack Biyombo": {
+    "minutes": 35,
+    "usage": 29,
+    "hitRate": 0.68,
+    "backToBack": false
+  },
+  "Carter Bryant": {
+    "minutes": 33,
+    "usage": 17,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Stephon Castle": {
+    "minutes": 33,
+    "usage": 25,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Julian Champagnie": {
+    "minutes": 25,
+    "usage": 22,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "De'Aaron Fox": {
+    "minutes": 33,
+    "usage": 18,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Dylan Harper": {
+    "minutes": 34,
+    "usage": 30,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Harrison Ingram": {
+    "minutes": 22,
+    "usage": 24,
+    "hitRate": 0.7,
+    "backToBack": false
+  },
+  "Keldon Johnson": {
+    "minutes": 28,
+    "usage": 18,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "David Jones Garcia": {
+    "minutes": 30,
+    "usage": 30,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Luke Kornet": {
+    "minutes": 28,
+    "usage": 24,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Jordan McLaughlin": {
+    "minutes": 31,
+    "usage": 26,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Riley Minix": {
+    "minutes": 35,
+    "usage": 22,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Kelly Olynyk": {
+    "minutes": 30,
+    "usage": 21,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Jeremy Sochan": {
+    "minutes": 36,
+    "usage": 22,
+    "hitRate": 0.72,
+    "backToBack": false
+  },
+  "Devin Vassell": {
+    "minutes": 28,
+    "usage": 20,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Lindy Waters III": {
+    "minutes": 29,
+    "usage": 21,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Victor Wembanyama": {
+    "minutes": 26,
+    "usage": 21,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Ochai Agbaji": {
+    "minutes": 26,
+    "usage": 26,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Scottie Barnes": {
+    "minutes": 24,
+    "usage": 24,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "RJ Barrett": {
+    "minutes": 24,
+    "usage": 26,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Jamison Battle": {
+    "minutes": 30,
+    "usage": 21,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Gradey Dick": {
+    "minutes": 26,
+    "usage": 27,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Chucky Hepburn": {
+    "minutes": 27,
+    "usage": 19,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Brandon Ingram": {
+    "minutes": 28,
+    "usage": 30,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "A.J. Lawson": {
+    "minutes": 31,
+    "usage": 29,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Sandro Mamukelashvili": {
+    "minutes": 36,
+    "usage": 29,
+    "hitRate": 0.63,
+    "backToBack": false
+  },
+  "Alijah Martin": {
+    "minutes": 23,
+    "usage": 26,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Jonathan Mogbo": {
+    "minutes": 22,
+    "usage": 21,
+    "hitRate": 0.61,
+    "backToBack": false
+  },
+  "Collin Murray-Boyles": {
+    "minutes": 36,
+    "usage": 28,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Jakob Poeltl": {
+    "minutes": 34,
+    "usage": 27,
+    "hitRate": 0.46,
+    "backToBack": false
+  },
+  "Immanuel Quickley": {
+    "minutes": 31,
+    "usage": 27,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Jamal Shead": {
+    "minutes": 27,
+    "usage": 24,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Garrett Temple": {
+    "minutes": 35,
+    "usage": 30,
+    "hitRate": 0.44,
+    "backToBack": false
+  },
+  "Ja'Kobe Walter": {
+    "minutes": 22,
+    "usage": 30,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Kyle Anderson": {
+    "minutes": 22,
+    "usage": 20,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Ace Bailey": {
+    "minutes": 35,
+    "usage": 22,
+    "hitRate": 0.62,
+    "backToBack": false
+  },
+  "Walter Clayton Jr.": {
+    "minutes": 25,
+    "usage": 22,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Isaiah Collier": {
+    "minutes": 31,
+    "usage": 22,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Kyle Filipowski": {
+    "minutes": 25,
+    "usage": 21,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Keyonte George": {
+    "minutes": 27,
+    "usage": 21,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Elijah Harkless": {
+    "minutes": 26,
+    "usage": 21,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Taylor Hendricks": {
+    "minutes": 24,
+    "usage": 19,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Walker Kessler": {
+    "minutes": 22,
+    "usage": 20,
+    "hitRate": 0.67,
+    "backToBack": false
+  },
+  "Kevin Love": {
+    "minutes": 30,
+    "usage": 30,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Lauri Markkanen": {
+    "minutes": 31,
+    "usage": 22,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Svi Mykhailiuk": {
+    "minutes": 33,
+    "usage": 23,
+    "hitRate": 0.57,
+    "backToBack": false
+  },
+  "Georges Niang": {
+    "minutes": 26,
+    "usage": 30,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "Jusuf Nurkic": {
+    "minutes": 35,
+    "usage": 24,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Brice Sensabaugh": {
+    "minutes": 34,
+    "usage": 19,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "John Tonje": {
+    "minutes": 22,
+    "usage": 28,
+    "hitRate": 0.43,
+    "backToBack": false
+  },
+  "Oscar Tshiebwe": {
+    "minutes": 26,
+    "usage": 20,
+    "hitRate": 0.56,
+    "backToBack": false
+  },
+  "Cody Williams": {
+    "minutes": 30,
+    "usage": 26,
+    "hitRate": 0.42,
+    "backToBack": false
+  },
+  "Marvin Bagley III": {
+    "minutes": 22,
+    "usage": 30,
+    "hitRate": 0.4,
+    "backToBack": false
+  },
+  "Malaki Branham": {
+    "minutes": 36,
+    "usage": 26,
+    "hitRate": 0.45,
+    "backToBack": false
+  },
+  "Bub Carrington": {
+    "minutes": 35,
+    "usage": 26,
+    "hitRate": 0.41,
+    "backToBack": false
+  },
+  "Justin Champagnie": {
+    "minutes": 22,
+    "usage": 20,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Sharife Cooper": {
+    "minutes": 27,
+    "usage": 28,
+    "hitRate": 0.54,
+    "backToBack": false
+  },
+  "Bilal Coulibaly": {
+    "minutes": 22,
+    "usage": 22,
+    "hitRate": 0.64,
+    "backToBack": false
+  },
+  "Kyshawn George": {
+    "minutes": 36,
+    "usage": 30,
+    "hitRate": 0.69,
+    "backToBack": false
+  },
+  "Anthony Gill": {
+    "minutes": 33,
+    "usage": 23,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "AJ Johnson": {
+    "minutes": 32,
+    "usage": 24,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Tre Johnson": {
+    "minutes": 32,
+    "usage": 22,
+    "hitRate": 0.71,
+    "backToBack": false
+  },
+  "Corey Kispert": {
+    "minutes": 35,
+    "usage": 20,
+    "hitRate": 0.59,
+    "backToBack": false
+  },
+  "CJ McCollum": {
+    "minutes": 23,
+    "usage": 27,
+    "hitRate": 0.5,
+    "backToBack": false
+  },
+  "Khris Middleton": {
+    "minutes": 34,
+    "usage": 25,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Will Riley": {
+    "minutes": 35,
+    "usage": 19,
+    "hitRate": 0.53,
+    "backToBack": false
+  },
+  "Alex Sarr": {
+    "minutes": 31,
+    "usage": 24,
+    "hitRate": 0.55,
+    "backToBack": false
+  },
+  "Tristan Vukcevic": {
+    "minutes": 31,
+    "usage": 23,
+    "hitRate": 0.52,
+    "backToBack": false
+  },
+  "Jamir Watkins": {
+    "minutes": 33,
+    "usage": 22,
+    "hitRate": 0.48,
+    "backToBack": false
+  },
+  "Cam Whitmore": {
+    "minutes": 27,
+    "usage": 24,
+    "hitRate": 0.48,
+    "backToBack": false
+  }
+}
