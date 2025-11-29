@@ -184,13 +184,3 @@ document.querySelectorAll(".filterButton").forEach(btn => {
 });
 
 document.getElementById("loadButton").onclick = loadData;
-
-.seasonAverages {
-  width: 22%;
-  font-size: 0.85em;
-  opacity: 0.9;
-}
-
-.seasonAverages div {
-  line-height: 1.3em;
-}
