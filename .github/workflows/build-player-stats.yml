@@ -1,34 +1,38 @@
-# .github/workflows/build-player-stats.yml
-
-name: Build player_stats.json
+name: Update player stats
 
 on:
   schedule:
-    - cron: "0 */4 * * *"   # every 4 hours (UTC)
-  workflow_dispatch: {}      # allow manual run from GitHub UI
+    # once a day at 7:00 UTC (adjust if you want)
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  build-player-stats:
+  update-player-stats:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: "20"
+          python-version: "3.12"
 
-      - name: Run stats builder
+      - name: Install dependencies
         run: |
-          node --version
-          node scripts/build_player_stats.mjs
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
 
-      - name: Commit and push player_stats.json
+      - name: Build player_stats.json from Basketball Reference
+        run: python scripts/update_player_stats.py
+
+      - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: update player_stats.json [auto]"
           file_pattern: |
             player_stats.json
-            player_stats_debug.json
