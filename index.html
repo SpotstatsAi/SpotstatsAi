@@ -32,9 +32,32 @@
   </section>
 
   <section id="propsSection">
-    <h2>Player Props</h2>
-    <div id="propsOutput"></div>
-  </section>
+  <h2>Player Props</h2>
+
+  <div id="propsOutput"></div>
+
+  <template id="propRowTemplate">
+    <div class="propRow">
+      <div class="propMain">
+        <div class="propName"></div>
+        <div class="propTeam"></div>
+      </div>
+
+      <div class="propMatchups">
+        <div class="oppLine"></div>
+        <div class="oppRank"></div>
+      </div>
+
+      <div class="propAdvanced">
+        <div class="usageLine"></div>
+        <div class="paceLine"></div>
+      </div>
+
+      <div class="tierTag"></div>
+    </div>
+  </template>
+</section>
+
 
   <script src="app.js"></script>
 </body>
