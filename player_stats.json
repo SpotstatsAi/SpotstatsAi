@@ -207,103 +207,103 @@
     "minutes": 27,
     "usage": 17,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Noah Clowney": {
     "minutes": 30,
     "usage": 29,
     "hitRate": 0.51,
-    "backToBack": false
+    "backToBack": true
   },
   "Egor Demin": {
     "minutes": 28,
     "usage": 24,
     "hitRate": 0.4,
-    "backToBack": false
+    "backToBack": true
   },
   "Tyson Etienne": {
     "minutes": 36,
     "usage": 27,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Haywood Highsmith": {
     "minutes": 23,
     "usage": 26,
     "hitRate": 0.71,
-    "backToBack": false
+    "backToBack": true
   },
   "E.J. Liddell": {
     "minutes": 30,
     "usage": 27,
     "hitRate": 0.66,
-    "backToBack": false
+    "backToBack": true
   },
   "Terance Mann": {
     "minutes": 31,
     "usage": 26,
     "hitRate": 0.4,
-    "backToBack": false
+    "backToBack": true
   },
   "Tyrese Martin": {
     "minutes": 25,
     "usage": 29,
     "hitRate": 0.67,
-    "backToBack": false
+    "backToBack": true
   },
   "Michael Porter Jr.": {
     "minutes": 23,
     "usage": 17,
     "hitRate": 0.56,
-    "backToBack": false
+    "backToBack": true
   },
   "Drake Powell": {
     "minutes": 34,
     "usage": 20,
     "hitRate": 0.7,
-    "backToBack": false
+    "backToBack": true
   },
   "Ben Saraf": {
     "minutes": 22,
     "usage": 22,
     "hitRate": 0.49,
-    "backToBack": false
+    "backToBack": true
   },
   "Day'Ron Sharpe": {
     "minutes": 27,
     "usage": 29,
     "hitRate": 0.42,
-    "backToBack": false
+    "backToBack": true
   },
   "Cam Thomas": {
     "minutes": 22,
     "usage": 23,
     "hitRate": 0.64,
-    "backToBack": false
+    "backToBack": true
   },
   "Nolan Traore": {
     "minutes": 24,
     "usage": 21,
     "hitRate": 0.54,
-    "backToBack": false
+    "backToBack": true
   },
   "Ziaire Williams": {
     "minutes": 33,
     "usage": 22,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Jalen Wilson": {
     "minutes": 36,
     "usage": 20,
     "hitRate": 0.42,
-    "backToBack": false
+    "backToBack": true
   },
   "Danny Wolf": {
     "minutes": 29,
     "usage": 20,
     "hitRate": 0.62,
-    "backToBack": false
+    "backToBack": true
   },
   "LaMelo Ball": {
     "minutes": 23,
@@ -627,211 +627,211 @@
     "minutes": 30,
     "usage": 17,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Moussa Cisse": {
     "minutes": 24,
     "usage": 29,
     "hitRate": 0.69,
-    "backToBack": false
+    "backToBack": true
   },
   "Anthony Davis": {
     "minutes": 22,
     "usage": 22,
     "hitRate": 0.61,
-    "backToBack": false
+    "backToBack": true
   },
   "Dante Exum": {
     "minutes": 22,
     "usage": 19,
     "hitRate": 0.52,
-    "backToBack": false
+    "backToBack": true
   },
   "Cooper Flagg": {
     "minutes": 33,
     "usage": 19,
     "hitRate": 0.69,
-    "backToBack": false
+    "backToBack": true
   },
   "Daniel Gafford": {
     "minutes": 29,
     "usage": 26,
     "hitRate": 0.62,
-    "backToBack": false
+    "backToBack": true
   },
   "Jaden Hardy": {
     "minutes": 33,
     "usage": 26,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Kyrie Irving": {
     "minutes": 30,
     "usage": 19,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Miles Kelly": {
     "minutes": 25,
     "usage": 17,
     "hitRate": 0.43,
-    "backToBack": false
+    "backToBack": true
   },
   "Dereck Lively II": {
     "minutes": 24,
     "usage": 23,
     "hitRate": 0.6,
-    "backToBack": false
+    "backToBack": true
   },
   "Naji Marshall": {
     "minutes": 24,
     "usage": 26,
     "hitRate": 0.69,
-    "backToBack": false
+    "backToBack": true
   },
   "Caleb Martin": {
     "minutes": 34,
     "usage": 18,
     "hitRate": 0.7,
-    "backToBack": false
+    "backToBack": true
   },
   "Ryan Nembhard": {
     "minutes": 24,
     "usage": 23,
     "hitRate": 0.42,
-    "backToBack": false
+    "backToBack": true
   },
   "Dwight Powell": {
     "minutes": 26,
     "usage": 18,
     "hitRate": 0.65,
-    "backToBack": false
+    "backToBack": true
   },
   "D'Angelo Russell": {
     "minutes": 25,
     "usage": 27,
     "hitRate": 0.52,
-    "backToBack": false
+    "backToBack": true
   },
   "Klay Thompson": {
     "minutes": 31,
     "usage": 17,
     "hitRate": 0.64,
-    "backToBack": false
+    "backToBack": true
   },
   "P.J. Washington": {
     "minutes": 32,
     "usage": 26,
     "hitRate": 0.56,
-    "backToBack": false
+    "backToBack": true
   },
   "Brandon Williams": {
     "minutes": 33,
     "usage": 18,
     "hitRate": 0.45,
-    "backToBack": false
+    "backToBack": true
   },
   "Tamar Bates": {
     "minutes": 30,
     "usage": 26,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Christian Braun": {
     "minutes": 24,
     "usage": 19,
     "hitRate": 0.48,
-    "backToBack": false
+    "backToBack": true
   },
   "Bruce Brown": {
     "minutes": 32,
     "usage": 29,
     "hitRate": 0.41,
-    "backToBack": false
+    "backToBack": true
   },
   "Aaron Gordon": {
     "minutes": 30,
     "usage": 22,
     "hitRate": 0.69,
-    "backToBack": false
+    "backToBack": true
   },
   "Tim Hardaway Jr.": {
     "minutes": 27,
     "usage": 17,
     "hitRate": 0.42,
-    "backToBack": false
+    "backToBack": true
   },
   "DaRon Holmes II": {
     "minutes": 36,
     "usage": 24,
     "hitRate": 0.6,
-    "backToBack": false
+    "backToBack": true
   },
   "Cameron Johnson": {
     "minutes": 35,
     "usage": 30,
     "hitRate": 0.5,
-    "backToBack": false
+    "backToBack": true
   },
   "Nikola Jokic": {
     "minutes": 31,
     "usage": 28,
     "hitRate": 0.7,
-    "backToBack": false
+    "backToBack": true
   },
   "Curtis Jones": {
     "minutes": 30,
     "usage": 27,
     "hitRate": 0.66,
-    "backToBack": false
+    "backToBack": true
   },
   "Spencer Jones": {
     "minutes": 27,
     "usage": 25,
     "hitRate": 0.66,
-    "backToBack": false
+    "backToBack": true
   },
   "Jamal Murray": {
     "minutes": 34,
     "usage": 29,
     "hitRate": 0.49,
-    "backToBack": false
+    "backToBack": true
   },
   "Zeke Nnaji": {
     "minutes": 23,
     "usage": 29,
     "hitRate": 0.53,
-    "backToBack": false
+    "backToBack": true
   },
   "Jalen Pickett": {
     "minutes": 35,
     "usage": 22,
     "hitRate": 0.53,
-    "backToBack": false
+    "backToBack": true
   },
   "Julian Strawther": {
     "minutes": 24,
     "usage": 27,
     "hitRate": 0.54,
-    "backToBack": false
+    "backToBack": true
   },
   "Hunter Tyson": {
     "minutes": 22,
     "usage": 27,
     "hitRate": 0.4,
-    "backToBack": false
+    "backToBack": true
   },
   "Jonas Valanciunas": {
     "minutes": 30,
     "usage": 26,
     "hitRate": 0.45,
-    "backToBack": false
+    "backToBack": true
   },
   "Peyton Watson": {
     "minutes": 22,
     "usage": 25,
     "hitRate": 0.61,
-    "backToBack": false
+    "backToBack": true
   },
   "Jimmy Butler III": {
     "minutes": 28,
@@ -1041,217 +1041,217 @@
     "minutes": 24,
     "usage": 19,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "RayJ Dennis": {
     "minutes": 31,
     "usage": 19,
     "hitRate": 0.55,
-    "backToBack": false
+    "backToBack": true
   },
   "Johnny Furphy": {
     "minutes": 25,
     "usage": 28,
     "hitRate": 0.49,
-    "backToBack": false
+    "backToBack": true
   },
   "Tyrese Haliburton": {
     "minutes": 22,
     "usage": 18,
     "hitRate": 0.67,
-    "backToBack": false
+    "backToBack": true
   },
   "Jay Huff": {
     "minutes": 27,
     "usage": 29,
     "hitRate": 0.66,
-    "backToBack": false
+    "backToBack": true
   },
   "Isaiah Jackson": {
     "minutes": 28,
     "usage": 28,
     "hitRate": 0.64,
-    "backToBack": false
+    "backToBack": true
   },
   "Quenton Jackson": {
     "minutes": 23,
     "usage": 27,
     "hitRate": 0.65,
-    "backToBack": false
+    "backToBack": true
   },
   "Kam Jones": {
     "minutes": 23,
     "usage": 22,
     "hitRate": 0.53,
-    "backToBack": false
+    "backToBack": true
   },
   "Bennedict Mathurin": {
     "minutes": 30,
     "usage": 30,
     "hitRate": 0.51,
-    "backToBack": false
+    "backToBack": true
   },
   "T.J. McConnell": {
     "minutes": 34,
     "usage": 21,
     "hitRate": 0.67,
-    "backToBack": false
+    "backToBack": true
   },
   "Monte Morris": {
     "minutes": 27,
     "usage": 23,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Andrew Nembhard": {
     "minutes": 22,
     "usage": 22,
     "hitRate": 0.7,
-    "backToBack": false
+    "backToBack": true
   },
   "Aaron Nesmith": {
     "minutes": 23,
     "usage": 21,
     "hitRate": 0.5,
-    "backToBack": false
+    "backToBack": true
   },
   "Taelon Peter": {
     "minutes": 32,
     "usage": 27,
     "hitRate": 0.62,
-    "backToBack": false
+    "backToBack": true
   },
   "Jeremiah Robinson-Earl": {
     "minutes": 28,
     "usage": 24,
     "hitRate": 0.43,
-    "backToBack": false
+    "backToBack": true
   },
   "Ben Sheppard": {
     "minutes": 24,
     "usage": 20,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Pascal Siakam": {
     "minutes": 25,
     "usage": 24,
     "hitRate": 0.4,
-    "backToBack": false
+    "backToBack": true
   },
   "Obi Toppin": {
     "minutes": 23,
     "usage": 22,
     "hitRate": 0.62,
-    "backToBack": false
+    "backToBack": true
   },
   "Jarace Walker": {
     "minutes": 34,
     "usage": 22,
     "hitRate": 0.4,
-    "backToBack": false
+    "backToBack": true
   },
   "Nicolas Batum": {
     "minutes": 31,
     "usage": 19,
     "hitRate": 0.43,
-    "backToBack": false
+    "backToBack": true
   },
   "Bradley Beal": {
     "minutes": 22,
     "usage": 26,
     "hitRate": 0.61,
-    "backToBack": false
+    "backToBack": true
   },
   "Bogdan Bogdanovic": {
     "minutes": 25,
     "usage": 22,
     "hitRate": 0.64,
-    "backToBack": false
+    "backToBack": true
   },
   "Kobe Brown": {
     "minutes": 22,
     "usage": 22,
     "hitRate": 0.67,
-    "backToBack": false
+    "backToBack": true
   },
   "Cam Christie": {
     "minutes": 22,
     "usage": 19,
     "hitRate": 0.46,
-    "backToBack": false
+    "backToBack": true
   },
   "John Collins": {
     "minutes": 27,
     "usage": 26,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Kris Dunn": {
     "minutes": 28,
     "usage": 21,
     "hitRate": 0.61,
-    "backToBack": false
+    "backToBack": true
   },
   "James Harden": {
     "minutes": 30,
     "usage": 21,
     "hitRate": 0.66,
-    "backToBack": false
+    "backToBack": true
   },
   "Derrick Jones Jr.": {
     "minutes": 34,
     "usage": 18,
     "hitRate": 0.52,
-    "backToBack": false
+    "backToBack": true
   },
   "Kawhi Leonard": {
     "minutes": 36,
     "usage": 30,
     "hitRate": 0.6,
-    "backToBack": false
+    "backToBack": true
   },
   "Brook Lopez": {
     "minutes": 33,
     "usage": 20,
     "hitRate": 0.42,
-    "backToBack": false
+    "backToBack": true
   },
   "Jordan Miller": {
     "minutes": 27,
     "usage": 26,
     "hitRate": 0.45,
-    "backToBack": false
+    "backToBack": true
   },
   "Yanic Konan Niederhauser": {
     "minutes": 35,
     "usage": 23,
     "hitRate": 0.59,
-    "backToBack": false
+    "backToBack": true
   },
   "Chris Paul": {
     "minutes": 24,
     "usage": 28,
     "hitRate": 0.54,
-    "backToBack": false
+    "backToBack": true
   },
   "Kobe Sanders": {
     "minutes": 23,
     "usage": 20,
     "hitRate": 0.62,
-    "backToBack": false
+    "backToBack": true
   },
   "Jahmyl Telfort": {
     "minutes": 34,
     "usage": 18,
     "hitRate": 0.55,
-    "backToBack": false
+    "backToBack": true
   },
   "Ivica Zubac": {
     "minutes": 32,
     "usage": 18,
     "hitRate": 0.47,
-    "backToBack": false
+    "backToBack": true
   },
   "Deandre Ayton": {
     "minutes": 35,
@@ -1563,109 +1563,109 @@
     "minutes": 35,
     "usage": 21,
     "hitRate": 0.5,
-    "backToBack": false
+    "backToBack": true
   },
   "Giannis Antetokounmpo": {
     "minutes": 29,
     "usage": 28,
     "hitRate": 0.5,
-    "backToBack": false
+    "backToBack": true
   },
   "Thanasis Antetokounmpo": {
     "minutes": 32,
     "usage": 28,
     "hitRate": 0.44,
-    "backToBack": false
+    "backToBack": true
   },
   "Cole Anthony": {
     "minutes": 30,
     "usage": 23,
     "hitRate": 0.6,
-    "backToBack": false
+    "backToBack": true
   },
   "Amir Coffey": {
     "minutes": 25,
     "usage": 18,
     "hitRate": 0.4,
-    "backToBack": false
+    "backToBack": true
   },
   "AJ Green": {
     "minutes": 23,
     "usage": 23,
     "hitRate": 0.71,
-    "backToBack": false
+    "backToBack": true
   },
   "Gary Harris": {
     "minutes": 30,
     "usage": 29,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Andre Jackson Jr.": {
     "minutes": 23,
     "usage": 28,
     "hitRate": 0.47,
-    "backToBack": false
+    "backToBack": true
   },
   "Kyle Kuzma": {
     "minutes": 22,
     "usage": 30,
     "hitRate": 0.67,
-    "backToBack": false
+    "backToBack": true
   },
   "Pete Nance": {
     "minutes": 23,
     "usage": 30,
     "hitRate": 0.56,
-    "backToBack": false
+    "backToBack": true
   },
   "Kevin Porter Jr.": {
     "minutes": 26,
     "usage": 22,
     "hitRate": 0.53,
-    "backToBack": false
+    "backToBack": true
   },
   "Bobby Portis": {
     "minutes": 34,
     "usage": 28,
     "hitRate": 0.7,
-    "backToBack": false
+    "backToBack": true
   },
   "Taurean Prince": {
     "minutes": 35,
     "usage": 18,
     "hitRate": 0.53,
-    "backToBack": false
+    "backToBack": true
   },
   "Ryan Rollins": {
     "minutes": 22,
     "usage": 28,
     "hitRate": 0.55,
-    "backToBack": false
+    "backToBack": true
   },
   "Mark Sears": {
     "minutes": 25,
     "usage": 30,
     "hitRate": 0.64,
-    "backToBack": false
+    "backToBack": true
   },
   "Jericho Sims": {
     "minutes": 33,
     "usage": 27,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Gary Trent Jr.": {
     "minutes": 35,
     "usage": 29,
     "hitRate": 0.5,
-    "backToBack": false
+    "backToBack": true
   },
   "Myles Turner": {
     "minutes": 36,
     "usage": 27,
     "hitRate": 0.51,
-    "backToBack": false
+    "backToBack": true
   },
   "Anthony Edwards": {
     "minutes": 30,
@@ -2295,103 +2295,103 @@
     "minutes": 30,
     "usage": 22,
     "hitRate": 0.69,
-    "backToBack": false
+    "backToBack": true
   },
   "Devin Booker": {
     "minutes": 31,
     "usage": 17,
     "hitRate": 0.52,
-    "backToBack": false
+    "backToBack": true
   },
   "Koby Brea": {
     "minutes": 30,
     "usage": 20,
     "hitRate": 0.6,
-    "backToBack": false
+    "backToBack": true
   },
   "Dillon Brooks": {
     "minutes": 31,
     "usage": 17,
     "hitRate": 0.52,
-    "backToBack": false
+    "backToBack": true
   },
   "Ryan Dunn": {
     "minutes": 23,
     "usage": 26,
     "hitRate": 0.62,
-    "backToBack": false
+    "backToBack": true
   },
   "Rasheer Fleming": {
     "minutes": 28,
     "usage": 29,
     "hitRate": 0.43,
-    "backToBack": false
+    "backToBack": true
   },
   "Collin Gillespie": {
     "minutes": 29,
     "usage": 26,
     "hitRate": 0.47,
-    "backToBack": false
+    "backToBack": true
   },
   "Jordan Goodwin": {
     "minutes": 28,
     "usage": 20,
     "hitRate": 0.58,
-    "backToBack": false
+    "backToBack": true
   },
   "Jalen Green": {
     "minutes": 34,
     "usage": 30,
     "hitRate": 0.64,
-    "backToBack": false
+    "backToBack": true
   },
   "Nigel Hayes-Davis": {
     "minutes": 31,
     "usage": 24,
     "hitRate": 0.61,
-    "backToBack": false
+    "backToBack": true
   },
   "CJ Huntley": {
     "minutes": 27,
     "usage": 19,
     "hitRate": 0.63,
-    "backToBack": false
+    "backToBack": true
   },
   "Oso Ighodaro": {
     "minutes": 24,
     "usage": 19,
     "hitRate": 0.42,
-    "backToBack": false
+    "backToBack": true
   },
   "Isaiah Livers": {
     "minutes": 28,
     "usage": 29,
     "hitRate": 0.55,
-    "backToBack": false
+    "backToBack": true
   },
   "Khaman Maluach": {
     "minutes": 27,
     "usage": 26,
     "hitRate": 0.72,
-    "backToBack": false
+    "backToBack": true
   },
   "Royce O'Neale": {
     "minutes": 33,
     "usage": 28,
     "hitRate": 0.51,
-    "backToBack": false
+    "backToBack": true
   },
   "Nick Richards": {
     "minutes": 24,
     "usage": 18,
     "hitRate": 0.48,
-    "backToBack": false
+    "backToBack": true
   },
   "Mark Williams": {
     "minutes": 34,
     "usage": 30,
     "hitRate": 0.67,
-    "backToBack": false
+    "backToBack": true
   },
   "Jerami Grant": {
     "minutes": 24,
