@@ -141,19 +141,20 @@ def parse_per_game():
 
     return per_by_name_team, tot_by_name
 
-
 def parse_advanced_usage():
     """
     Scrape the advanced table (id='advanced_stats') and pull USG%.
-
-    Returns:
-      usage_by_name: {name: usage_float}
+    BR hides tables inside HTML comments, so we must uncomment first.
     """
-    html = fetch_html_via_proxy(ADV_URL)
+    raw_html = fetch_html_via_proxy(ADV_URL)
+
+    # Remove HTML comment blocks so BeautifulSoup can see the table
+    html = raw_html.replace("<!--", "").replace("-->", "")
+
     soup = BeautifulSoup(html, "html.parser")
     table = soup.find("table", id="advanced_stats")
     if table is None:
-        raise RuntimeError("Could not find table with id='advanced_stats'")
+        raise RuntimeError("Advanced table 'advanced_stats' not found after uncommenting")
 
     tbody = table.find("tbody")
     rows = tbody.find_all("tr")
