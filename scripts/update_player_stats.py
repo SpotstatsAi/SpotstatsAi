@@ -20,8 +20,9 @@ from bs4 import BeautifulSoup
 # Season end year. Your 2025–26 season is "2026" on Basketball Reference.
 YEAR = 2026
 
-PER_GAME_URL = f"https://www.basketball-reference.com/leagues/NBA_{YEAR}_per_game.html"
-ADV_URL = f"https://www.basketball-reference.com/leagues/NBA_{YEAR}_advanced.html"
+BASE = "https://www.brefdata.com"   # BR mirror
+PER_GAME_URL = f"{BASE}/leagues/NBA_{YEAR}_per_game.html"
+ADV_URL      = f"{BASE}/leagues/NBA_{YEAR}_advanced.html"
 
 # Map your team codes -> Basketball Reference team codes
 TEAM_ALIASES = {
@@ -36,19 +37,38 @@ TEAM_ALIASES = {
 def to_bref_team(team_code: str) -> str:
     return TEAM_ALIASES.get(team_code, team_code)
 
-
 def fetch_table_rows(url: str, table_id: str):
-    """Download a Basketball Reference table and return all <tr> rows from its <tbody>."""
+    """Download a BR mirror table and return all <tr> rows from its <tbody>."""
     print(f"Fetching {url}", file=sys.stderr)
-    resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (SpotstatsAi scraper)"})
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.google.com/",
+    }
+
+    # Retry logic for reliability
+    for attempt in range(3):
+        resp = requests.get(url, headers=headers, timeout=30)
+        if resp.status_code == 200:
+            break
+        print(f"Retry {attempt+1}/3 for {url} (status {resp.status_code})", file=sys.stderr)
+        time.sleep(2 + attempt)
+
     resp.raise_for_status()
+
     soup = BeautifulSoup(resp.text, "html.parser")
     table = soup.find("table", id=table_id)
+
     if table is None:
         raise RuntimeError(f"Could not find table with id={table_id} at {url}")
+
     tbody = table.find("tbody")
     return tbody.find_all("tr")
-
 
 def parse_per_game():
     """
