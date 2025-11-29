@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-Pull current-season PER GAME + ADVANCED stats from Basketball Reference
-(via your Cloudflare Worker proxy) and produce player_stats.json
-matching app.js expectations.
+FINAL VERSION — WORKING WITH YOUR ACTUAL HTML FILES
 
-- Uses real BR table IDs:
-    per-game:  id="per_game_stats"
-    advanced:  id="advanced"
-- Handles comment-wrapped tables (<!-- ... -->) just in case.
-- Maps BKN->BRK, CHA->CHO, PHX->PHO for Basketball-Reference.
+Matches:
+  - per_game  (from your Per Game HTML)
+  - advanced  (from your Advanced HTML)
+
+Extracts comment-wrapped tables and produces correct player_stats.json
+for your UI.
 """
 
 import json
@@ -16,102 +15,68 @@ import sys
 import requests
 from bs4 import BeautifulSoup, Comment
 
-# ============ CONFIG ============
-
-# Set this to the season you want (e.g. 2025 or 2026)
 YEAR = 2026
 
-# Your Cloudflare Worker proxy
 PROXY = "https://bbr-proxy.dblair1027.workers.dev/?url="
 
-PER_GAME_HTML = f"https://www.basketball-reference.com/leagues/NBA_{YEAR}_per_game.html"
-ADV_HTML      = f"https://www.basketball-reference.com/leagues/NBA_{YEAR}_advanced.html"
+PER_GAME_URL = f"https://www.basketball-reference.com/leagues/NBA_{YEAR}_per_game.html"
+ADV_URL      = f"https://www.basketball-reference.com/leagues/NBA_{YEAR}_advanced.html"
 
-# **These IDs are what BR actually uses**
-PER_GAME_ID = "per_game_stats"
-ADVANCED_ID = "advanced"
+# *** THESE ARE THE ACTUAL TABLE IDs FROM YOUR FILES ***
+PER_TABLE_ID = "per_game"
+ADV_TABLE_ID = "advanced"
 
-# Team code mapping: our JSON -> Basketball-Reference
 TEAM_ALIASES = {
     "BKN": "BRK",
     "CHA": "CHO",
     "PHX": "PHO",
 }
 
-def to_bref_team(code: str) -> str:
+def to_bref_team(code):
     return TEAM_ALIASES.get(code, code)
 
 
-# ============ FETCH HELPERS ============
-
-def fetch_via_proxy(url: str) -> str:
-    """
-    Fetch a Basketball-Reference page through the Cloudflare Worker.
-    """
+def fetch_via_proxy(url):
     full = PROXY + requests.utils.quote(url, safe="")
     print(f"[fetch] {full}", file=sys.stderr)
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (SpotstatsAi Scraper)",
-        "Accept-Language": "en-US,en;q=0.9",
-    }
-    resp = requests.get(full, headers=headers, timeout=40)
-    resp.raise_for_status()
-    return resp.text
+    headers = {"User-Agent": "Mozilla/5.0", "Accept-Language": "en-US,en;q=0.9"}
+    r = requests.get(full, headers=headers, timeout=40)
+    r.raise_for_status()
+    return r.text
 
 
-# ============ TABLE SCRAPER ============
-
-def extract_commented_tables(soup: BeautifulSoup):
-    """
-    Some BR tables live inside <!-- ... --> comments.
-    This extracts all <table> elements found in those comments.
-    """
+def extract_commented_tables(soup):
     tables = []
-    for c in soup.find_all(string=lambda text: isinstance(text, Comment)):
+    for c in soup.find_all(string=lambda t: isinstance(t, Comment)):
         try:
             sub = BeautifulSoup(c, "html.parser")
             for t in sub.find_all("table"):
                 tables.append(t)
-        except Exception:
-            continue
+        except:
+            pass
     return tables
 
 
-def get_table(html: str, table_id: str):
-    """
-    Return a BeautifulSoup <table> with the given id.
-    Try direct lookup first, then search comment-wrapped tables.
-    """
+def get_table(html, table_id):
     soup = BeautifulSoup(html, "html.parser")
 
-    # 1) direct
-    table = soup.find("table", id=table_id)
-    if table:
-        return table
+    # try direct
+    t = soup.find("table", id=table_id)
+    if t:
+        return t
 
-    # 2) inside comments
-    for t in extract_commented_tables(soup):
-        if t.get("id") == table_id:
-            return t
+    # try inside <!-- comments -->
+    for tbl in extract_commented_tables(soup):
+        if tbl.get("id") == table_id:
+            return tbl
 
-    raise RuntimeError(f"Table id='{table_id}' not found (even in comments)")
+    raise RuntimeError(f"Table id={table_id} not found")
 
-
-# ============ PARSE PER-GAME ============
 
 def parse_per_game():
-    """
-    Parse per-game stats from Basketball-Reference.
-    Returns:
-      per: dict[(name, team)] -> stats
-      tot: dict[name]         -> stats (TOT row only)
-    """
-    html = fetch_via_proxy(PER_GAME_HTML)
-    table = get_table(html, PER_GAME_ID)
-
-    tbody = table.find("tbody")
-    rows = tbody.find_all("tr")
+    html = fetch_via_proxy(PER_GAME_URL)
+    table = get_table(html, PER_TABLE_ID)
+    rows = table.find("tbody").find_all("tr")
 
     per = {}
     tot = {}
@@ -121,21 +86,17 @@ def parse_per_game():
         return td.get_text(strip=True) if td else ""
 
     def num(v):
-        try:
-            return float(v)
-        except Exception:
-            return 0.0
+        try: return float(v)
+        except: return 0.0
 
     for r in rows:
-        # Skip header rows inside tbody
         if "class" in r.attrs and "thead" in r["class"]:
             continue
 
         name = cell(r, "player")
         team = cell(r, "team_id")
 
-        if not name or not team:
-            continue
+        if not name: continue
 
         rec = {
             "games": int(num(cell(r, "g"))),
@@ -155,7 +116,6 @@ def parse_per_game():
         }
 
         if team == "TOT":
-            # one combined line per player
             tot[name] = rec
         else:
             per[(name, team)] = rec
@@ -163,17 +123,9 @@ def parse_per_game():
     return per, tot
 
 
-# ============ PARSE ADVANCED ============
-
 def parse_advanced():
-    """
-    Parse advanced stats to get usage% from Basketball-Reference.
-
-    Returns:
-      usage: dict[name] -> usg_pct
-    """
-    html = fetch_via_proxy(ADV_HTML)
-    table = get_table(html, ADVANCED_ID)
+    html = fetch_via_proxy(ADV_URL)
+    table = get_table(html, ADV_TABLE_ID)
 
     rows = table.find("tbody").find_all("tr")
     usage = {}
@@ -188,17 +140,16 @@ def parse_advanced():
 
         name = cell(r, "player")
         team = cell(r, "team_id")
-        usg  = cell(r, "usg_pct")
+        usg = cell(r, "usg_pct")
 
         if not name:
             continue
 
         try:
             val = float(usg)
-        except Exception:
+        except:
             val = 0.0
 
-        # Prefer TOT row when available
         if team == "TOT":
             usage[name] = val
         else:
@@ -207,14 +158,10 @@ def parse_advanced():
     return usage
 
 
-# ============ MAIN ============
-
 def main():
-    # 1) Load your rosters.json
-    with open("rosters.json", "r", encoding="utf-8") as f:
+    with open("rosters.json") as f:
         rosters = json.load(f)
 
-    # 2) Scrape stats
     per, tot = parse_per_game()
     usage = parse_advanced()
 
@@ -222,49 +169,36 @@ def main():
     missing = []
 
     for team_code, players in rosters.items():
-        bref_team = to_bref_team(team_code)
+        bteam = to_bref_team(team_code)
 
         for name in players:
-            # Try team-specific line first
-            stats = per.get((name, bref_team))
-            # Fallback to TOT line (multi-team players)
-            if stats is None:
-                stats = tot.get(name)
+            stats = per.get((name, bteam)) or tot.get(name)
 
             if stats is None:
-                # Not found in BR tables; fill with zeros
-                missing.append((name, team_code))
-                stats = {
-                    "games": 0, "min": 0.0, "pts": 0.0, "reb": 0.0,
-                    "ast": 0.0, "stl": 0.0, "blk": 0.0, "tov": 0.0,
-                    "fg3a": 0.0, "fg3_pct": 0.0, "fga": 0.0,
-                    "fg_pct": 0.0, "fta": 0.0, "ft_pct": 0.0,
-                }
+                missing.append(name)
+                stats = {k:0 for k in [
+                    "games","min","pts","reb","ast","stl","blk",
+                    "tov","fg3a","fg3_pct","fga","fg_pct","fta","ft_pct"
+                ]}
 
             out = dict(stats)
             out.update({
                 "team": team_code,
                 "season": YEAR,
                 "usage": usage.get(name, 0.0),
-                # Filled later if you want team-level context
                 "pace": None,
                 "foul_difficulty": None,
-                "blowout_risk": None,
+                "blowout_risk": None
             })
 
             final[name] = out
 
-    # 3) Write player_stats.json for the UI
-    with open("player_stats.json", "w", encoding="utf-8") as f:
+    with open("player_stats.json","w") as f:
         json.dump(final, f, indent=2, sort_keys=True)
 
-    # 4) Log any players we didn't find
+    print("[DONE] Stats updated")
     if missing:
-        print("\n[warning] Players not found in BR stats:", file=sys.stderr)
-        for n, t in missing:
-            print(f" - {n} ({t})", file=sys.stderr)
-    else:
-        print("[ok] All roster players matched in BR tables", file=sys.stderr)
+        print("Missing players:", missing)
 
 
 if __name__ == "__main__":
