@@ -1,257 +1,232 @@
 #!/usr/bin/env python3
 """
-FULL NBA Player Stats Builder for SpotStatsAI
-------------------------------------------------------
-Includes:
-- Season averages
-- Opponent + defense rank
-- Usage, pace
-- Team record, opponent record
+Full Phase-7 Backend Builder
+-----------------------------------------
+Produces player_stats.json with:
+- Season per-game averages
 - Last 5 game trends (PTS / REB / AST)
-- Stable 60-day PlayerGameStatsByDate scraper (no 404)
+- Usage Rate
+- Pace
+- Opponent
+- Opponent defensive rank
+- Team record
+- Opponent record + streak
+- Confidence score (0–100)
+
+This EXACT format matches the new UI layouts.
 """
 
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 import requests
+from statistics import mean
 
-# ----------------------------------------------------------
+# -------------------------------------------------------------------
 # CONFIG
-# ----------------------------------------------------------
-API_KEY = os.getenv("SPORTSDATA_API_KEY", "").strip()
+# -------------------------------------------------------------------
+
+API_KEY = os.getenv("SPORTSDATA_API_KEY", "61d3779041f44f37bd511dbe1c70e84e").strip()
 if not API_KEY:
     print("ERROR: Missing SPORTSDATA_API_KEY", file=sys.stderr)
     sys.exit(1)
 
-SEASON = 2025   # SportsData season for 2025–26
+SEASON = 2025  # SportsData uses 2025 for the 2025-26 season
 TODAY = datetime.utcnow().strftime("%Y-%m-%d")
 
 BASE_STATS = "https://api.sportsdata.io/v3/nba/stats/json"
 BASE_SCORES = "https://api.sportsdata.io/v3/nba/scores/json"
 
-# ----------------------------------------------------------
+HEADERS = {"Ocp-Apim-Subscription-Key": API_KEY}
+
+# -------------------------------------------------------------------
 # HELPERS
-# ----------------------------------------------------------
+# -------------------------------------------------------------------
 
 def fetch_json(url):
-    headers = {"Ocp-Apim-Subscription-Key": API_KEY}
-    resp = requests.get(url, headers=headers, timeout=20)
+    resp = requests.get(url, headers=HEADERS, timeout=30)
     resp.raise_for_status()
     return resp.json()
 
 
-def fetch_season_stats():
-    url = f"{BASE_STATS}/PlayerSeasonStats/{SEASON}?key={API_KEY}"
+def fetch_season_totals():
+    url = f"{BASE_STATS}/PlayerSeasonStats/{SEASON}"
     return fetch_json(url)
 
 
-def fetch_todays_games():
-    url = f"{BASE_SCORES}/GamesByDate/{TODAY}?key={API_KEY}"
+def fetch_game_logs():
+    url = f"{BASE_STATS}/PlayerGameStatsBySeason/{SEASON}"
     return fetch_json(url)
 
 
 def fetch_standings():
-    url = f"{BASE_SCORES}/Standings/{SEASON}?key={API_KEY}"
+    url = f"{BASE_SCORES}/Standings/{SEASON}"
     return fetch_json(url)
 
 
-def fetch_last_60_days_logs():
-    """
-    SportsData does NOT have PlayerGameStatsBySeason.
-    We must collect player game logs day-by-day.
-
-    This fetches the last 60 days (covers all recent form).
-    """
-    logs = []
-    today = datetime.utcnow().date()
-    for i in range(60):
-        day = today - timedelta(days=i)
-        date_str = day.strftime("%Y-%m-%d")
-
-        try:
-            url = f"{BASE_STATS}/PlayerGameStatsByDate/{date_str}?key={API_KEY}"
-            day_logs = fetch_json(url)
-            logs.extend(day_logs)
-        except:
-            continue
-
-    return logs
+def fetch_todays_games():
+    url = f"{BASE_SCORES}/GamesByDate/{TODAY}"
+    return fetch_json(url)
 
 
-# ----------------------------------------------------------
-# MAIN
-# ----------------------------------------------------------
+# -------------------------------------------------------------------
+# MAIN BUILDER
+# -------------------------------------------------------------------
+
+def build_trends(game_logs):
+    """Return last-5 averages for pts/reb/ast."""
+    if not game_logs:
+        return {"trend_pts": 0, "trend_reb": 0, "trend_ast": 0}
+
+    # Sort newest → oldest
+    game_logs = sorted(game_logs, key=lambda g: g["Date"], reverse=True)
+    last5 = game_logs[:5]
+
+    def safe_avg(field):
+        vals = [g.get(field, 0) for g in last5]
+        return round(mean(vals), 2) if vals else 0
+
+    return {
+        "trend_pts": safe_avg("Points"),
+        "trend_reb": safe_avg("Rebounds"),
+        "trend_ast": safe_avg("Assists")
+    }
+
+
+def compute_confidence(season_pts, trend_pts, usage, def_rank):
+    """Output a 0–100 score used by UI."""
+    score = 50
+
+    # upward momentum
+    if trend_pts > season_pts:
+        score += 10
+
+    # heavy usage
+    if usage > 22:
+        score += 10
+
+    # good matchup
+    if def_rank and def_rank >= 20:
+        score += 10
+
+    # bad matchup
+    if def_rank and def_rank <= 10:
+        score -= 10
+
+    return int(max(0, min(100, score)))
+
 
 def main():
-    print(f"Building stats for {TODAY} (Season {SEASON})", file=sys.stderr)
+    print("Building stats…", file=sys.stderr)
 
-    # ------------------------------------------------------
-    # LOAD ROSTERS
-    # ------------------------------------------------------
-    try:
-        with open("rosters.json", "r", encoding="utf-8") as f:
-            rosters = json.load(f)
-    except FileNotFoundError:
-        print("ERROR: rosters.json missing!", file=sys.stderr)
-        sys.exit(1)
+    # Load roster
+    with open("rosters.json", "r", encoding="utf-8") as f:
+        rosters = json.load(f)
 
-    # ------------------------------------------------------
-    # FETCH ALL DATA
-    # ------------------------------------------------------
-    print("Fetching season stats...", file=sys.stderr)
-    season_stats = fetch_season_stats()
-
-    print("Fetching last 60 days of game logs...", file=sys.stderr)
-    game_logs = fetch_last_60_days_logs()
-
-    print("Fetching today's games...", file=sys.stderr)
-    todays_games = fetch_todays_games()
-
-    print("Fetching standings (team context + defense)...", file=sys.stderr)
+    season = fetch_season_totals()
+    logs = fetch_game_logs()
     standings = fetch_standings()
+    todays = fetch_todays_games()
 
-    # ------------------------------------------------------
-    # PREP LOOKUPS
-    # ------------------------------------------------------
-    # Map player → season totals
-    season_lookup = {p["Name"]: p for p in season_stats}
+    # Build lookups
+    season_by_name = {p["Name"]: p for p in season}
 
-    # Team defensive rank (lower PointsAgainst = better)
-    sorted_def = sorted(standings, key=lambda x: x.get("PointsAgainst", 999))
-    defense_rank = {t["Key"]: i + 1 for i, t in enumerate(sorted_def)}
+    logs_by_player = {}
+    for g in logs:
+        logs_by_player.setdefault(g["Name"], []).append(g)
 
-    # Team record lookup
+    # opponent map
+    opp_map = {}
+    for g in todays:
+        opp_map[g["HomeTeam"]] = g["AwayTeam"]
+        opp_map[g["AwayTeam"]] = g["HomeTeam"]
+
+    # team standings info
     team_info = {}
     for t in standings:
         team_info[t["Key"]] = {
-            "record": f"{t.get('Wins', 0)}-{t.get('Losses', 0)}",
-            "win_pct": t.get("Percentage"),
-            "points_for": t.get("PointsFor"),
-            "points_against": t.get("PointsAgainst"),
-            "streak": t.get("StreakDescription"),
-            "conference_rank": t.get("ConferenceRank"),
-            "division_rank": t.get("DivisionRank")
+            "record": f"{t['Wins']}-{t['Losses']}",
+            "streak": t.get("StreakDescription", "N/A"),
+            "points_against": t.get("PointsAgainst", 0)
         }
 
-    # Opponent map for today's games
-    opponents = {}
-    for g in todays_games:
-        home = g["HomeTeam"]
-        away = g["AwayTeam"]
-        opponents[home] = away
-        opponents[away] = home
+    # defensive rankings
+    sorted_def = sorted(standings, key=lambda t: t.get("PointsAgainst", 999))
+    def_rank = {t["Key"]: i + 1 for i, t in enumerate(sorted_def)}
 
-    # ------------------------------------------------------
-    # BUILD LAST 5 GAME TRENDS
-    # ------------------------------------------------------
-    trend_map = {}
-
-    for log in game_logs:
-        name = log.get("Name")
-        if not name:
-            continue
-
-        trend_map.setdefault(name, [])
-        trend_map[name].append({
-            "pts": log.get("Points", 0),
-            "reb": log.get("Rebounds", 0),
-            "ast": log.get("Assists", 0)
-        })
-
-    # Reduce each to last 5 games
-    for name, games in trend_map.items():
-        trend_map[name] = games[:5]
-
-    # ------------------------------------------------------
-    # BUILD FINAL JSON
-    # ------------------------------------------------------
     final = {}
-    missing_players = []
+    missing = []
 
-    for team_code, players in rosters.items():
+    for team, players in rosters.items():
         for name in players:
-            season = season_lookup.get(name)
 
-            if not season:
-                missing_players.append(name)
-                # still output placeholder so UI doesn't break
-                final[name] = {
-                    "team": team_code,
-                    "games": 0,
-                    "pts": 0,
-                    "reb": 0,
-                    "ast": 0,
-                    "usage": 0,
-                    "pace": None,
-                    "opponent": None,
-                    "def_rank": None,
-                    "team_record": None,
-                    "opp_record": None,
-                    "trend_pts": [],
-                    "trend_reb": [],
-                    "trend_ast": [],
-                }
+            raw = season_by_name.get(name)
+            if raw is None:
+                missing.append(name)
                 continue
 
-            games = season.get("Games", 0) or 1
-            opp = opponents.get(team_code)
-            opp_info = team_info.get(opp, {}) if opp else {}
+            games = raw.get("Games", 1)
+            minutes = raw.get("Minutes", 0)
 
-            # Last 5
-            tlist = trend_map.get(name, [])
-            trend_pts = [g["pts"] for g in tlist]
-            trend_reb = [g["reb"] for g in tlist]
-            trend_ast = [g["ast"] for g in tlist]
+            # per game
+            pts = raw.get("Points", 0) / games
+            reb = raw.get("Rebounds", 0) / games
+            ast = raw.get("Assists", 0) / games
+
+            # trends
+            tstats = build_trends(logs_by_player.get(name))
+
+            # opp
+            opp = opp_map.get(team)
+            opp_def_rank = def_rank.get(opp) if opp else None
+            opp_data = team_info.get(opp, {})
+
+            # team
+            team_data = team_info.get(team, {})
+
+            # confidence
+            conf = compute_confidence(
+                pts,
+                tstats["trend_pts"],
+                raw.get("UsageRate", 0),
+                opp_def_rank
+            )
 
             final[name] = {
-                "team": team_code,
-                "games": games,
-
-                # PER GAME AVERAGES
-                "pts": season.get("Points", 0) / games,
-                "reb": season.get("Rebounds", 0) / games,
-                "ast": season.get("Assists", 0) / games,
-                "min": season.get("Minutes", 0) / games,
-
-                # ADVANCED
-                "usage": season.get("UsageRate", 0),
-                "pace": season.get("Possessions", None),
-
-                # MATCHUP
+                "team": team,
                 "opponent": opp,
-                "def_rank": defense_rank.get(opp),
+                "def_rank": opp_def_rank,
+                "team_record": team_data.get("record", "N/A"),
+                "team_streak": team_data.get("streak", "N/A"),
 
-                # TEAM CONTEXT
-                "team_record": team_info.get(team_code, {}).get("record"),
-                "opp_record": opp_info.get("record"),
-                "opp_streak": opp_info.get("streak"),
-                "opp_points_for": opp_info.get("points_for"),
-                "opp_points_against": opp_info.get("points_against"),
-                "opp_conf_rank": opp_info.get("conference_rank"),
-                "opp_div_rank": opp_info.get("division_rank"),
+                "opp_record": opp_data.get("record", "N/A"),
+                "opp_streak": opp_data.get("streak", "N/A"),
 
-                # LAST 5 GAME TRENDS
-                "trend_pts": trend_pts,
-                "trend_reb": trend_reb,
-                "trend_ast": trend_ast,
+                # core per-game stats
+                "pts": round(pts, 1),
+                "reb": round(reb, 1),
+                "ast": round(ast, 1),
+
+                # advanced
+                "usage": raw.get("UsageRate", 0),
+                "pace": raw.get("Possessions", None),
+
+                # trends
+                **tstats,
+
+                # final score
+                "confidence": conf
             }
 
-    # ------------------------------------------------------
-    # WRITE OUTPUT
-    # ------------------------------------------------------
+    # write output
     with open("player_stats.json", "w", encoding="utf-8") as f:
-        json.dump(final, f, indent=2)
+        json.dump(final, f, indent=2, sort_keys=True)
 
-    print("\nDONE: player_stats.json written.", file=sys.stderr)
-
-    if missing_players:
-        print("\nPlayers not found in SportsData:", file=sys.stderr)
-        for p in missing_players:
-            print(" -", p, file=sys.stderr)
+    print("\nMissing players:")
+    for m in missing:
+        print(" -", m)
 
 
 if __name__ == "__main__":
     main()
-
