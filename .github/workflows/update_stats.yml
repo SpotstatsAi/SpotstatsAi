@@ -1,8 +1,8 @@
-name: Update Player Stats (Hybrid)
+name: Update Stats (Free Tier)
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # every 30 minutes
+    - cron: "0 */3 * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,44 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0       # full repo so rebase works
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-    - name: Install dependencies
-      run: |
-        pip install requests beautifulsoup4
+      - name: Install requests
+        run: pip install requests
 
-    - name: Run hybrid stats builder
-      env:
-        SPORTSDATA_API_KEY: ${{ secrets.SPORTSDATA_API_KEY }}
-      run: |
-        python scripts/build_player_stats_hybrid.py
+      - name: Run hybrid free-tier builder
+        env:
+          SPORTSDATA_API_KEY: ${{ secrets.SPORTSDATA_API_KEY }}
+        run: python scripts/build_player_stats_hybrid.py
 
-    - name: Configure git
-      run: |
-        git config --local user.name "github-actions[bot]"
-        git.config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-    - name: Pull remote changes to avoid conflicts
-      run: |
-        git pull --rebase origin main || true
-
-    - name: Commit changes if any
-      run: |
-        if ! git diff --quiet; then
-          git add player_stats.json
-          git commit -m "Auto-update player_stats.json (hybrid stats)"
-        else
-          echo "No changes detected, skipping commit."
-        fi
-
-    - name: Push changes
-      run: |
-        git push origin main || echo "Push skipped — nothing to push."
+      - name: Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "update free-tier player_stats.json [auto]"
+          file_pattern: player_stats.json
