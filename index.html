@@ -9,99 +9,26 @@
 </head>
 
 <body>
+  <header>
+    <h1>NBA Prop Engine</h1>
+    <button id="loadButton" class="load-button">Load Today’s Games</button>
+  </header>
 
-<header>
-  <div class="headerLogo">NBA Prop Engine</div>
-  <button id="loadButton" class="load-button">Load Today’s Games</button>
-</header>
+  <div id="layout">
+    <!-- LEFT SIDEBAR -->
+    <aside id="leftPanel">
 
-<div id="layout">
+      <!-- TODAY'S GAMES FIRST -->
+      <section class="sidebarSection">
+        <h2>Today's Games</h2>
+        <div id="games" class="scroll-list"></div>
+      </section>
 
-  <!-- LEFT COLUMN -->
-  <div id="leftSide">
+      <!-- TEAMS BELOW -->
+      <section class="sidebarSection">
+        <h2>Teams</h2>
+        <div id="teamsList" class="scroll-list"></div>
+      </section>
 
-    <section id="teamsSection">
-      <h2>Teams</h2>
-      <div id="teamsList" class="scroll-list"></div>
-    </section>
+    </aside>
 
-    <section id="gamesSection">
-      <h2>Today's Games</h2>
-      <div id="games" class="scroll-list"></div>
-    </section>
-
-    <section id="filters">
-      <h2>Filters</h2>
-      <button class="filterButton filterActive" data-filter="all">All</button>
-      <button class="filterButton" data-filter="green">Green</button>
-      <button class="filterButton" data-filter="yellow">Yellow</button>
-      <button class="filterButton" data-filter="red">Red</button>
-    </section>
-
-  </div>
-
-  <!-- RIGHT COLUMN -->
-  <div id="rightSide">
-
-    <section id="propsSection">
-      <h2>Player Props</h2>
-      <div id="propsOutput"></div>
-
-      <template id="propRowTemplate">
-        <div class="propCard">
-
-          <div class="propHeader">
-            <div>
-              <div class="propName"></div>
-              <div class="propTeam"></div>
-            </div>
-            <div class="tierTag"></div>
-          </div>
-
-          <div class="propSection">
-            <div class="label">Opponent</div>
-            <div class="oppLine value"></div>
-            <div class="oppRank value"></div>
-          </div>
-
-          <div class="propSection">
-            <div class="label">Season Avg</div>
-            <div class="avgRow">
-              <span class="avgPts"></span>
-              <span class="avgReb"></span>
-              <span class="avgAst"></span>
-            </div>
-          </div>
-
-          <div class="propSection">
-            <div class="label">Advanced</div>
-            <div class="advRow">
-              <span class="usageLine"></span>
-              <span class="paceLine"></span>
-            </div>
-          </div>
-
-          <div class="propSection">
-            <div class="label">Team Record</div>
-            <div class="teamRecord value"></div>
-          </div>
-
-          <div class="propSection">
-            <div class="label">Opponent Record</div>
-            <div class="oppRecord value"></div>
-            <div class="oppStreak value"></div>
-          </div>
-
-        </div>
-      </template>
-
-    </section>
-
-  </div>
-
-</div>
-
-<script src="app.js"></script>
-</body>
-
-</html>
