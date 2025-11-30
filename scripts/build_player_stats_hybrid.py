@@ -82,7 +82,7 @@ def main():
     print("Building FREE-TIER hybrid stats…", file=sys.stderr)
 
     # Load rosters
-    with open("roosters.json", "r", encoding="utf-8") as f:
+    with open("rosters.json", "r", encoding="utf-8") as f:
         rosters = json.load(f)
 
     # Fetch allowable API data
