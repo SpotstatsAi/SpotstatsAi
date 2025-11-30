@@ -1,0 +1,34 @@
+name: Build NBA player stats (NBA.com)
+
+on:
+  schedule:
+    # Run once a day at 10:15 UTC (adjust if you want)
+    - cron: "15 10 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  build-player-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Build player_stats.json from NBA.com
+        run: |
+          python scripts/build_player_stats_nba.py
+
+      - name: Commit updated player_stats.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update player_stats.json from NBA.com [auto]"
+          file_pattern: player_stats.json
