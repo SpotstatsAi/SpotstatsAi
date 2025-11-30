@@ -37,32 +37,51 @@
   <div id="propsOutput"></div>
 
   <template id="propRowTemplate">
-    <div class="propRow">
-      
-      <div class="propMain">
-        <div class="propName"></div>
-        <div class="propTeam"></div>
-      </div>
+  <div class="propCard">
 
-      <div class="propMatchups">
-        <div class="oppLine"></div>
-        <div class="oppRank"></div>
-      </div>
-
-      <div class="seasonAverages">
-        <div class="avgPts"></div>
-        <div class="avgReb"></div>
-        <div class="avgAst"></div>
-      </div>
-
-      <div class="propAdvanced">
-        <div class="usageLine"></div>
-        <div class="paceLine"></div>
-      </div>
-
+    <div class="propHeader">
+      <div class="propName"></div>
+      <div class="propTeam smallText"></div>
       <div class="tierTag"></div>
     </div>
+
+    <div class="propSection">
+      <div class="label">Opponent:</div>
+      <div class="oppLine value"></div>
+      <div class="oppRank value"></div>
+    </div>
+
+    <div class="propSection">
+      <div class="label">Season Avg:</div>
+      <div class="avgRow">
+        <span class="avgPts"></span>
+        <span class="avgReb"></span>
+        <span class="avgAst"></span>
+      </div>
+    </div>
+
+    <div class="propSection">
+      <div class="label">Advanced:</div>
+      <div class="advRow">
+        <span class="usageLine"></span>
+        <span class="paceLine"></span>
+      </div>
+    </div>
+
+    <div class="propSection">
+      <div class="label">Team Record:</div>
+      <div class="teamRecord value"></div>
+    </div>
+
+    <div class="propSection">
+      <div class="label">Opponent Record:</div>
+      <div class="oppRecord value"></div>
+      <div class="oppStreak value"></div>
+    </div>
+
+  </div>
 </template>
+
 
 
 </section>
