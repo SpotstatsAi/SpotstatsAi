@@ -1,3 +1,23 @@
+/* ---- DASHBOARD LAYOUT ---- */
+
+#layout {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 110px);
+}
+
+#leftSide {
+  width: 38%;
+  border-right: 1px solid #1f242d;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#rightSide {
+  width: 62%;
+  padding: 20px 28px;
+  overflow-y: auto;
+}
 /* ============================================================
    GLOBAL
 ============================================================ */
