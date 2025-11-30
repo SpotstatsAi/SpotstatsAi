@@ -1,4 +1,74 @@
 /* ----- GLOBAL ----- */
+/* ----- VIEW MODE TOGGLE ----- */
+.viewToggle {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toggleButton {
+  background: #2a2d34;
+  color: #ccc;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #3c3f46;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.toggleButton.active {
+  background: #007aff;
+  color: white;
+}
+
+/* ----- COMPACT MODE HIDES FULL DETAILS ----- */
+body.compactMode .fullDetails {
+  display: none;
+}
+body.compactMode .compactOnly {
+  display: block;
+}
+body.expandedMode .compactOnly {
+  display: none;
+}
+
+/* ----- PROP CARD STYLE ----- */
+.propCard {
+  background: #1a1d23;
+  padding: 16px;
+  border-radius: 14px;
+  border-left: 5px solid #333;
+  margin-bottom: 18px;
+  transition: all .25s ease;
+}
+body.compactMode .propCard {
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+/* Bar chart rows for compact mode */
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0;
+}
+.trendBar {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #3b3e46;
+  overflow: hidden;
+}
+.trendBar div {
+  height: 6px;
+  background: #4da3ff;
+  width: 0%;
+}
+
+/* Keep text smaller in compact */
+body.compactMode .propCard * {
+  font-size: 13px !important;
+}
 
 :root {
   --bg-main: #05070f;
