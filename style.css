@@ -1,101 +1,159 @@
-/* GLOBAL --------------------------------------------------------- */
+/* ============================================================
+   GLOBAL
+============================================================ */
 
 body {
   margin: 0;
   background: #0f1115;
-  color: #e6e6e6;
-  font-family: Arial, sans-serif;
+  color: #d8dbe2;
+  font-family: "Inter", Arial, sans-serif;
 }
 
-h1, h2 {
-  margin: 0 0 10px;
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 600;
 }
 
-main {
+/* ------------------------------------------------------------
+   HEADER
+------------------------------------------------------------ */
+
+header {
+  background: #15181e;
   padding: 20px;
+  border-bottom: 1px solid #1f242d;
+  text-align: center;
 }
+
+.headerLogo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.load-button {
+  padding: 12px 20px;
+  background: #2b5cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.load-button:hover {
+  background: #2449c7;
+}
+
+/* ------------------------------------------------------------
+   SECTIONS
+------------------------------------------------------------ */
+
+section {
+  padding: 22px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #e8eaf1;
+  margin-bottom: 14px;
+}
+
+/* ------------------------------------------------------------
+   SCROLL LISTS
+------------------------------------------------------------ */
 
 .scroll-list {
   max-height: 260px;
   overflow-y: auto;
-  padding-right: 6px;
+  padding-right: 8px;
 }
 
-.primary-btn {
-  background: #1a73e8;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  color: white;
+.teamEntry {
+  padding: 10px 0;
+  border-bottom: 1px solid #1f242d;
   cursor: pointer;
+  color: #adb3c4;
 }
 
-.primary-btn:hover {
-  background: #1664cc;
+.teamEntry:hover {
+  color: #fff;
 }
 
-/* HEADER ---------------------------------------------------------- */
-
-header {
-  background: #13151a;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #23262d;
-}
-
-/* FILTER BUTTONS -------------------------------------------------- */
-
-#filters {
-  margin: 20px 0;
-  display: flex;
-  gap: 10px;
-}
-
-.filterButton {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #333;
-  cursor: pointer;
-  background: #1a1c22;
-  color: #ddd;
-}
-
-.filterActive {
-  background: #1a73e8 !important;
-  border-color: #1a73e8 !important;
-  color: #fff !important;
-}
-
-/* GAME CARDS ------------------------------------------------------ */
+/* ------------------------------------------------------------
+   GAME CARDS
+------------------------------------------------------------ */
 
 .gameCard {
-  padding: 12px;
-  background: #1a1c22;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  border: 1px solid #2a2d34;
+  background: #15181e;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #20232a;
   cursor: pointer;
+  transition: 0.15s;
 }
 
 .gameCard:hover {
-  background: #24272f;
+  background: #1d2128;
+  border-color: #2c3340;
 }
 
-/* PLAYER PROP CARDS ---------------------------------------------- */
+.gameCard strong {
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.gameCard div {
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+/* ------------------------------------------------------------
+   FILTER BUTTONS
+------------------------------------------------------------ */
+
+.filterButton {
+  padding: 7px 14px;
+  margin-right: 8px;
+  background: #1b1f26;
+  color: #d8dbe2;
+  border: 1px solid #2a2f38;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filterActive {
+  background: #2b5cff;
+  border-color: #2b5cff;
+  color: #fff;
+}
+
+/* ------------------------------------------------------------
+   PLAYER PROP CARDS
+------------------------------------------------------------ */
 
 .propCard {
-  background: #1a1d24;
-  padding: 18px;
+  background: #15181e;
+  padding: 16px;
   border-radius: 12px;
-  margin-bottom: 14px;
-  border-left: 4px solid #3a3d45;
+  margin-bottom: 16px;
+  border: 1px solid #242a34;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  transition: 0.2s;
 }
 
+.propCard:hover {
+  background: #1c2129;
+  border-color: #3a4250;
+}
+
+/* Header row */
 .propHeader {
   display: flex;
   justify-content: space-between;
@@ -103,86 +161,101 @@ header {
 }
 
 .propName {
-  font-size: 1.2em;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
 }
 
-.smallText {
-  font-size: 0.8em;
-  opacity: 0.7;
+.propTeam {
+  font-size: 13px;
+  color: #9aa2b1;
 }
 
 .label {
-  font-size: 0.75em;
+  font-size: 12px;
   opacity: 0.6;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-bottom: 4px;
 }
 
-.cardRow {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.value {
+  font-size: 14px;
+  color: #e0e3ea;
 }
 
-.statRow {
-  display: flex;
-  gap: 20px;
-  font-size: 0.95em;
-}
-
-/* TIER TAGS ------------------------------------------------------- */
+/* ------------------------------------------------------------
+   TIER COLORS
+------------------------------------------------------------ */
 
 .tierTag {
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 0.75em;
-  font-weight: bold;
-  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .tier-green {
-  background: #0f9d58;
+  background: #19c37d;
+  color: #011d11;
 }
 
 .tier-yellow {
-  background: #f4b400;
+  background: #ffdb5c;
   color: #000;
 }
 
 .tier-red {
-  background: #db4437;
+  background: #ff5d5d;
+  color: #1a0000;
 }
 
-/* TREND BARS ------------------------------------------------------ */
+/* ------------------------------------------------------------
+   GRID SECTIONS INSIDE CARDS
+------------------------------------------------------------ */
 
-.trendGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.trendBlock {
+.propSection {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  padding: 6px 0;
+  border-top: 1px solid #242a34;
 }
 
-.trendLabel {
-  font-size: 0.75em;
-  opacity: 0.8;
+.avgRow, .advRow {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.trendBar {
-  background: #111;
+/* ------------------------------------------------------------
+   PROFILE BAR CHARTS (Outlier-style)
+------------------------------------------------------------ */
+
+.profileBars {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.barBlock {
+  flex: 1;
+}
+
+.barLabel {
+  font-size: 12px;
+  opacity: 0.65;
+}
+
+.barOuter {
+  width: 100%;
   height: 7px;
-  border-radius: 999px;
-  overflow: hidden;
+  background: #292f38;
+  border-radius: 4px;
+  margin-top: 3px;
 }
 
-.trendFill {
+.barFill {
   height: 100%;
-  background: linear-gradient(90deg, #00e676, #00b0ff);
-  width: 0;
-  transition: width 0.35s ease;
+  background: #2b5cff;
+  border-radius: 4px;
 }
