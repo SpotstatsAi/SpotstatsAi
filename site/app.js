@@ -1,256 +1,215 @@
-/* ==========================================================
-   GLOBAL STATE
-========================================================== */
-
 let rostersData = {};
 let scheduleData = {};
 let playerStats = {};
 let lastProps = [];
 let currentFilter = "all";
 
-/* ==========================================================
-   LOAD ROSTERS + STATS
-========================================================== */
-
+// Load rosters, schedule, and player_stats.json
 async function loadData() {
-    try {
-        const rostersURL = "rosters.json";
-        const scheduleURL = "schedule.json";
-        const statsURL   = "player_stats.json";
+  try {
+    const [rosters, schedule, stats] = await Promise.all([
+      fetch("rosters.json").then(r => r.json()),
+      fetch("schedule.json").then(r => r.json()),
+      fetch("player_stats.json").then(r => r.json())
+    ]);
 
-        const [rosters, schedule] = await Promise.all([
-            fetch(rostersURL).then(r => r.json()),
-            fetch(scheduleURL).then(r => r.json())
-        ]);
+    rostersData = rosters;
+    scheduleData = schedule;
+    playerStats = stats;
 
-        rostersData = rosters;
-        scheduleData = schedule;
-
-        try {
-            playerStats = await fetch(statsURL).then(r => r.json());
-            console.log("[ENGINE] player_stats.json loaded");
-        } catch (e) {
-            playerStats = {};
-            console.warn("[ENGINE] No player_stats.json yet – using placeholder scoring.");
-        }
-
-        renderTeams();
-        renderGames();  // now replaced with auto-today schedule
-    } catch (err) {
-        console.error(err);
-        alert("Failed to load data.");
-    }
+    renderTeams();
+    renderGames();
+  } catch (err) {
+    console.error(err);
+    alert("Failed loading engine data.");
+  }
 }
 
-/* ==========================================================
-   TEAMS PANEL
-========================================================== */
-
+// Sidebar teams list
 function renderTeams() {
-    const container = document.getElementById("teamsList");
-    container.innerHTML = "";
+  const container = document.getElementById("teamsList");
+  container.innerHTML = "";
 
-    Object.keys(rostersData).forEach(team => {
-        const div = document.createElement("div");
-        div.className = "teamEntry";
-        div.textContent = team;
-        div.onclick = () => showTeamPlayers(team);
-        container.appendChild(div);
-    });
+  Object.keys(rostersData).forEach(team => {
+    const div = document.createElement("div");
+    div.className = "teamEntry";
+    div.textContent = team;
+    div.onclick = () => showTeamPlayers(team);
+    container.appendChild(div);
+  });
 }
 
-function showTeamPlayers(team) {
-    const panel = document.getElementById("propsOutput");
-    const players = rostersData[team] || [];
-
-    panel.innerHTML = `<h3>${team} Roster</h3>`;
-
-    players.forEach(name => {
-        panel.innerHTML += `<div class="propRow"><span>${name}</span></div>`;
-    });
-
-    lastProps = [];
-}
-
-/* ==========================================================
-   SCHEDULE — *AUTO SELECT TODAY*
-========================================================== */
-
-async function loadSchedule() {
-    // scheduleData already loaded by loadData()
-    const today = new Date().toISOString().split("T")[0];
-
-    const games = scheduleData[today] || [];
-
-    const gamesDiv = document.getElementById("games");
-    gamesDiv.innerHTML = "";
-
-    if (!games.length) {
-        gamesDiv.innerHTML = `<p>No games scheduled for ${today}</p>`;
-        return;
-    }
-
-    games.forEach(g => {
-        const card = document.createElement("div");
-        card.className = "gameCard";
-
-        // your JSON fields:
-        // away_team, home_team, time_et
-        card.innerHTML = `
-            <strong>${g.away_team} @ ${g.home_team}</strong><br>
-            <span>${g.time_et}</span>
-        `;
-
-        card.onclick = () => showGameProps(g);
-        gamesDiv.appendChild(card);
-    });
-}
-
-/* ==========================================================
-   REPLACE OLD renderGames() WITH THIS
-========================================================== */
-
+// Today's games
 function renderGames() {
-    loadSchedule();  // always loads today's games
+  const gamesDiv = document.getElementById("games");
+  gamesDiv.innerHTML = "";
+
+  const today = new Date().toISOString().split("T")[0];
+  const games = scheduleData[today] || [];
+
+  if (!games.length) {
+    gamesDiv.innerHTML = "<p>No games today</p>";
+    return;
+  }
+
+  games.forEach(game => {
+    const card = document.createElement("div");
+    card.className = "gameCard";
+    card.innerHTML = `
+      <strong>${game.away_team} @ ${game.home_team}</strong>
+      <div>${game.time_et}</div>
+    `;
+    card.onclick = () => showGameProps(game);
+    gamesDiv.appendChild(card);
+  });
 }
 
-/* ==========================================================
-   PROP ENGINE
-========================================================== */
+// Click team name → just list roster
+function showTeamPlayers(team) {
+  const panel = document.getElementById("propsOutput");
+  panel.innerHTML = `<h3>${team} Roster</h3>`;
 
+  (rostersData[team] || []).forEach(name => {
+    const div = document.createElement("div");
+    div.textContent = name;
+    panel.appendChild(div);
+  });
+
+  lastProps = [];
+}
+
+// Click game card → build props for both teams
 function showGameProps(game) {
-    const awayTeam = game.away_team;
-    const homeTeam = game.home_team;
+  const awayPlayers = rostersData[game.away_team] || [];
+  const homePlayers = rostersData[game.home_team] || [];
 
-    const awayPlayers = rostersData[awayTeam] || [];
-    const homePlayers = rostersData[homeTeam] || [];
+  const entries = [];
+  awayPlayers.forEach(n => entries.push(buildProp(n)));
+  homePlayers.forEach(n => entries.push(buildProp(n)));
 
-    const allEntries = [];
-
-    awayPlayers.forEach(name => {
-        allEntries.push(buildPropEntry(name, awayTeam, "away"));
-    });
-
-    homePlayers.forEach(name => {
-        allEntries.push(buildPropEntry(name, homeTeam, "home"));
-    });
-
-    lastProps = allEntries;
-    renderProps();
+  lastProps = entries;
+  renderProps();
 }
 
-function buildPropEntry(name, team, side) {
-    const stats = playerStats[name] || null;
-    const score = scorePlayer(name, stats);
+// Build one player “prop object”
+function buildProp(name) {
+  const stats = playerStats[name] || {};
+  const score = scorePlayer(stats);
 
-    let tier, cssClass;
-    if (score >= 0.75) {
-        tier = "GREEN";
-        cssClass = "propGreen";
-    } else if (score >= 0.55) {
-        tier = "YELLOW";
-        cssClass = "propYellow";
-    } else {
-        tier = "RED";
-        cssClass = "propRed";
-    }
+  let tier = "RED";
+  if (score >= 0.75) tier = "GREEN";
+  else if (score >= 0.55) tier = "YELLOW";
 
-    return {
-        name,
-        team,
-        side,
-        score,
-        tier,
-        cssClass,
-        statsSummary: stats ? summarizeStats(stats) : "No stats – placeholder"
-    };
+  return { name, stats, tier, score };
 }
 
-function scorePlayer(name, stats) {
-    if (!stats) {
-        const code = name.charCodeAt(0) + name.charCodeAt(name.length - 1);
-        const mod = code % 3;
-        if (mod === 0) return 0.8;
-        if (mod === 1) return 0.6;
-        return 0.45;
-    }
+// Scoring logic for green / yellow / red
+function scorePlayer(s) {
+  if (!s || !s.pts) return 0.45;
 
-    let score = 0.5;
+  let sc = 0.5;
 
-    if (stats.min >= 30) score += 0.1;
-    if (stats.usage >= 25) score += 0.15;
-    if (stats.hitRate && stats.hitRate >= 0.6) score += 0.1;
-    if (stats.backToBack) score -= 0.1;
+  if (s.usage > 22) sc += 0.1;
+  if (s.min > 28) sc += 0.1;
+  if (s.def_rank && s.def_rank <= 10) sc += 0.1;
+  if (s.def_rank && s.def_rank >= 20) sc -= 0.1;
 
-    return Math.max(0, Math.min(score, 1));
+  return Math.max(0, Math.min(1, sc));
 }
 
-function summarizeStats(stats) {
-    const parts = [];
-    if (stats.min) parts.push(`Min: ${stats.min}`);
-    if (stats.usage) parts.push(`USG: ${stats.usage}`);
-    if (stats.pts) parts.push(`PTS: ${stats.pts}`);
-    return parts.join(" · ");
-}
-
-/* ==========================================================
-   RENDER PROPS (WITH FILTERING)
-========================================================== */
-
+// Render all player cards
 function renderProps() {
-    const panel = document.getElementById("propsOutput");
-    panel.innerHTML = "";
+  const panel = document.getElementById("propsOutput");
+  const template = document.getElementById("propRowTemplate");
 
-    const filtered = lastProps.filter(p => {
-        if (currentFilter === "all") return true;
-        if (currentFilter === "green") return p.tier === "GREEN";
-        if (currentFilter === "yellow") return p.tier === "YELLOW";
-        if (currentFilter === "red") return p.tier === "RED";
-        return true;
-    });
+  panel.innerHTML = "";
+  if (!template) return;
 
-    if (!filtered.length) {
-        panel.innerHTML = "<p>No props for this filter.</p>";
-        return;
+  const filtered = lastProps.filter(p => {
+    if (currentFilter === "all") return true;
+    return p.tier === currentFilter.toUpperCase();
+  });
+
+  filtered.sort((a, b) => b.score - a.score);
+
+  filtered.forEach(p => {
+    const clone = document.importNode(template.content, true);
+    const s = p.stats || {};
+
+    // Header
+    clone.querySelector(".propName").textContent = p.name;
+    clone.querySelector(".propTeam").textContent = s.team || "";
+
+    // Opponent + defense rank
+    const opp = s.opponent;
+    clone.querySelector(".oppLine").textContent =
+      opp ? `${s.team} vs ${opp}` : "No game today";
+
+    clone.querySelector(".oppRank").textContent =
+      s.def_rank ? `Defense Rank: ${s.def_rank}` : "";
+
+    // Season averages (per-game already in JSON)
+    const pts = s.pts ?? 0;
+    const reb = s.reb ?? 0;
+    const ast = s.ast ?? 0;
+
+    clone.querySelector(".avgPts").textContent = `PTS: ${pts.toFixed(1)}`;
+    clone.querySelector(".avgReb").textContent = `REB: ${reb.toFixed(1)}`;
+    clone.querySelector(".avgAst").textContent = `AST: ${ast.toFixed(1)}`;
+
+    // Advanced
+    const usage = s.usage ?? 0;
+    clone.querySelector(".usageLine").textContent = `USG: ${usage.toFixed(1)}%`;
+    clone.querySelector(".paceLine").textContent =
+      `Pace: ${s.pace ?? "N/A"}`;
+
+    // Records
+    clone.querySelector(".teamRecord").textContent =
+      s.team_record || "N/A";
+
+    clone.querySelector(".oppRecord").textContent =
+      s.opp_record || "N/A";
+
+    clone.querySelector(".oppStreak").textContent =
+      s.opp_streak ? `Streak: ${s.opp_streak}` : "Streak: N/A";
+
+    // Mini “chart” bars – normalize vs rough ceilings
+    const ptsPct = Math.min(100, (pts / 40) * 100);
+    const rebPct = Math.min(100, (reb / 15) * 100);
+    const astPct = Math.min(100, (ast / 12) * 100);
+
+    const ptsFill = clone.querySelector(".trendPtsFill");
+    const rebFill = clone.querySelector(".trendRebFill");
+    const astFill = clone.querySelector(".trendAstFill");
+
+    if (ptsFill) ptsFill.style.width = ptsPct + "%";
+    if (rebFill) rebFill.style.width = rebPct + "%";
+    if (astFill) astFill.style.width = astPct + "%";
+
+    // Tier pill
+    const tag = clone.querySelector(".tierTag");
+    if (tag) {
+      tag.textContent = p.tier;
+      if (p.tier === "GREEN") tag.classList.add("tier-green");
+      else if (p.tier === "YELLOW") tag.classList.add("tier-yellow");
+      else tag.classList.add("tier-red");
     }
 
-    filtered
-        .sort((a, b) => b.score - a.score)
-        .forEach(p => {
-            const row = document.createElement("div");
-            row.className = "propRow";
-
-            row.innerHTML = `
-                <span>
-                    <span class="${p.cssClass}">${p.tier}</span>
-                    &nbsp;${p.name} (${p.team})
-                </span>
-                <span class="propMeta">${p.statsSummary}</span>
-            `;
-
-            panel.appendChild(row);
-        });
+    panel.appendChild(clone);
+  });
 }
 
-/* ==========================================================
-   FILTER BUTTONS
-========================================================== */
+// Filter buttons
+document.querySelectorAll(".filterButton").forEach(btn => {
+  btn.onclick = () => {
+    currentFilter = btn.dataset.filter;
+    document
+      .querySelectorAll(".filterButton")
+      .forEach(b => b.classList.remove("filterActive"));
+    btn.classList.add("filterActive");
+    renderProps();
+  };
+});
 
-function initFilters() {
-    const buttons = document.querySelectorAll(".filterButton");
-    buttons.forEach(btn => {
-        btn.onclick = () => {
-            currentFilter = btn.getAttribute("data-filter");
-            buttons.forEach(b => b.classList.remove("filterActive"));
-            btn.classList.add("filterActive");
-            renderProps();
-        };
-    });
-}
-
-/* ==========================================================
-   INIT
-========================================================== */
-
+// Load button
 document.getElementById("loadButton").onclick = loadData;
-initFilters();
