@@ -1,222 +1,244 @@
 #!/usr/bin/env python3
 """
-NBA.com → Cloudflare Worker proxy → GitHub Action safe
+Builds player_stats.json by:
 
-Builds player_stats.json with:
-- Per-game averages (NBA official)
-- Usage, Pace, Advanced analytics
-- Opponent matchups for TODAY
-- Opponent defensive rank
-- Fully compatible with your current UI
+- Loading static per-player season averages from player_stats_base.json
+- Pulling today's schedule + standings from Sportradar (NBA Base)
+- Attaching:
+   - opponent team code for today's game
+   - simple defensive rank (by points allowed)
+   - team record
+   - opponent record & streak
+
+This keeps your UI happy without needing paid stats endpoints.
 """
 
 import json
+import os
 import sys
-import requests
-from datetime import datetime
-
-# -----------------------------------------------------------
-# CONFIG
-# -----------------------------------------------------------
-
-# Your actual Cloudflare Worker:
-NBA_PROXY = "https://nba-proxy.dblair1027.workers.dev/"
-
-TODAY = datetime.utcnow().strftime("%Y-%m-%d")
-
-SEASON = "2025-26"     # NBA.com format
-SEASON_YEAR = 2025     # Used only in some endpoints
-
-
-# -----------------------------------------------------------
-# PROXY FETCH WRAPPER
-# -----------------------------------------------------------
+from datetime import datetime, timezone
 import time
+import requests
 
-def fetch_with_retry(url, max_retry=5):
-    for attempt in range(max_retry):
-        try:
-            resp = requests.get(url, timeout=90)
-            resp.raise_for_status()
-            return resp
-        except Exception as e:
-            if attempt == max_retry - 1:
-                raise
-            time.sleep(1.5 + attempt * 1.2)
+# --------------------
+# CONFIG
+# --------------------
 
-def fetch_nba(endpoint, params_dict):
-    """
-    Fetch JSON from NBA.com THROUGH your Cloudflare Worker
-    → 100% bypasses NBA blocking
-    """
-    params = "&".join(f"{k}={v}" for k, v in params_dict.items())
-    url = f"{NBA_PROXY}?endpoint={endpoint}&params={params}"
+API_KEY = os.getenv("SPORTRADAR_NBA_KEY")
+if not API_KEY:
+   print("ERROR: SPORTRADAR_NBA_KEY is not set in the environment.", file=sys.stderr)
+   sys.exit(1)
 
-    print("Fetching:", url, file=sys.stderr)
+# Example: 2025–26 NBA season
+SEASON_YEAR = 2025        # change if needed
+SEASON_PHASE = "REG"      # REG, PST, etc.
 
-    resp = fetch_with_retry(url)
-    resp.raise_for_status()
-    return resp.json()
+# Sportradar NBA Base root – adjust "trial" vs "production" if you later upgrade
+BASE_URL = "https://api.sportradar.us/nba/trial/v8/en"
+
+# --------------------
+# HELPERS
+# --------------------
 
 
-# -----------------------------------------------------------
-# ENDPOINTS
-# -----------------------------------------------------------
-
-def get_player_base():
-    return fetch_nba("leaguedashplayerstats", {
-        "Season": SEASON,
-        "SeasonType": "Regular Season",
-        "MeasureType": "Base",
-        "PerMode": "PerGame"
-    })
-
-def get_advanced_stats():
-    return fetch_nba("leaguedashplayerstats", {
-        "Season": SEASON,
-        "SeasonType": "Regular Season",
-        "MeasureType": "Advanced",
-        "PerMode": "PerGame"
-    })
-
-def get_team_defense():
-    return fetch_nba("leaguedashteamstats", {
-        "Season": SEASON,
-        "SeasonType": "Regular Season",
-        "MeasureType": "Defense",
-        "PerMode": "PerGame"
-    })
-
-def get_schedule_today():
-    return fetch_nba("scoreboardv3", {
-        "GameDate": TODAY,
-        "LeagueID": "00"
-    })
+def sr_get(path):
+   """
+   Basic Sportradar GET helper.
+   path: "/seasons/.../standings.json" etc. (without api_key)
+   """
+   url = f"{BASE_URL}{path}?api_key={API_KEY}"
+   for attempt in range(3):
+       try:
+           resp = requests.get(url, timeout=20)
+           if resp.status_code >= 500:
+               # retry server errors
+               print(f"Sportradar 5xx on {path}, retry {attempt+1}/3", file=sys.stderr)
+               time.sleep(2)
+               continue
+           resp.raise_for_status()
+           return resp.json()
+       except requests.RequestException as e:
+           print(f"Error calling Sportradar {path}: {e}", file=sys.stderr)
+           if attempt == 2:
+               raise
+           time.sleep(2)
+   # Should not reach here
+   raise RuntimeError(f"Failed to fetch {path} after retries")
 
 
-# -----------------------------------------------------------
-# MAIN
-# -----------------------------------------------------------
+def get_today_iso():
+   # GitHub runners are UTC, we'll just use UTC date
+   return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def load_base_stats():
+   with open("player_stats_base.json", "r", encoding="utf-8") as f:
+       return json.load(f)
+
+
+# --------------------
+# SPORTRADAR DATA
+# --------------------
+
+def get_standings():
+   """
+   Pull standings for the season.
+
+   Endpoint to confirm in docs:
+   NBA Base typically exposes:
+     /seasons/{season_year}/{season_phase}/standings.json
+
+   If your docs say it's 'rankings.json' instead, change the path below.
+   """
+   path = f"/seasons/{SEASON_YEAR}/{SEASON_PHASE}/standings.json"
+   data = sr_get(path)
+
+   # We normalize into:
+   #   { team_alias (e.g. "BOS") : {wins, losses, record_str, points_for, points_against} }
+   teams = {}
+
+   # The exact shape may differ slightly; adjust keys based on your JSON.
+   # For NBA Base, "conferences" -> divisions -> teams is typical.
+   conferences = data.get("conferences", [])
+   for conf in conferences:
+       for div in conf.get("divisions", []):
+           for t in div.get("teams", []):
+               alias = t.get("alias")       # e.g. "BOS"
+               if not alias:
+                   continue
+               wins = t.get("wins", 0)
+               losses = t.get("losses", 0)
+               pf = t.get("points_for", 0)
+               pa = t.get("points_against", 0)
+               teams[alias] = {
+                   "wins": wins,
+                   "losses": losses,
+                   "record_str": f"{wins}-{losses}",
+                   "points_for": pf,
+                   "points_against": pa,
+               }
+
+   # Build simple defensive rank (1 = lowest points allowed)
+   # If no points_against, we just skip ranking.
+   sortable = [
+       (alias, info["points_against"])
+       for alias, info in teams.items()
+       if info["points_against"] is not None
+   ]
+   sortable.sort(key=lambda x: x[1])  # lower PA = better defense
+
+   def_rank = {}
+   for i, (alias, _) in enumerate(sortable, start=1):
+       def_rank[alias] = i
+
+   return teams, def_rank
+
+
+def get_todays_games():
+   """
+   Pull today's schedule.
+
+   Common NBA Base daily schedule pattern:
+     /games/{yyyy}/{mm}/{dd}/schedule.json
+
+   If docs show a slightly different path, update it here.
+   """
+   today = get_today_iso()          # '2025-11-30'
+   yyyy, mm, dd = today.split("-")
+   path = f"/games/{yyyy}/{mm}/{dd}/schedule.json"
+   data = sr_get(path)
+
+   games = []
+   for g in data.get("games", []):
+       home = g.get("home", {})
+       away = g.get("away", {})
+
+       games.append({
+           "home_code": home.get("alias"),
+           "away_code": away.get("alias"),
+           "status": g.get("status"),
+           "scheduled": g.get("scheduled"),  # full ISO time
+       })
+
+   return games
+
+
+def build_opponent_map(todays_games):
+   """
+   Take list of games → map team_code -> opponent_code.
+   """
+   opp = {}
+   for g in todays_games:
+       h = g["home_code"]
+       a = g["away_code"]
+       if h and a:
+           opp[h] = a
+           opp[a] = h
+   return opp
+
+
+# --------------------
+# MAIN MERGE LOGIC
+# --------------------
 
 def main():
-    print("Building player_stats.json via NBA.com Cloudflare Proxy", file=sys.stderr)
-    print("Today:", TODAY, file=sys.stderr)
+   print("Building Sportradar-enriched player_stats.json...", file=sys.stderr)
+   today = get_today_iso()
+   print(f"Today: {today}", file=sys.stderr)
 
-    # Load your rosters.json to determine which players we care about
-    with open("rosters.json", "r", encoding="utf-8") as f:
-        rosters = json.load(f)
+   # 1) Load your base player stats (BRef-derived)
+   base_stats = load_base_stats()
+   print(f"Loaded base stats for {len(base_stats)} players.", file=sys.stderr)
 
-    # Pull data
-    base = get_player_base()
-    adv  = get_advanced_stats()
-    defense = get_team_defense()
-    games = get_schedule_today()
+   # 2) Pull Sportradar data (standings + today's schedule)
+   print("Fetching standings from Sportradar...", file=sys.stderr)
+   standings, def_rank = get_standings()
+   print(f"Got standings for {len(standings)} teams.", file=sys.stderr)
 
-    # ----- Parse base stats -----
-    base_headers = base["resultSets"][0]["headers"]
-    base_rows = base["resultSets"][0]["rowSet"]
+   print("Fetching today's games from Sportradar...", file=sys.stderr)
+   todays_games = get_todays_games()
+   print(f"Games today: {len(todays_games)}", file=sys.stderr)
 
-    player_base = {}
-    for row in base_rows:
-        entry = dict(zip(base_headers, row))
-        name = entry["PLAYER_NAME"]
-        player_base[name] = entry
+   opponent_map = build_opponent_map(todays_games)
 
-    # ----- Parse advanced stats -----
-    adv_headers = adv["resultSets"][0]["headers"]
-    adv_rows = adv["resultSets"][0]["rowSet"]
+   # 3) Merge into final player_stats.json
+   final = {}
 
-    player_adv = {}
-    for row in adv_rows:
-        entry = dict(zip(adv_headers, row))
-        name = entry["PLAYER_NAME"]
-        player_adv[name] = entry
+   for name, s in base_stats.items():
+       team = s.get("team")
+       if not team:
+           final[name] = s
+           continue
 
-    # ----- Opponent Mapping (Today) -----
-    opponent = {}
-    if "scoreboard" in games and "games" in games["scoreboard"]:
-        for g in games["scoreboard"]["games"]:
-            home = g["homeTeam"]["teamTricode"]
-            away = g["awayTeam"]["teamTricode"]
-            opponent[home] = away
-            opponent[away] = home
+       team_info = standings.get(team, {})
+       opp_code = opponent_map.get(team)
+       opp_info = standings.get(opp_code, {}) if opp_code else {}
 
-    # ----- Defensive ranking -----
-    def_headers = defense["resultSets"][0]["headers"]
-    def_rows = defense["resultSets"][0]["rowSet"]
+       # Copy everything from base first
+       merged = dict(s)
 
-    def_table = [dict(zip(def_headers, r)) for r in def_rows]
+       # Attach / overwrite matchup fields
+       merged["opponent"] = opp_code
+       merged["def_rank"] = def_rank.get(opp_code)
 
-    # Sort by DEF_RATING ascending = better defense
-    def_sorted = sorted(def_table, key=lambda x: x["DEF_RATING"])
+       merged["team_record"] = team_info.get("record_str")
+       merged["team_win_pct"] = None  # could compute if you want
 
-    team_def_rank = {
-        entry["TEAM_ABBREVIATION"]: idx + 1
-        for idx, entry in enumerate(def_sorted)
-    }
+       merged["opp_record"] = opp_info.get("record_str")
+       # If standings JSON exposes "streak", add here:
+       merged["opp_streak"] = opp_info.get("streak") if "streak" in opp_info else None
 
-    # -----------------------------------------------------------
-    # Build final output
-    # -----------------------------------------------------------
+       merged["opp_points_for"] = opp_info.get("points_for")
+       merged["opp_points_against"] = opp_info.get("points_against")
 
-    final = {}
-    missing = []
+       final[name] = merged
 
-    for team, players in rosters.items():
-        for name in players:
+   # 4) Write output
+   with open("player_stats.json", "w", encoding="utf-8") as f:
+       json.dump(final, f, indent=2, sort_keys=True)
 
-            b = player_base.get(name)
-            a = player_adv.get(name)
-
-            if not b:
-                missing.append(name)
-                final[name] = {
-                    "team": team,
-                    "pts": 0,
-                    "reb": 0,
-                    "ast": 0,
-                    "min": 0,
-                    "games": 0,
-                    "usage": 0,
-                    "pace": None,
-                    "opponent": None,
-                    "def_rank": None
-                }
-                continue
-
-            opp = opponent.get(team)
-
-            final[name] = {
-                "team": team,
-                "games": b["GP"],
-                "min": b["MIN"],
-                "pts": b["PTS"],
-                "reb": b["REB"],
-                "ast": b["AST"],
-                "stl": b["STL"],
-                "blk": b["BLK"],
-                "tov": b["TOV"],
-
-                # Advanced
-                "usage": a["USG_PCT"] if a else 0,
-                "pace": a["PACE"] if a else None,
-
-                # Matchup info
-                "opponent": opp,
-                "def_rank": team_def_rank.get(opp)
-            }
-
-    # Save JSON
-    with open("player_stats.json", "w", encoding="utf-8") as f:
-        json.dump(final, f, indent=2)
-
-    print("DONE — player_stats.json updated!", file=sys.stderr)
-
-    if missing:
-        print("\nPlayers not found:", file=sys.stderr)
-        for name in missing:
-            print(" -", name)
+   print(f"Wrote player_stats.json with {len(final)} players.", file=sys.stderr)
 
 
 if __name__ == "__main__":
-    main()
+   main()
