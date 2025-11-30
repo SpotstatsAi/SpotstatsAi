@@ -1,203 +1,193 @@
-/* ------------- GLOBAL ------------- */
+/* GLOBAL */
 body {
-  background: #0f1217;
-  color: #e8e8e8;
-  margin: 0;
+  background: #0e1117;
+  color: #d9dde6;
   font-family: Inter, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2 {
+  margin: 0;
   font-weight: 600;
-  margin: 0 0 12px 0;
 }
 
-small {
-  opacity: 0.7;
-}
-
-/* ------------- HEADER ------------- */
 header {
   text-align: center;
-  padding: 25px 0 20px;
+  padding: 25px 0 10px;
 }
 
-.headerLogo {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.load-button {
-  background: #2d5bff;
-  border: none;
-  padding: 10px 22px;
-  font-size: 16px;
-  color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.15s;
-}
-.load-button:hover {
-  background: #1c47e6;
-}
-
-/* ------------- LAYOUT ------------- */
 #layout {
   display: flex;
-  flex-direction: row;
-  height: calc(100vh - 110px);
+  gap: 25px;
+  padding: 15px 25px;
 }
 
-#leftSide {
-  width: 34%;
-  border-right: 1px solid #1f242d;
-  padding: 25px;
-  overflow-y: auto;
-}
-
-#rightSide {
-  width: 66%;
-  padding: 25px 35px;
-  overflow-y: auto;
-}
-
-/* ------------- TEAMS LIST ------------- */
-#teamsList div {
-  padding: 10px 4px;
-  font-size: 16px;
+/* BUTTONS */
+.loadButton {
+  padding: 10px 22px;
+  font-size: 15px;
+  background: #2f6bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  border-bottom: 1px solid #20242c;
-  transition: 0.15s;
-}
-#teamsList div:hover {
-  color: #2d5bff;
 }
 
-/* ------------- GAMES LIST ------------- */
-.gameCard {
-  background: #171b22;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  border-left: 4px solid #2d5bff20;
-  cursor: pointer;
-  transition: 0.15s;
-}
-.gameCard:hover {
-  transform: translateX(2px);
-  background: #1c212b;
+.loadButton:hover {
+  background: #295de0;
 }
 
-/* ------------- FILTER BUTTONS ------------- */
-#filters {
-  margin-top: 30px;
-}
 .filterButton {
-  padding: 7px 16px;
-  background: #1a1d23;
-  border: 1px solid #30333a;
-  color: #ddd;
+  padding: 7px 15px;
   border-radius: 6px;
-  margin-right: 10px;
+  background: #1e222b;
+  color: #d9dde6;
+  border: 1px solid #2a2d36;
   cursor: pointer;
-  transition: 0.15s;
+  margin-right: 6px;
 }
+
 .filterActive {
-  background: #2d5bff;
-  border-color: #2d5bff;
-  color: #fff;
-}
-.filterButton:hover {
-  background: #2d5bff30;
+  background: #2f6bff;
+  border-color: #2f6bff;
 }
 
-/* ------------- PLAYER PROP CARDS ------------- */
+/* SIDEBAR */
+#sidebar {
+  width: 250px;
+  background: #11141a;
+  padding: 20px;
+  border-radius: 12px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.sidebarSection h2 {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+/* TEAM LIST */
+.teamEntry {
+  padding: 8px 0;
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.teamEntry:hover {
+  opacity: 1;
+}
+
+.teamList, .gamesList {
+  margin-bottom: 25px;
+}
+
+.gameCard {
+  padding: 12px 14px;
+  background: #1e222b;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.gameCard:hover {
+  background: #262b36;
+}
+
+/* MAIN PANEL */
+#mainPanel {
+  flex: 1;
+}
+
+.propsHeader {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+/* PROP CARDS */
 .propCard {
-  background: #161a20;
-  padding: 18px 20px;
-  border-radius: 14px;
-  margin-bottom: 16px;
-  border: 1px solid #20242c;
+  background: #1a1e26;
+  border: 1px solid #2a2d36;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
   position: relative;
-  box-shadow: 0px 0px 10px #00000040;
-  transition: 0.2s;
 }
 
-/* Left accent stripe (tier color) */
-.propCard::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 10px;
-  bottom: 10px;
-  width: 4px;
-  background: #444;
-  border-radius: 4px;
+/* TIER TAG */
+.tierTag {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.propCard.tierGREEN::before { background: #00c853; }
-.propCard.tierYELLOW::before { background: #ffb300; }
-.propCard.tierRED::before { background: #ff3d00; }
+.tier-green { background: #0f8d47; color: #eafff2; }
+.tier-yellow { background: #f4b400; color: #000; }
+.tier-red { background: #c62828; color: #ffe5e5; }
 
-.propCard:hover {
-  transform: translateY(-2px);
-  background: #1c2129;
-}
-
-/* ------------- HEADER INSIDE PROP CARD ------------- */
+/* Header */
 .propHeader {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  align-items: center;
 }
 
 .propName {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 }
 
-.propTeam {
-  font-size: 14px;
+.smallText {
+  font-size: 13px;
   opacity: 0.7;
 }
 
-/* ------------- TIER TAG ------------- */
-.tierTag {
-  padding: 5px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.tier-green { background: #00c85320; color: #00e676; }
-.tier-yellow { background: #ffb30020; color: #ffca28; }
-.tier-red { background: #ff3d0020; color: #ff6e40; }
-
-/* ------------- PROP SECTIONS ------------- */
-.propSection {
-  margin: 10px 0 8px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #252a33;
+/* Sections */
+.rowBlock {
+  margin-top: 12px;
 }
 
 .label {
-  font-size: 13px;
-  opacity: 0.55;
-  margin-bottom: 4px;
+  font-size: 12px;
+  opacity: 0.6;
 }
 
-.value, .avgRow span, .advRow span {
+.value {
   font-size: 14px;
 }
 
-/* Last section gets no border */
-.propSection:last-child {
-  border-bottom: none;
+/* Trend bars */
+.trendBlock {
+  margin-top: 8px;
 }
 
-/* ------------- ROWS ------------- */
+.trendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0;
+}
+
+.trendBar {
+  width: 120px;
+  height: 6px;
+  background: #2a2d36;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.trendBar div {
+  height: 100%;
+  background: #2f6bff;
+  width: 0%;
+}
+
+/* Layout tightening */
 .avgRow, .advRow {
   display: flex;
   gap: 20px;
-  font-weight: 500;
+  font-size: 14px;
 }
