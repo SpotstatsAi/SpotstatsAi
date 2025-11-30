@@ -162,15 +162,46 @@ def main():
                 "team": team_code,
                 "season": SEASON,
 
-                # Player stats
-                "games": raw.get("Games", 0),
-                "min": raw.get("Minutes", 0),
-                "pts": raw.get("Points", 0),
-                "reb": raw.get("Rebounds", 0),
-                "ast": raw.get("Assists", 0),
-                "stl": raw.get("Steals", 0),
-                "blk": raw.get("BlockedShots", 0),
-                "tov": raw.get("Turnovers", 0),
+             # Player stats
+             games = raw.get("Games", 0)
+             g = games if games else 1   # avoid divide-by-zero
+
+             # Convert totals → average per game
+              final[name] = {
+                  "team": team_code,
+                 "season": SEASON,
+
+             # Core per-game averages
+                "games": games,
+                "min": raw.get("Minutes", 0) / g,
+                "pts": raw.get("Points", 0) / g,
+                "reb": raw.get("Rebounds", 0) / g,
+                "ast": raw.get("Assists", 0) / g,
+                "stl": raw.get("Steals", 0) / g,
+                "blk": raw.get("BlockedShots", 0) / g,
+                "tov": raw.get("Turnovers", 0) / g,
+
+    # Advanced
+    "usage": raw.get("UsageRate", 0),
+    "pace": raw.get("Possessions", None),
+
+    # Matchups
+    "opponent": opp,
+    "def_rank": def_rank.get(opp) if opp else None,
+
+    # Team record info...
+    "team_record": team_rec.get("record_str"),
+    "team_win_pct": team_rec.get("win_pct"),
+
+    # Opponent info...
+    "opp_record": opp_rec.get("record_str"),
+    "opp_win_pct": opp_rec.get("win_pct"),
+    "opp_streak": opp_rec.get("streak"),
+    "opp_points_for": opp_rec.get("points_for"),
+    "opp_points_against": opp_rec.get("points_against"),
+    "opp_conf_rank": opp_rec.get("conf_rank"),
+    "opp_div_rank": opp_rec.get("div_rank"),
+}
 
                 # Advanced
                 "usage": raw.get("UsageRate", 0),
