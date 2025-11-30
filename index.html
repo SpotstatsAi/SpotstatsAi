@@ -40,38 +40,24 @@
 
   <div id="propsOutput"></div>
 
-  <template id="propRowTemplate">
-
+   <template id="propRowTemplate">
     <div class="propCard">
-
-      <!-- HEADER SECTION -->
       <div class="propHeader">
-        <div class="headerLeft">
-          <img class="playerHeadshot" />
-          <div>
-            <div class="propName"></div>
-            <div class="propTeam smallText"></div>
-          </div>
+        <div>
+          <div class="propName"></div>
+          <div class="propTeam smallText"></div>
         </div>
-        <img class="teamLogo" />
         <div class="tierTag"></div>
       </div>
 
-      <!-- MATCHUP -->
       <div class="propSection">
-        <div class="label">Matchup</div>
-        <div class="oppLine value"></div>
-        <div class="oppRank value"></div>
-
-        <!-- Defensive difficulty bar -->
-        <div class="defBarOuter">
-          <div class="defBarInner"></div>
-        </div>
+        <div class="label">Opponent</div>
+        <div class="value oppLine"></div>
+        <div class="value oppRank"></div>
       </div>
 
-      <!-- SEASON AVERAGE STATS -->
       <div class="propSection">
-        <div class="label">Season Averages</div>
+        <div class="label">Season Avg</div>
         <div class="avgRow">
           <span class="avgPts"></span>
           <span class="avgReb"></span>
@@ -79,13 +65,6 @@
         </div>
       </div>
 
-      <!-- MINICHART -->
-      <div class="propSection">
-        <div class="label">Recent Trend</div>
-        <canvas class="playerChart" height="60"></canvas>
-      </div>
-
-      <!-- ADVANCED -->
       <div class="propSection">
         <div class="label">Advanced</div>
         <div class="advRow">
@@ -94,18 +73,41 @@
         </div>
       </div>
 
-      <!-- TEAM / OPPONENT DATA -->
-      <div class="propSection collapsible">
-        <div class="sectionTitle">Team & Opponent Details ▼</div>
-        <div class="collapseContent">
-          <div class="value teamRecord"></div>
-          <div class="value oppRecord"></div>
-          <div class="value oppStreak"></div>
+      <div class="propSection">
+        <div class="label">Profile</div>
+        <div class="trendGrid">
+          <div class="trendMetric">
+            <span class="trendLabel">Scoring</span>
+            <div class="trendBar">
+              <div class="trendFill trendPtsFill"></div>
+            </div>
+          </div>
+          <div class="trendMetric">
+            <span class="trendLabel">Rebounds</span>
+            <div class="trendBar">
+              <div class="trendFill trendRebFill"></div>
+            </div>
+          </div>
+          <div class="trendMetric">
+            <span class="trendLabel">Assists</span>
+            <div class="trendBar">
+              <div class="trendFill trendAstFill"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-    </div>
+      <div class="propSection">
+        <div class="label">Team Record</div>
+        <div class="value teamRecord"></div>
+      </div>
 
+      <div class="propSection">
+        <div class="label">Opponent Record</div>
+        <div class="value oppRecord"></div>
+        <div class="value oppStreak"></div>
+      </div>
+    </div>
   </template>
 
 </section>
