@@ -31,6 +31,18 @@ SEASON_YEAR = 2025     # Used only in some endpoints
 # -----------------------------------------------------------
 # PROXY FETCH WRAPPER
 # -----------------------------------------------------------
+import time
+
+def fetch_with_retry(url, max_retry=5):
+    for attempt in range(max_retry):
+        try:
+            resp = requests.get(url, timeout=90)
+            resp.raise_for_status()
+            return resp
+        except Exception as e:
+            if attempt == max_retry - 1:
+                raise
+            time.sleep(1.5 + attempt * 1.2)
 
 def fetch_nba(endpoint, params_dict):
     """
@@ -42,7 +54,7 @@ def fetch_nba(endpoint, params_dict):
 
     print("Fetching:", url, file=sys.stderr)
 
-    resp = requests.get(url, timeout=40)
+    resp = fetch_with_retry(url)
     resp.raise_for_status()
     return resp.json()
 
