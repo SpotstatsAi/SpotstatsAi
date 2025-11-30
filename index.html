@@ -6,87 +6,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ChartJS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-  <header>
-    <h1>NBA Prop Engine</h1>
-    <button id="loadButton" class="load-button">Load Today’s Games</button>
-  </header>
 
-  <section id="teamsSection">
-    <h2>Teams</h2>
-    <div id="teamsList" class="scroll-list"></div>
-  </section>
+<header>
+  <h1>NBA Prop Engine</h1>
+  <button id="loadButton" class="load-button">Load Today’s Games</button>
+</header>
 
-  <section id="gamesSection">
-    <h2>Today's Games</h2>
-    <div id="games" class="scroll-list"></div>
-  </section>
+<section id="teamsSection">
+  <h2>Teams</h2>
+  <div id="teamsList" class="scroll-list"></div>
+</section>
 
-  <section id="filters">
-    <button class="filterButton filterActive" data-filter="all">All</button>
-    <button class="filterButton" data-filter="green">Green</button>
-    <button class="filterButton" data-filter="yellow">Yellow</button>
-    <button class="filterButton" data-filter="red">Red</button>
-  </section>
+<section id="gamesSection">
+  <h2>Today's Games</h2>
+  <div id="games" class="scroll-list"></div>
+</section>
 
-  <section id="propsSection">
+<section id="filters">
+  <button class="filterButton filterActive" data-filter="all">All</button>
+  <button class="filterButton" data-filter="green">Green</button>
+  <button class="filterButton" data-filter="yellow">Yellow</button>
+  <button class="filterButton" data-filter="red">Red</button>
+</section>
+
+<section id="propsSection">
   <h2>Player Props</h2>
 
   <div id="propsOutput"></div>
 
   <template id="propRowTemplate">
-  <div class="propCard">
 
-    <div class="propHeader">
-      <div class="propName"></div>
-      <div class="propTeam smallText"></div>
-      <div class="tierTag"></div>
-    </div>
+    <div class="propCard">
 
-    <div class="propSection">
-      <div class="label">Opponent:</div>
-      <div class="oppLine value"></div>
-      <div class="oppRank value"></div>
-    </div>
-
-    <div class="propSection">
-      <div class="label">Season Avg:</div>
-      <div class="avgRow">
-        <span class="avgPts"></span>
-        <span class="avgReb"></span>
-        <span class="avgAst"></span>
+      <!-- HEADER SECTION -->
+      <div class="propHeader">
+        <div class="headerLeft">
+          <img class="playerHeadshot" />
+          <div>
+            <div class="propName"></div>
+            <div class="propTeam smallText"></div>
+          </div>
+        </div>
+        <img class="teamLogo" />
+        <div class="tierTag"></div>
       </div>
-    </div>
 
-    <div class="propSection">
-      <div class="label">Advanced:</div>
-      <div class="advRow">
-        <span class="usageLine"></span>
-        <span class="paceLine"></span>
+      <!-- MATCHUP -->
+      <div class="propSection">
+        <div class="label">Matchup</div>
+        <div class="oppLine value"></div>
+        <div class="oppRank value"></div>
+
+        <!-- Defensive difficulty bar -->
+        <div class="defBarOuter">
+          <div class="defBarInner"></div>
+        </div>
       </div>
+
+      <!-- SEASON AVERAGE STATS -->
+      <div class="propSection">
+        <div class="label">Season Averages</div>
+        <div class="avgRow">
+          <span class="avgPts"></span>
+          <span class="avgReb"></span>
+          <span class="avgAst"></span>
+        </div>
+      </div>
+
+      <!-- MINICHART -->
+      <div class="propSection">
+        <div class="label">Recent Trend</div>
+        <canvas class="playerChart" height="60"></canvas>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="propSection">
+        <div class="label">Advanced</div>
+        <div class="advRow">
+          <span class="usageLine"></span>
+          <span class="paceLine"></span>
+        </div>
+      </div>
+
+      <!-- TEAM / OPPONENT DATA -->
+      <div class="propSection collapsible">
+        <div class="sectionTitle">Team & Opponent Details ▼</div>
+        <div class="collapseContent">
+          <div class="value teamRecord"></div>
+          <div class="value oppRecord"></div>
+          <div class="value oppStreak"></div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="propSection">
-      <div class="label">Team Record:</div>
-      <div class="teamRecord value"></div>
-    </div>
-
-    <div class="propSection">
-      <div class="label">Opponent Record:</div>
-      <div class="oppRecord value"></div>
-      <div class="oppStreak value"></div>
-    </div>
-
-  </div>
-</template>
-
-
+  </template>
 
 </section>
 
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
