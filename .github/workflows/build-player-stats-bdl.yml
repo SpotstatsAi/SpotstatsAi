@@ -33,7 +33,7 @@ jobs:
        uses: stefanzweifel/git-auto-commit-action@v5
        with:
          commit_message: "Update player_stats.json via balldontlie [auto]"
-         file_pattern: player_stats.jsonname: Build NBA Stats (balldontlie)
+         file_pattern: player_stats.jsonname:Build NBA Stats (balldontlie)
 
 on:
   # run manually from the Actions tab
