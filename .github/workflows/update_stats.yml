@@ -2,35 +2,52 @@ name: Update Player Stats (Hybrid)
 
 on:
   schedule:
-    - cron: "0 12 * * *"   # runs every day at 7AM EST
+    - cron: "*/30 * * * *"   # every 30 minutes
   workflow_dispatch:
 
 jobs:
-  build-stats:
+  update-stats:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0       # full repo so rebase works
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
 
-      - name: Install Python deps
-        run: pip install requests beautifulsoup4
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4
 
-      - name: Run hybrid builder
-        run: python scripts/build_player_stats_hybrid.py
+    - name: Run hybrid stats builder
+      env:
+        SPORTSDATA_API_KEY: ${{ secrets.SPORTSDATA_API_KEY }}
+      run: |
+        python scripts/build_player_stats_hybrid.py
 
-      - name: Commit & push updated player_stats.json
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-update hybrid stats"
-          file_pattern: player_stats.json
-          commit_user_name: "SpotstatsAi Bot"
-          commit_user_email: "bot@spotstats.ai"
-          push_options: '--force'
+    - name: Configure git
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git.config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    - name: Pull remote changes to avoid conflicts
+      run: |
+        git pull --rebase origin main || true
+
+    - name: Commit changes if any
+      run: |
+        if ! git diff --quiet; then
+          git add player_stats.json
+          git commit -m "Auto-update player_stats.json (hybrid stats)"
+        else
+          echo "No changes detected, skipping commit."
+        fi
+
+    - name: Push changes
+      run: |
+        git push origin main || echo "Push skipped — nothing to push."
