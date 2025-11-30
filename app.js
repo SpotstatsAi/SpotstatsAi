@@ -4,6 +4,9 @@ let playerStats = {};
 let lastProps = [];
 let currentFilter = "all";
 
+// -----------------------------
+// DATA LOADING
+// -----------------------------
 async function loadData() {
   try {
     const [rosters, schedule, stats] = await Promise.all([
@@ -16,88 +19,122 @@ async function loadData() {
     scheduleData = schedule;
     playerStats = stats;
 
-    renderTeams();
     renderGames();
+    renderTeams();
   } catch (err) {
-    console.error(err);
+    console.error("Failed loading engine data", err);
     alert("Failed loading engine data.");
   }
 }
 
+// -----------------------------
+// SIDEBAR RENDERING
+// -----------------------------
+function renderGames() {
+  const gamesDiv = document.getElementById("games");
+  gamesDiv.innerHTML = "";
+
+  const today = new Date().toISOString().split("T")[0];
+  const games = scheduleData[today] || [];
+
+  if (!games.length) {
+    gamesDiv.innerHTML = `<p class="emptyText">No games today.</p>`;
+    return;
+  }
+
+  games.forEach(game => {
+    const card = document.createElement("div");
+    card.className = "gameCard";
+    card.innerHTML = `
+      <strong>${game.away_team} @ ${game.home_team}</strong>
+      <div>${game.time_et}</div>
+    `;
+    card.onclick = () => showGameProps(game);
+    gamesDiv.appendChild(card);
+  });
+}
+
 function renderTeams() {
-  const list = document.getElementById("teamsList");
-  list.innerHTML = "";
-  Object.keys(rostersData).forEach(team => {
+  const container = document.getElementById("teamsList");
+  container.innerHTML = "";
+
+  Object.keys(rostersData).sort().forEach(team => {
     const div = document.createElement("div");
     div.className = "teamEntry";
     div.textContent = team;
     div.onclick = () => showTeamPlayers(team);
-    list.appendChild(div);
+    container.appendChild(div);
   });
 }
 
-function renderGames() {
-  const today = new Date().toISOString().split("T")[0];
-  const games = scheduleData[today] || [];
-
-  const list = document.getElementById("games");
-  list.innerHTML = "";
-
-  games.forEach(g => {
-    const card = document.createElement("div");
-    card.className = "gameCard";
-    card.innerHTML = `<strong>${g.away_team} @ ${g.home_team}</strong><div>${g.time_et}</div>`;
-    card.onclick = () => showGameProps(g);
-    list.appendChild(card);
-  });
-}
-
+// -----------------------------
+// TEAM + GAME CLICK HANDLERS
+// -----------------------------
 function showTeamPlayers(team) {
   const panel = document.getElementById("propsOutput");
   panel.innerHTML = `<h3>${team} Roster</h3>`;
-  (rostersData[team] || []).forEach(n => {
-    const d = document.createElement("div");
-    d.textContent = n;
-    panel.appendChild(d);
+
+  (rostersData[team] || []).forEach(name => {
+    const row = document.createElement("div");
+    row.textContent = name;
+    panel.appendChild(row);
   });
+
+  lastProps = [];
 }
 
 function showGameProps(game) {
-  const players = [
-    ...rostersData[game.away_team],
-    ...rostersData[game.home_team]
-  ];
-  lastProps = players.map(p => buildProp(p));
+  const awayPlayers = rostersData[game.away_team] || [];
+  const homePlayers = rostersData[game.home_team] || [];
+
+  const entries = [];
+  awayPlayers.forEach(name => entries.push(buildProp(name)));
+  homePlayers.forEach(name => entries.push(buildProp(name)));
+
+  lastProps = entries;
   renderProps();
 }
 
+// -----------------------------
+// PROP BUILDING + SCORING
+// -----------------------------
 function buildProp(name) {
-  const s = playerStats[name] || {};
-  const score = scorePlayer(s);
+  const stats = playerStats[name] || {};
+  const score = scorePlayer(stats);
+
   let tier = "RED";
   if (score >= 0.75) tier = "GREEN";
   else if (score >= 0.55) tier = "YELLOW";
-  return { name, stats: s, tier, score };
+
+  return { name, stats, tier, score };
 }
 
 function scorePlayer(s) {
   if (!s || !s.pts) return 0.45;
+
   let sc = 0.5;
+
   if (s.usage > 22) sc += 0.1;
   if (s.min > 28) sc += 0.1;
-  if (s.def_rank <= 10) sc += 0.1;
-  if (s.def_rank >= 20) sc -= 0.1;
+  if (s.def_rank && s.def_rank <= 10) sc += 0.1;
+  if (s.def_rank && s.def_rank >= 20) sc -= 0.1;
+
   return Math.max(0, Math.min(1, sc));
 }
 
+// -----------------------------
+// RENDER PLAYER CARDS
+// -----------------------------
 function renderProps() {
   const panel = document.getElementById("propsOutput");
-  panel.innerHTML = "";
   const template = document.getElementById("propRowTemplate");
+  panel.innerHTML = "";
+  if (!template) return;
 
-  const filtered = lastProps.filter(p =>
-    currentFilter === "all" || p.tier === currentFilter.toUpperCase()
-  );
+  const filtered = lastProps.filter(p => {
+    if (currentFilter === "all") return true;
+    return p.tier === currentFilter.toUpperCase();
+  });
 
   filtered.sort((a, b) => b.score - a.score);
 
@@ -105,58 +142,80 @@ function renderProps() {
     const clone = document.importNode(template.content, true);
     const s = p.stats || {};
 
+    // Header text
     clone.querySelector(".propName").textContent = p.name;
-    clone.querySelector(".propTeam").textContent = s.team;
+    clone.querySelector(".propTeam").textContent = s.team || "";
 
+    // Matchup + defense
+    const opp = s.opponent;
     clone.querySelector(".oppLine").textContent =
-      s.opponent ? `${s.team} vs ${s.opponent}` : "No game today";
+      opp ? `${s.team} vs ${opp}` : "No game today";
 
     clone.querySelector(".oppRank").textContent =
       s.def_rank ? `Defense Rank: ${s.def_rank}` : "";
 
-    clone.querySelector(".avgPts").textContent = `PTS: ${s.pts?.toFixed(1)}`;
-    clone.querySelector(".avgReb").textContent = `REB: ${s.reb?.toFixed(1)}`;
-    clone.querySelector(".avgAst").textContent = `AST: ${s.ast?.toFixed(1)}`;
+    // Season averages (per game are already in JSON)
+    const pts = s.pts ?? 0;
+    const reb = s.reb ?? 0;
+    const ast = s.ast ?? 0;
 
-    clone.querySelector(".usageLine").textContent =
-      `USG: ${s.usage?.toFixed(1)}%`;
+    clone.querySelector(".avgPts").textContent = pts.toFixed(1);
+    clone.querySelector(".avgReb").textContent = reb.toFixed(1);
+    clone.querySelector(".avgAst").textContent = ast.toFixed(1);
 
-    clone.querySelector(".paceLine").textContent =
-      `Pace: ${s.pace ?? "N/A"}`;
+    // Advanced
+    const usage = s.usage ?? 0;
+    clone.querySelector(".usageLine").textContent = `${usage.toFixed(1)}%`;
+    clone.querySelector(".paceLine").textContent = s.pace ?? "N/A";
 
+    // Records
     clone.querySelector(".teamRecord").textContent =
-      s.team_record || "N/A";
+      s.team_record ? `Team: ${s.team_record}` : "Team: N/A";
 
     clone.querySelector(".oppRecord").textContent =
-      s.opp_record || "N/A";
+      s.opp_record ? `Opponent: ${s.opp_record}` : "Opponent: N/A";
 
     clone.querySelector(".oppStreak").textContent =
       s.opp_streak ? `Streak: ${s.opp_streak}` : "Streak: N/A";
 
-    // Trend bars
-    clone.querySelector(".trendPtsFill").style.width =
-      Math.min(100, (s.pts / 40) * 100) + "%";
-    clone.querySelector(".trendRebFill").style.width =
-      Math.min(100, (s.reb / 15) * 100) + "%";
-    clone.querySelector(".trendAstFill").style.width =
-      Math.min(100, (s.ast / 12) * 100) + "%";
+    // Mini trend bars (scale vs rough ceilings)
+    const ptsPct = Math.min(100, (pts / 40) * 100);
+    const rebPct = Math.min(100, (reb / 15) * 100);
+    const astPct = Math.min(100, (ast / 12) * 100);
 
-    // Tier color
+    const ptsFill = clone.querySelector(".trendPtsFill");
+    const rebFill = clone.querySelector(".trendRebFill");
+    const astFill = clone.querySelector(".trendAstFill");
+
+    if (ptsFill) ptsFill.style.width = ptsPct + "%";
+    if (rebFill) rebFill.style.width = rebPct + "%";
+    if (astFill) astFill.style.width = astPct + "%";
+
+    // Tier pill
     const tag = clone.querySelector(".tierTag");
-    tag.textContent = p.tier;
-    tag.classList.add("tier-" + p.tier.toLowerCase());
+    if (tag) {
+      tag.textContent = p.tier;
+      if (p.tier === "GREEN") tag.classList.add("tier-green");
+      else if (p.tier === "YELLOW") tag.classList.add("tier-yellow");
+      else tag.classList.add("tier-red");
+    }
 
     panel.appendChild(clone);
   });
 }
 
+// -----------------------------
+// FILTER BUTTONS + LOAD
+// -----------------------------
 document.querySelectorAll(".filterButton").forEach(btn => {
-  btn.onclick = () => {
+  btn.addEventListener("click", () => {
     currentFilter = btn.dataset.filter;
-    document.querySelectorAll(".filterButton").forEach(b => b.classList.remove("filterActive"));
+    document
+      .querySelectorAll(".filterButton")
+      .forEach(b => b.classList.remove("filterActive"));
     btn.classList.add("filterActive");
     renderProps();
-  };
+  });
 });
 
-document.getElementById("loadButton").onclick = loadData;
+document.getElementById("loadButton").addEventListener("click", loadData);
