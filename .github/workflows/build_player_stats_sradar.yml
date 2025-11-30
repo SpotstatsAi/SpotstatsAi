@@ -1,31 +1,36 @@
-name: Update NBA Stats (Sportradar)
+name: Build NBA Stats (Sportradar Base)
 
 on:
- schedule:
-   - cron: "5 5 * * *"   # every day 00:05 EST
  workflow_dispatch:
+ schedule:
+   - cron: "15 10 * * *"  # 10:15 UTC daily (adjust if you want)
 
 jobs:
  build:
    runs-on: ubuntu-latest
-   steps:
-     - uses: actions/checkout@v3
 
-     - name: Install Python
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v3
+
+     - name: Set up Python
        uses: actions/setup-python@v4
        with:
          python-version: "3.11"
 
      - name: Install dependencies
-       run: pip install requests
+       run: |
+         python -m pip install --upgrade pip
+         pip install requests
 
      - name: Run builder
        env:
-         SPORTRADAR_API_KEY: ${{ secrets.SPORTRADAR_API_KEY }}
-       run: python scripts/build_player_stats_sradar.py
+         SPORTRADAR_NBA_KEY: ${{ secrets.SPORTRADAR_NBA_KEY }}
+       run: |
+         python scripts/build_player_stats_sradar.py
 
      - name: Commit results
        uses: stefanzweifel/git-auto-commit-action@v5
        with:
+         commit_message: "update player_stats.json via Sportradar [auto]"
          file_pattern: player_stats.json
-         commit_message: "Auto-update Sportradar player_stats.json"
