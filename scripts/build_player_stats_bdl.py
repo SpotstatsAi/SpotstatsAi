@@ -29,7 +29,7 @@ import requests
 # ------------------------
 BDL_BASE = "https://api.balldontlie.io/v1"
 
-API_KEY = os.getenv("BALLDONTLIE_API_KEY", "").strip()
+API_KEY = os.getenv("BDL_API_KEY", "").strip()
 if not API_KEY:
     print("ERROR: BALLDONTLIE_API_KEY is not set.", file=sys.stderr)
     sys.exit(1)
