@@ -4,7 +4,7 @@ import json
 import requests
 
 API_BASE = "https://api.balldontlie.io/v1"
-API_KEY = os.environ.get("BDL_API_KEY") # set this in your env or GH secret
+API_KEY = os.environ.get9"BDL_API_KEY")
 
 if not API_KEY:
     raise SystemExit("BDL_API_KEY env var is not set")
