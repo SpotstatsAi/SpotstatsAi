@@ -1,0 +1,35 @@
+name: Build Rosters (BallDontLie)
+
+on:
+ workflow_dispatch:
+ schedule:
+   - cron: "30 6 * * *"  # 6:30 UTC daily (adjust as you like)
+
+jobs:
+ build:
+   runs-on: ubuntu-latest
+
+   steps:
+     - uses: actions/checkout@v4
+
+     - name: Set up Python
+       uses: actions/setup-python@v4
+       with:
+         python-version: "3.11"
+
+     - name: Install dependencies
+       run: |
+         python -m pip install --upgrade pip
+         pip install requests
+
+     - name: Build rosters.json from BallDontLie
+       env:
+         BALLDONTLIE_API_KEY: ${{ secrets.BDL_API_KEY }}
+       run: |
+         python scripts/build_rosters_bdl.py
+
+     - name: Commit rosters.json
+       uses: stefanzweifel/git-auto-commit-action@v5
+       with:
+         commit_message: "Update rosters.json from BallDontLie"
+         file_pattern: rosters.json
