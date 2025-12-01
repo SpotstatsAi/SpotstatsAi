@@ -10,6 +10,7 @@ let currentFilter = "all";
 //------------------------------------------------------
 // LOAD DATA
 //------------------------------------------------------
+const WORKER_BASE = "https://propsparlor.com/api";
 async function loadData() {
   try {
     const [rosters, schedule, stats] = await Promise.all([
