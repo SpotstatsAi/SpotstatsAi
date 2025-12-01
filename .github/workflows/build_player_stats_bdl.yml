@@ -25,7 +25,7 @@ jobs:
 
      - name: Run BallDontLie builder
        env:
-         BDL_API_KEY: ${{ secrets.BDL_API_KEY }}
+         BDL_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
        run: |
          python scripts/build_player_stats_bdl.py
 
