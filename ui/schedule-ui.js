@@ -7,35 +7,50 @@ async function loadGames() {
   container.innerHTML = "";
 
   if (!games.length) {
-    container.innerHTML = `<div style="color:#94a3b8;">No games found.</div>`;
+    container.innerHTML = `<div style="color:#94a3b8;">No games today.</div>`;
     return;
   }
 
   games.forEach(game => {
+    const homeStyle = TEAM_STYLE_MAP[game.home_team_abbr];
+    const awayStyle = TEAM_STYLE_MAP[game.away_team_abbr];
+
     const card = document.createElement("div");
     card.classList.add("game-card");
 
-    // Determine badge style
+    // Team color accent
+    card.style.borderLeftColor = homeStyle?.color || "#3b82f6";
+
+    // Game status badge
     let badgeClass = "status-upcoming";
     if (game.status === "Final") badgeClass = "status-final";
     if (game.status?.toLowerCase().includes("live")) badgeClass = "status-live";
 
-    // Main header
+    // Matchup edge (placeholder example)
+    const edgePercent = Math.floor(Math.random() * 100);
+
     card.innerHTML = `
       <div class="game-header">
-        <div class="game-teams">
-          ${game.away_team_abbr} @ ${game.home_team_abbr}
+        <div class="team-block">
+          <div class="team-logo" style="background-image:url('${awayStyle.logo}')"></div>
+          <div class="team-abbr">${game.away_team_abbr}</div>
         </div>
-        <div class="status-badge ${badgeClass}">
-          ${game.status || "Scheduled"}
+
+        <div class="status-badge ${badgeClass}">${game.status}</div>
+
+        <div class="team-block">
+          <div class="team-abbr">${game.home_team_abbr}</div>
+          <div class="team-logo" style="background-image:url('${homeStyle.logo}')"></div>
         </div>
       </div>
 
-      <div class="game-info">
-        ${game.time_et || "TBD"}
+      <div class="game-info">${game.time_et || "TBD"}</div>
+
+      <div class="edge-bar">
+        <div class="edge-fill" style="width:${edgePercent}%;"></div>
       </div>
 
-      <div class="expand-btn">View More</div>
+      <div class="expand-btn">Details</div>
 
       <div class="expand-panel">
         <div class="injury-section">
@@ -44,17 +59,15 @@ async function loadGames() {
         </div>
 
         <div class="props-section">
-          <div class="section-title">Prop Insights</div>
-          <div class="props-content">Coming Soon...</div>
+          <div class="section-title">Prop Preview</div>
+          <div class="props-slider"><div class="props-fill" style="width:${edgePercent}%;"></div></div>
         </div>
       </div>
     `;
 
     // Expand logic
-    const expandBtn = card.querySelector(".expand-btn");
-    const panel = card.querySelector(".expand-panel");
-
-    expandBtn.addEventListener("click", () => {
+    card.querySelector(".expand-btn").addEventListener("click", () => {
+      const panel = card.querySelector(".expand-panel");
       panel.style.display = panel.style.display === "none" || panel.style.display === ""
         ? "block"
         : "none";
