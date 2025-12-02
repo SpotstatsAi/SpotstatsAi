@@ -1,3 +1,10 @@
+name: BDL Update → rosters.json + player_stats.json + schedule.json
+
+on:
+  schedule:
+    - cron: "0 10 * * *"   # 10:00 UTC daily
+  workflow_dispatch: {}
+
 jobs:
   build-bdl-all:
     runs-on: ubuntu-latest
