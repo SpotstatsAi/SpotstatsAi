@@ -1,1386 +1,1290 @@
-{
-  "2025-11-22": [
-    { "time_et": "1:00 PM ET", "away_team": "LAC", "home_team": "CHA" },
-    { "time_et": "5:00 PM ET", "away_team": "NYK", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "WAS", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "DET", "home_team": "MIL" },
-    { "time_et": "8:30 PM ET", "away_team": "MEM", "home_team": "DAL" },
-    { "time_et": "10:00 PM ET", "away_team": "SAC", "home_team": "DEN" }
-  ],
-  
-  "2025-11-23": [
-    { "time_et": "1:00 PM ET", "away_team": "MIA", "home_team": "PHI" },
-    { "time_et": "6:00 PM ET", "away_team": "CHA", "home_team": "ATL" },
-    { "time_et": "6:00 PM ET", "away_team": "ORL", "home_team": "BOS" },
-    { "time_et": "6:00 PM ET", "away_team": "LAC", "home_team": "CLE" },
-    { "time_et": "6:00 PM ET", "away_team": "BKN", "home_team": "TOR" },
-    { "time_et": "7:00 PM ET", "away_team": "POR", "home_team": "OKC" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "PHX" },
-    { "time_et": "8:00 PM ET", "away_team": "LAL", "home_team": "UTA" }
-  ],
-  
-  "2025-11-24": [
-    { "time_et": "7:00 PM ET", "away_team": "DET", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "TOR" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "DAL", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "DEN", "home_team": "MEM" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "NOP" },
-    { "time_et": "9:30 PM ET", "away_team": "HOU", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "UTA", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "MIN", "home_team": "SAC" }
-  ],
-  
-  "2025-11-25": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "ORL", "home_team": "PHI" },
-    { "time_et": "11:00 PM ET", "away_team": "LAC", "home_team": "LAL" }
-  ],
-  
-  "2025-11-26": [
-    { "time_et": "5:00 PM ET", "away_team": "DET", "home_team": "BOS" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "TOR" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "OKC" },
-    { "time_et": "8:00 PM ET", "away_team": "MEM", "home_team": "NOP" },
-    { "time_et": "10:00 PM ET", "away_team": "HOU", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "SAS", "home_team": "POR" },
-    { "time_et": "10:00 PM ET", "away_team": "PHX", "home_team": "SAC" }
-  ],
-  
-  "2025-11-28": [
-    { "time_et": "7:30 PM ET", "away_team": "CLE", "home_team": "ATL" },
-    { "time_et": "7:30 PM ET", "away_team": "PHI", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "DET" },
-    { "time_et": "7:30 PM ET", "away_team": "WAS", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "NYK" },
-    { "time_et": "9:30 PM ET", "away_team": "PHX", "home_team": "OKC" },
-    { "time_et": "9:30 PM ET", "away_team": "SAS", "home_team": "DEN" },
-    { "time_et": "9:30 PM ET", "away_team": "SAC", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "DAL", "home_team": "LAL" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "LAC" }
-  ],
-  
-  "2025-11-29": [
-    { "time_et": "5:00 PM ET", "away_team": "BOS", "home_team": "MIN" },
-    { "time_et": "6:00 PM ET", "away_team": "TOR", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "IND" },
-    { "time_et": "8:00 PM ET", "away_team": "DET", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "BKN", "home_team": "MIL" },
-    { "time_et": "8:30 PM ET", "away_team": "NOP", "home_team": "GSW" },
-    { "time_et": "9:00 PM ET", "away_team": "DEN", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "DAL", "home_team": "LAC" }
-  ],
-  
-  "2025-11-30": [
-    { "time_et": "3:00 PM ET", "away_team": "HOU", "home_team": "UTA" },
-    { "time_et": "6:00 PM ET", "away_team": "BOS", "home_team": "CLE" },
-    { "time_et": "6:00 PM ET", "away_team": "TOR", "home_team": "NYK" },
-    { "time_et": "6:00 PM ET", "away_team": "ATL", "home_team": "PHI" },
-    { "time_et": "6:00 PM ET", "away_team": "OKC", "home_team": "POR" },
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "MIN" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "9:30 PM ET", "away_team": "NOP", "home_team": "LAL" }
-  ],
-  
-  "2025-12-01": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "LAC", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "ORL" },
-    { "time_et": "9:00 PM ET", "away_team": "DAL", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "HOU", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "PHX", "home_team": "LAL" }
-  ],
-  
-  "2025-12-02": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "POR", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "NYK", "home_team": "BOS" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "MEM", "home_team": "SAS" },
-    { "time_et": "11:00 PM ET", "away_team": "OKC", "home_team": "GSW" }
-  ],
-  
-  "2025-12-03": [
-    { "time_et": "7:00 PM ET", "away_team": "POR", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "LAC", "home_team": "ATL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "BKN", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "SAC", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "DET", "home_team": "MIL" },
-    { "time_et": "8:30 PM ET", "away_team": "MIA", "home_team": "DAL" }
-  ],
-  
-  "2025-12-04": [
-    { "time_et": "7:00 PM ET", "away_team": "GSW", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "BOS", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "UTA", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "NOP" }
-  ],
-  
-  "2025-12-05": [
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "BOS" },
-    { "time_et": "7:00 PM ET", "away_team": "MIA", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "DEN", "home_team": "ATL" },
-    { "time_et": "7:30 PM ET", "away_team": "SAS", "home_team": "CLE" },
-    { "time_et": "7:30 PM ET", "away_team": "POR", "home_team": "DET" },
-    { "time_et": "7:30 PM ET", "away_team": "UTA", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "IND", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "MEM" },
-    { "time_et": "8:00 PM ET", "away_team": "PHI", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "DAL", "home_team": "OKC" }
-  ],
-  
-  "2025-12-06": [
-    { "time_et": "5:00 PM ET", "away_team": "NOP", "home_team": "BKN" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "GSW", "home_team": "CLE" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "DET" },
-    { "time_et": "8:00 PM ET", "away_team": "SAC", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "MIN" },
-    { "time_et": "8:30 PM ET", "away_team": "HOU", "home_team": "DAL" }
-  ],
-  
-  "2025-12-07": [
-    { "time_et": "12:00 PM ET", "away_team": "ORL", "home_team": "NYK" },
-    { "time_et": "3:30 PM ET", "away_team": "BOS", "home_team": "TOR" },
-    { "time_et": "6:00 PM ET", "away_team": "DEN", "home_team": "CHA" },
-    { "time_et": "6:00 PM ET", "away_team": "POR", "home_team": "MEM" },
-    { "time_et": "7:00 PM ET", "away_team": "GSW", "home_team": "CHI" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "OKC", "home_team": "UTA" }
-  ],
-  
-  "2025-12-08": [
-    { "time_et": "7:00 PM ET", "away_team": "SAC", "home_team": "IND" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "MIN" },
-    { "time_et": "9:30 PM ET", "away_team": "SAS", "home_team": "NOP" }
-  ],
-  
-  "2025-12-17": [
-    { "time_et": "8:00 PM ET", "away_team": "CLE", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MEM", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "OKC" },
-    { "time_et": "8:00 PM ET", "away_team": "WAS", "home_team": "SAS" }
-  ],
-  
-  "2025-12-18": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "MIA", "home_team": "BKN" },
-    { "time_et": "8:00 PM ET", "away_team": "TOR", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "NOP" },
-    { "time_et": "8:30 PM ET", "away_team": "DET", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "ORL", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "GSW", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "LAL", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "SAC", "home_team": "POR" }
-  ],
-  
-  "2025-12-19": [
-    { "time_et": "7:00 PM ET", "away_team": "MIA", "home_team": "BOS" },
-    { "time_et": "7:00 PM ET", "away_team": "PHI", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "SAS", "home_team": "ATL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "CLE" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIN" }
-  ],
-  
-  "2025-12-20": [
-    { "time_et": "5:00 PM ET", "away_team": "HOU", "home_team": "DEN" },
-    { "time_et": "7:00 PM ET", "away_team": "DAL", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "BOS", "home_team": "TOR" },
-    { "time_et": "7:00 PM ET", "away_team": "IND", "home_team": "NOP" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "DET" },
-    { "time_et": "8:00 PM ET", "away_team": "WAS", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "PHX", "home_team": "GSW" },
-    { "time_et": "9:30 PM ET", "away_team": "ORL", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "POR", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "LAL", "home_team": "LAC" }
-  ],
-  
-  "2025-12-21": [
-    { "time_et": "3:30 PM ET", "away_team": "CHI", "home_team": "ATL" },
-    { "time_et": "6:00 PM ET", "away_team": "TOR", "home_team": "BKN" },
-    { "time_et": "6:00 PM ET", "away_team": "MIA", "home_team": "NYK" },
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "MIN" },
-    { "time_et": "10:00 PM ET", "away_team": "HOU", "home_team": "SAC" }
-  ],
-  
-  "2025-12-22": [
-    { "time_et": "7:00 PM ET", "away_team": "CHA", "home_team": "CLE" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "BOS" },
-    { "time_et": "8:00 PM ET", "away_team": "DAL", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "UTA", "home_team": "DEN" },
-    { "time_et": "9:30 PM ET", "away_team": "MEM", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "ORL", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "POR" }
-  ],
-  
-  "2025-12-23": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "ATL" },
-    { "time_et": "7:30 PM ET", "away_team": "NOP", "home_team": "CLE" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "TOR", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "DEN", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "NYK", "home_team": "MIN" },
-    { "time_et": "8:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "9:00 PM ET", "away_team": "LAL", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "ORL", "home_team": "POR" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "SAC" },
-    { "time_et": "11:00 PM ET", "away_team": "HOU", "home_team": "LAC" }
-  ],
-  
-  "2025-12-25": [
-    { "time_et": "12:00 PM ET", "away_team": "CLE", "home_team": "NYK" },
-    { "time_et": "2:30 PM ET", "away_team": "SAS", "home_team": "OKC" },
-    { "time_et": "5:00 PM ET", "away_team": "DAL", "home_team": "GSW" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "LAL" },
-    { "time_et": "10:30 PM ET", "away_team": "MIN", "home_team": "DEN" }
-  ],
-  
-  "2025-12-26": [
-    { "time_et": "7:00 PM ET", "away_team": "MIA", "home_team": "ATL" },
-    { "time_et": "7:00 PM ET", "away_team": "CHA", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "BOS", "home_team": "IND" },
-    { "time_et": "8:00 PM ET", "away_team": "PHI", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "MEM" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "NOP" },
-    { "time_et": "9:30 PM ET", "away_team": "DET", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "POR" }
-  ],
-  
-  "2025-12-27": [
-    { "time_et": "5:00 PM ET", "away_team": "DAL", "home_team": "SAC" },
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "PHX", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "NYK", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "IND", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "CLE", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "BKN", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "UTA", "home_team": "SAS" }
-  ],
-  
-  "2025-12-28": [
-    { "time_et": "3:30 PM ET", "away_team": "GSW", "home_team": "TOR" },
-    { "time_et": "3:30 PM ET", "away_team": "PHI", "home_team": "OKC" },
-    { "time_et": "6:00 PM ET", "away_team": "MEM", "home_team": "WAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BOS", "home_team": "POR" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "LAC" },
-    { "time_et": "9:30 PM ET", "away_team": "SAC", "home_team": "LAL" }
-  ],
-  
-  "2025-12-29": [
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "PHX", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "GSW", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "DEN", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "IND", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NYK", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "OKC" },
-    { "time_et": "8:00 PM ET", "away_team": "CLE", "home_team": "SAS" },
-    { "time_et": "11:00 PM ET", "away_team": "DAL", "home_team": "POR" }
-  ],
-  
-  "2025-12-30": [
-    { "time_et": "8:00 PM ET", "away_team": "PHI", "home_team": "MEM" },
-    { "time_et": "9:00 PM ET", "away_team": "BOS", "home_team": "UTA" },
-    { "time_et": "10:30 PM ET", "away_team": "DET", "home_team": "LAL" },
-    { "time_et": "11:00 PM ET", "away_team": "SAC", "home_team": "LAC" }
-  ],
-  
-  "2025-12-31": [
-    { "time_et": "1:00 PM ET", "away_team": "GSW", "home_team": "CHA" },
-    { "time_et": "3:00 PM ET", "away_team": "MIN", "home_team": "ATL" },
-    { "time_et": "3:00 PM ET", "away_team": "ORL", "home_team": "IND" },
-    { "time_et": "3:30 PM ET", "away_team": "PHX", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "CHI" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "SAS" },
-    { "time_et": "7:30 PM ET", "away_team": "DEN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "WAS", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "OKC" }
-  ],
-  
-  "2026-01-01": [
-    { "time_et": "12:00 PM ET", "away_team": "ORL", "home_team": "MEM" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "CHI" },
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "CHA", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "POR", "home_team": "SAC" },
-    { "time_et": "9:30 PM ET", "away_team": "TOR", "home_team": "LAL" }
-  ],
-  
-  "2026-01-02": [
-    { "time_et": "1:00 PM ET", "away_team": "MIL", "home_team": "ATL" },
-    { "time_et": "2:30 PM ET", "away_team": "OKC", "home_team": "CLE" },
-    { "time_et": "3:00 PM ET", "away_team": "LAC", "home_team": "WAS" },
-    { "time_et": "5:00 PM ET", "away_team": "DAL", "home_team": "NYK" },
-    { "time_et": "5:00 PM ET", "away_team": "UTA", "home_team": "SAS" },
-    { "time_et": "7:00 PM ET", "away_team": "IND", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "PHX", "home_team": "BKN" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DET" },
-    { "time_et": "10:00 PM ET", "away_team": "MIA", "home_team": "GSW" }
-  ],
-  
-  "2026-01-03": [
-    { "time_et": "7:00 PM ET", "away_team": "PHX", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "HOU" },
-    { "time_et": "9:00 PM ET", "away_team": "MIN", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAL", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "TOR", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "MIA", "home_team": "SAC" }
-  ],
-
-  "2026-01-04": [
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "BKN", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "MEM" },
-    { "time_et": "8:00 PM ET", "away_team": "DET", "home_team": "NOP" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIL" },
-    { "time_et": "10:00 PM ET", "away_team": "TOR", "home_team": "SAC" }
-  ],
-  
-  "2026-01-05": [
-    { "time_et": "7:00 PM ET", "away_team": "CHA", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "HOU", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "GSW", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIN" },
-    { "time_et": "9:00 PM ET", "away_team": "SAS", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAL", "home_team": "LAC" },
-    { "time_et": "10:00 PM ET", "away_team": "MIA", "home_team": "POR" }
-  ],
-  
-  "2026-01-06": [
-    { "time_et": "7:00 PM ET", "away_team": "HOU", "home_team": "DET" },
-    { "time_et": "7:30 PM ET", "away_team": "PHX", "home_team": "ATL" },
-    { "time_et": "7:30 PM ET", "away_team": "BOS", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MEM" },
-    { "time_et": "8:00 PM ET", "away_team": "DEN", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "IND", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "TOR", "home_team": "POR" }
-  ],
-
-  "2026-01-07": [
-    { "time_et": "3:00 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "5:30 PM ET", "away_team": "GSW", "home_team": "MIN" },
-    { "time_et": "6:00 PM ET", "away_team": "WAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAL", "home_team": "DAL" },
-    { "time_et": "9:30 PM ET", "away_team": "MIA", "home_team": "UTA" }
-  ],
-
-  "2026-01-08": [
-    { "time_et": "3:00 PM ET", "away_team": "SAC", "home_team": "DET" },
-    { "time_et": "3:30 PM ET", "away_team": "DEN", "home_team": "MEM" },
-    { "time_et": "7:00 PM ET", "away_team": "DAL", "home_team": "MIL" },
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "OKC" },
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "SAS" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "LAC" }
-  ],
-
-  "2026-01-09": [
-    { "time_et": "7:00 PM ET", "away_team": "PHI", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ORL", "home_team": "CLE" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "BOS" },
-    { "time_et": "8:00 PM ET", "away_team": "LAL", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MEM", "home_team": "HOU" },
-    { "time_et": "9:30 PM ET", "away_team": "GSW", "home_team": "MIN" }
-  ],
-
-  "2026-01-10": [
-    { "time_et": "7:00 PM ET", "away_team": "POR", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "UTA" }
-  ],
-
-  "2026-01-11": [
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "CHI", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "CHA", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "MIN", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "GSW", "home_team": "UTA" },
-    { "time_et": "9:30 PM ET", "away_team": "SAS", "home_team": "HOU" }
-  ],
-
-  "2026-01-12": [
-    { "time_et": "7:00 PM ET", "away_team": "SAC", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "ATL" },
-    { "time_et": "8:30 PM ET", "away_team": "CHA", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIN" }
-  ],
-
-  "2026-01-13": [
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "POR", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MEM", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "BKN", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "GSW" }
-  ],
-
-  "2026-01-14": [
-    { "time_et": "3:00 PM ET", "away_team": "SAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "NOP", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "DAL", "home_team": "HOU" }
-  ],
-
-  "2026-01-15": [
-    { "time_et": "3:30 PM ET", "away_team": "MIL", "home_team": "BOS" },
-    { "time_et": "4:00 PM ET", "away_team": "ORL", "home_team": "SAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BKN", "home_team": "DET" },
-    { "time_et": "6:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "6:00 PM ET", "away_team": "SAC", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "POR" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "DEN" }
-  ],
-
-  "2026-01-16": [
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "HOU", "home_team": "IND" },
-    { "time_et": "9:30 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "10:30 PM ET", "away_team": "PHI", "home_team": "LAC" }
-  ],
-
-  "2026-01-17": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "ORL", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "GSW" },
-    { "time_et": "11:00 PM ET", "away_team": "PHX", "home_team": "POR" }
-  ],
-
-  "2026-01-18": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-01-19": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAC", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "GSW", "home_team": "POR" }
-  ],
-
-  "2026-01-20": [
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "TOR" },
-    { "time_et": "7:30 PM ET", "away_team": "WAS", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "CHI" },
-    { "time_et": "9:30 PM ET", "away_team": "IND", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "NYK", "home_team": "LAL" }
-  ],
-
-  "2026-01-21": [
-    { "time_et": "3:00 PM ET", "away_team": "WAS", "home_team": "BKN" },
-    { "time_et": "3:30 PM ET", "away_team": "HOU", "home_team": "OKC" },
-    { "time_et": "6:00 PM ET", "away_team": "DAL", "home_team": "SAS" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "DEN", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "GSW", "home_team": "LAL" },
-    { "time_et": "9:00 PM ET", "away_team": "PHI", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "POR" },
-    { "time_et": "10:00 PM ET", "away_team": "CLE", "home_team": "SAC" }
-  ],
-
-  "2026-01-22": [
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "BOS" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "WAS" },
-    { "time_et": "9:00 PM ET", "away_team": "IND", "home_team": "TOR" },
-    { "time_et": "9:00 PM ET", "away_team": "LAC", "home_team": "MIN" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "CHA" }
-  ],
-
-  "2026-01-23": [
-    { "time_et": "12:00 PM ET", "away_team": "NYK", "home_team": "BKN" },
-    { "time_et": "2:00 PM ET", "away_team": "MIA", "home_team": "TOR" },
-    { "time_et": "3:00 PM ET", "away_team": "IND", "home_team": "PHI" },
-    { "time_et": "3:00 PM ET", "away_team": "LAC", "home_team": "MIN" },
-    { "time_et": "7:00 PM ET", "away_team": "DET", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "UTA", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "SAC", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "OKC", "home_team": "LAL" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "POR" }
-  ],
-
-  "2026-01-24": [
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "9:00 PM ET", "away_team": "DAL", "home_team": "PHX" },
-    { "time_et": "10:30 PM ET", "away_team": "SAS", "home_team": "LAL" }
-  ],
-
-  "2026-01-25": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "DET", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "OKC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "SAC", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "SAS", "home_team": "GSW" }
-  ],
-
-  "2026-01-26": [
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "POR", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "DAL", "home_team": "LAL" }
-  ],
-
-  "2026-01-27": [
-    { "time_et": "3:00 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "5:00 PM ET", "away_team": "GSW", "home_team": "MIN" },
-    { "time_et": "6:00 PM ET", "away_team": "WAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAL", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MIA", "home_team": "UTA" }
-  ],
-
-  "2026-01-28": [
-    { "time_et": "3:00 PM ET", "away_team": "SAC", "home_team": "DET" },
-    { "time_et": "3:30 PM ET", "away_team": "DEN", "home_team": "MEM" },
-    { "time_et": "7:00 PM ET", "away_team": "DAL", "home_team": "MIL" },
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "OKC" },
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "SAS" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "LAC" }
-  ],
-
-  "2026-01-29": [
-    { "time_et": "1:00 PM ET", "away_team": "MIL", "home_team": "ATL" },
-    { "time_et": "2:30 PM ET", "away_team": "OKC", "home_team": "CLE" },
-    { "time_et": "3:00 PM ET", "away_team": "LAC", "home_team": "WAS" },
-    { "time_et": "5:00 PM ET", "away_team": "DAL", "home_team": "NYK" },
-    { "time_et": "5:00 PM ET", "away_team": "UTA", "home_team": "SAS" },
-    { "time_et": "7:00 PM ET", "away_team": "IND", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "PHX", "home_team": "BKN" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DET" },
-    { "time_et": "10:00 PM ET", "away_team": "MIA", "home_team": "GSW" }
-  ],
-
-  "2026-01-30": [
-    { "time_et": "7:00 PM ET", "away_team": "PHX", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "HOU" },
-    { "time_et": "9:00 PM ET", "away_team": "MIN", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAL", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "TOR", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "MIA", "home_team": "SAC" }
-  ],
-
-  "2026-01-31": [
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "CHI", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "CHA", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "MIN", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "GSW", "home_team": "UTA" },
-    { "time_et": "9:30 PM ET", "away_team": "SAS", "home_team": "HOU" }
-  ],
-
-  "2026-02-01": [
-    { "time_et": "7:00 PM ET", "away_team": "SAC", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "ATL" },
-    { "time_et": "8:30 PM ET", "away_team": "CHA", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIN" }
-  ],
-
-  "2026-02-02": [
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "POR", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MEM", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "BKN", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "GSW" }
-  ],
-
-  "2026-02-03": [
-    { "time_et": "3:00 PM ET", "away_team": "SAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "NOP", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "DAL", "home_team": "HOU" }
-  ],
-
-  "2026-02-04": [
-    { "time_et": "3:30 PM ET", "away_team": "MIL", "home_team": "BOS" },
-    { "time_et": "4:00 PM ET", "away_team": "ORL", "home_team": "SAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BKN", "home_team": "DET" },
-    { "time_et": "6:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "6:00 PM ET", "away_team": "SAC", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "POR" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "DEN" }
-  ],
-
-  "2026-02-05": [
-    { "time_et": "7:00 PM ET", "away_team": "SAC", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "ATL" },
-    { "time_et": "8:30 PM ET", "away_team": "CHA", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIN" }
-  ],
-
-  "2026-02-06": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-02-07": [
-    { "time_et": "3:00 PM ET", "away_team": "WAS", "home_team": "BKN" },
-    { "time_et": "3:30 PM ET", "away_team": "HOU", "home_team": "OKC" },
-    { "time_et": "6:00 PM ET", "away_team": "DAL", "home_team": "SAS" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "DEN", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "GSW", "home_team": "LAL" },
-    { "time_et": "9:00 PM ET", "away_team": "PHI", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "POR" },
-    { "time_et": "10:00 PM ET", "away_team": "CLE", "home_team": "SAC" }
-  ],
-
-  "2026-02-08": [
-    { "time_et": "12:00 PM ET", "away_team": "NYK", "home_team": "BOS" },
-    { "time_et": "2:00 PM ET", "away_team": "MIA", "home_team": "WAS" },
-    { "time_et": "3:00 PM ET", "away_team": "IND", "home_team": "TOR" },
-    { "time_et": "3:00 PM ET", "away_team": "LAC", "home_team": "MIN" },
-    { "time_et": "7:00 PM ET", "away_team": "DET", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "UTA", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "SAC", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "OKC", "home_team": "LAL" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "POR" }
-  ],
-
-  "2026-02-09": [
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "9:00 PM ET", "away_team": "DAL", "home_team": "PHX" },
-    { "time_et": "10:30 PM ET", "away_team": "SAS", "home_team": "LAL" }
-  ],
-
-  "2026-02-10": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "DET", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "OKC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "SAC", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "SAS", "home_team": "GSW" }
-  ],
-
-  "2026-02-11": [
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "POR", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "DAL", "home_team": "LAL" }
-  ],
-
-  "2026-02-12": [
-    { "time_et": "3:00 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "5:00 PM ET", "away_team": "GSW", "home_team": "MIN" },
-    { "time_et": "6:00 PM ET", "away_team": "WAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAL", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MIA", "home_team": "UTA" }
-  ],
-
-  "2026-02-13": [
-    { "time_et": "7:00 PM ET", "away_team": "POR", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "UTA" }
-  ],
-
-  "2026-02-14": [
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "CHI", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "CHA", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "MIN", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "GSW", "home_team": "UTA" },
-    { "time_et": "9:30 PM ET", "away_team": "SAS", "home_team": "HOU" }
-  ],
-
-  "2026-02-15": [
-    { "time_et": "7:00 PM ET", "away_team": "SAC", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "ATL" },
-    { "time_et": "8:30 PM ET", "away_team": "CHA", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIN" }
-  ],
-
-  "2026-02-16": [
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "POR", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MEM", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "BKN", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "GSW" }
-  ],
-
-  "2026-02-17": [
-    { "time_et": "3:00 PM ET", "away_team": "SAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "NOP", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "DAL", "home_team": "HOU" }
-  ],
-
-  "2026-02-18": [
-    { "time_et": "3:30 PM ET", "away_team": "MIL", "home_team": "BOS" },
-    { "time_et": "4:00 PM ET", "away_team": "ORL", "home_team": "SAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BKN", "home_team": "DET" },
-    { "time_et": "6:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "6:00 PM ET", "away_team": "SAC", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "POR" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "DEN" }
-  ],
-
-  "2026-02-19": [
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "HOU", "home_team": "IND" },
-    { "time_et": "9:30 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "10:30 PM ET", "away_team": "PHI", "home_team": "LAC" }
-  ],
-
-  "2026-02-20": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "ORL", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "GSW" },
-    { "time_et": "11:00 PM ET", "away_team": "PHX", "home_team": "POR" }
-  ],
-
-  "2026-02-21": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-02-22": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAC", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "GSW", "home_team": "POR" }
-  ],
-
-  "2026-02-23": [
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "TOR" },
-    { "time_et": "7:30 PM ET", "away_team": "WAS", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "MIN" },
-    { "time_et": "9:30 PM ET", "away_team": "IND", "home_team": "OKC" },
-    { "time_et": "10:30 PM ET", "away_team": "NYK", "home_team": "LAL" }
-  ],
-
-  "2026-02-24": [
-    { "time_et": "3:00 PM ET", "away_team": "WAS", "home_team": "BKN" },
-    { "time_et": "3:30 PM ET", "away_team": "HOU", "home_team": "OKC" },
-    { "time_et": "6:00 PM ET", "away_team": "DAL", "home_team": "SAS" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHA", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "DEN", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "GSW", "home_team": "LAL" },
-    { "time_et": "9:00 PM ET", "away_team": "PHI", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "POR" },
-    { "time_et": "10:00 PM ET", "away_team": "CLE", "home_team": "SAC" }
-  ],
-
-  "2026-02-25": [
-    { "time_et": "12:30 PM ET", "away_team": "NYK", "home_team": "BOS" },
-    { "time_et": "2:00 PM ET", "away_team": "MIA", "home_team": "WAS" },
-    { "time_et": "3:00 PM ET", "away_team": "IND", "home_team": "TOR" },
-    { "time_et": "3:00 PM ET", "away_team": "LAC", "home_team": "MIN" },
-    { "time_et": "7:00 PM ET", "away_team": "DET", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "UTA", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "SAC", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "OKC", "home_team": "LAL" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "POR" }
-  ],
-
-  "2026-02-26": [
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "9:00 PM ET", "away_team": "DAL", "home_team": "PHX" },
-    { "time_et": "10:30 PM ET", "away_team": "SAS", "home_team": "LAL" }
-  ],
-
-  "2026-02-27": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "DET", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "OKC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "SAC", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "SAS", "home_team": "GSW" }
-  ],
-
-  "2026-02-28": [
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "POR", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "DAL", "home_team": "LAL" }
-  ],
-
-  "2026-03-01": [
-    { "time_et": "3:00 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "5:30 PM ET", "away_team": "GSW", "home_team": "MIN" },
-    { "time_et": "6:00 PM ET", "away_team": "WAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "CLE", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAL", "home_team": "DAL" },
-    { "time_et": "9:30 PM ET", "away_team": "MIA", "home_team": "UTA" }
-  ],
-
-  "2026-03-02": [
-    { "time_et": "3:00 PM ET", "away_team": "SAC", "home_team": "DET" },
-    { "time_et": "3:30 PM ET", "away_team": "DEN", "home_team": "MEM" },
-    { "time_et": "7:00 PM ET", "away_team": "DAL", "home_team": "MIL" },
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "OKC" },
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "SAS" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "LAC" }
-  ],
-
-  "2026-03-03": [
-    { "time_et": "7:00 PM ET", "away_team": "PHI", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ORL", "home_team": "CLE" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "BOS" },
-    { "time_et": "8:00 PM ET", "away_team": "LAL", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MEM", "home_team": "HOU" },
-    { "time_et": "9:30 PM ET", "away_team": "GSW", "home_team": "MIN" }
-  ],
-
-  "2026-03-04": [
-    { "time_et": "7:00 PM ET", "away_team": "POR", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "UTA" }
-  ],
-
-  "2026-03-05": [
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "CHI", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "CHA", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "MIN", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "GSW", "home_team": "UTA" },
-    { "time_et": "9:30 PM ET", "away_team": "SAS", "home_team": "HOU" }
-  ],
-
-  "2026-03-06": [
-    { "time_et": "7:00 PM ET", "away_team": "SAC", "home_team": "PHI" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "HOU", "home_team": "ATL" },
-    { "time_et": "8:30 PM ET", "away_team": "CHA", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "MIN" }
-  ],
-
-  "2026-03-07": [
-    { "time_et": "7:00 PM ET", "away_team": "TOR", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "POR", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MEM", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "PHX" },
-    { "time_et": "9:30 PM ET", "away_team": "BKN", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "DET", "home_team": "GSW" }
-  ],
-
-  "2026-03-08": [
-    { "time_et": "3:00 PM ET", "away_team": "SAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "NOP", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "DAL", "home_team": "HOU" }
-  ],
-
-  "2026-03-09": [
-    { "time_et": "3:30 PM ET", "away_team": "MIL", "home_team": "BOS" },
-    { "time_et": "4:00 PM ET", "away_team": "ORL", "home_team": "SAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BKN", "home_team": "DET" },
-    { "time_et": "6:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "6:00 PM ET", "away_team": "SAC", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "POR" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "DEN" }
-  ],
-
-  "2026-03-10": [
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "HOU", "home_team": "IND" },
-    { "time_et": "9:30 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "10:30 PM ET", "away_team": "PHI", "home_team": "LAC" }
-  ],
-
-  "2026-03-11": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "ORL", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "GSW" }
-  ],
-
-  "2026-03-12": [
-    { "time_et": "11:00 PM ET", "away_team": "PHX", "home_team": "POR" }
-  ],
-
-  "2026-03-13": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-03-14": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAC", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "GSW", "home_team": "POR" }
-  ],
-
-  "2026-03-15": [
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "TOR" },
-    { "time_et": "7:30 PM ET", "away_team": "WAS", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "MIN" },
-    { "time_et": "9:30 PM ET", "away_team": "IND", "home_team": "OKC" },
-    { "time_et": "10:30 PM ET", "away_team": "NYK", "home_team": "LAL" }
-  ],
-
-  "2026-03-16": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "DET", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "10:00 PM ET", "away_team": "PHX", "home_team": "HOU" },
-    { "time_et": "11:00 PM ET", "away_team": "BKN", "home_team": "GSW" }
-  ],
-
-  "2026-03-17": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "ORL", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "GSW" }
-  ],
-
-  "2026-03-18": [
-    { "time_et": "11:00 PM ET", "away_team": "PHX", "home_team": "POR" }
-  ],
-
-  "2026-03-19": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-03-20": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAC", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "GSW", "home_team": "POR" }
-  ],
-
-  "2026-03-21": [
-    { "time_et": "7:00 PM ET", "away_team": "SAS", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "TOR" },
-    { "time_et": "7:30 PM ET", "away_team": "WAS", "home_team": "ATL" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "MIN" },
-    { "time_et": "9:30 PM ET", "away_team": "IND", "home_team": "OKC" },
-    { "time_et": "10:30 PM ET", "away_team": "NYK", "home_team": "LAL" }
-  ],
-
-  "2026-03-22": [
-    { "time_et": "7:00 PM ET", "away_team": "DET", "home_team": "CHA" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "UTA", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "SAC", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "OKC", "home_team": "LAL" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "POR" }
-  ],
-
-  "2026-03-23": [
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "9:00 PM ET", "away_team": "DAL", "home_team": "PHX" },
-    { "time_et": "10:30 PM ET", "away_team": "SAS", "home_team": "LAL" }
-  ],
-
-  "2026-03-24": [
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "CLE" },
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "ORL" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "IND", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "NYK", "home_team": "PHI" },
-    { "time_et": "7:30 PM ET", "away_team": "DET", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "MIN" },
-    { "time_et": "8:00 PM ET", "away_team": "MIA", "home_team": "NOP" },
-    { "time_et": "9:00 PM ET", "away_team": "OKC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "SAC", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "DEN" },
-    { "time_et": "10:00 PM ET", "away_team": "SAS", "home_team": "GSW" }
-  ],
-
-  "2026-03-25": [
-    { "time_et": "7:30 PM ET", "away_team": "MIL", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "POR", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "DAL", "home_team": "LAL" }
-  ],
-
-  "2026-03-26": [
-    { "time_et": "7:00 PM ET", "away_team": "PHI", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "UTA" }
-  ],
-
-  "2026-03-27": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-03-28": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAC", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "GSW", "home_team": "POR" }
-  ],
-
-  "2026-03-29": [
-    { "time_et": "3:00 PM ET", "away_team": "GSW", "home_team": "TOR" },
-    { "time_et": "3:30 PM ET", "away_team": "PHI", "home_team": "OKC" },
-    { "time_et": "6:00 PM ET", "away_team": "MEM", "home_team": "WAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BOS", "home_team": "POR" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "LAC" },
-    { "time_et": "9:30 PM ET", "away_team": "SAC", "home_team": "LAL" }
-  ],
-
-  "2026-03-30": [
-    { "time_et": "7:00 PM ET", "away_team": "MIL", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "PHX", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "GSW", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "DEN", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "ORL", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "IND", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NYK", "home_team": "NOP" },
-    { "time_et": "8:00 PM ET", "away_team": "ATL", "home_team": "OKC" },
-    { "time_et": "8:00 PM ET", "away_team": "CLE", "home_team": "SAS" },
-    { "time_et": "11:00 PM ET", "away_team": "DAL", "home_team": "POR" }
-  ],
-
-  "2026-03-31": [
-    { "time_et": "8:00 PM ET", "away_team": "PHI", "home_team": "MEM" },
-    { "time_et": "9:00 PM ET", "away_team": "BOS", "home_team": "UTA" },
-    { "time_et": "10:30 PM ET", "away_team": "DET", "home_team": "LAL" },
-    { "time_et": "11:00 PM ET", "away_team": "SAC", "home_team": "LAC" }
-  ],
-
-  "2026-04-01": [
-    { "time_et": "1:00 PM ET", "away_team": "GSW", "home_team": "CHA" },
-    { "time_et": "3:00 PM ET", "away_team": "MIN", "home_team": "ATL" },
-    { "time_et": "3:00 PM ET", "away_team": "ORL", "home_team": "IND" },
-    { "time_et": "3:30 PM ET", "away_team": "PHX", "home_team": "CLE" },
-    { "time_et": "5:00 PM ET", "away_team": "MIN", "home_team": "MIA" },
-    { "time_et": "7:30 PM ET", "away_team": "PHI", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "CHA", "home_team": "CHI" },
-    { "time_et": "8:00 PM ET", "away_team": "POR", "home_team": "SAS" },
-    { "time_et": "8:30 PM ET", "away_team": "HOU", "home_team": "DAL" },
-    { "time_et": "10:00 PM ET", "away_team": "UTA", "home_team": "GSW" },
-    { "time_et": "10:30 PM ET", "away_team": "BOS", "home_team": "LAC" }
-  ],
-
-  "2026-04-02": [
-    { "time_et": "2:00 PM ET", "away_team": "DET", "home_team": "CLE" },
-    { "time_et": "3:00 PM ET", "away_team": "IND", "home_team": "ORL" },
-    { "time_et": "3:30 PM ET", "away_team": "DEN", "home_team": "BKN" },
-    { "time_et": "6:00 PM ET", "away_team": "NOP", "home_team": "MIA" },
-    { "time_et": "6:00 PM ET", "away_team": "MIN", "home_team": "WAS" },
-    { "time_et": "8:00 PM ET", "away_team": "OKC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "MIL", "home_team": "SAC" },
-    { "time_et": "9:30 PM ET", "away_team": "MEM", "home_team": "LAL" }
-  ],
-
-  "2026-04-03": [
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "DET" },
-    { "time_et": "7:30 PM ET", "away_team": "CHI", "home_team": "BOS" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "PHX", "home_team": "MEM" },
-    { "time_et": "8:00 PM ET", "away_team": "UTA", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "MIL", "home_team": "GSW" },
-    { "time_et": "10:00 PM ET", "away_team": "HOU", "home_team": "POR" }
-  ],
-
-  "2026-04-04": [
-    { "time_et": "7:00 PM ET", "away_team": "POR", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "SAC", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "MIL", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "OKC" },
-    { "time_et": "9:00 PM ET", "away_team": "DET", "home_team": "DEN" },
-    { "time_et": "9:00 PM ET", "away_team": "BKN", "home_team": "PHX" },
-    { "time_et": "10:00 PM ET", "away_team": "LAC", "home_team": "UTA" }
-  ],
-
-  "2026-04-05": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ],
-
-  "2026-04-06": [
-    { "time_et": "7:00 PM ET", "away_team": "WAS", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "BKN", "home_team": "ORL" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "CLE" },
-    { "time_et": "8:00 PM ET", "away_team": "SAS", "home_team": "CHI" },
-    { "time_et": "8:30 PM ET", "away_team": "LAC", "home_team": "DAL" },
-    { "time_et": "9:00 PM ET", "away_team": "MEM", "home_team": "UTA" },
-    { "time_et": "10:00 PM ET", "away_team": "GSW", "home_team": "POR" }
-  ],
-
-  "2026-04-07": [
-    { "time_et": "3:00 PM ET", "away_team": "SAS", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "ATL", "home_team": "IND" },
-    { "time_et": "7:30 PM ET", "away_team": "NOP", "home_team": "PHI" },
-    { "time_et": "8:00 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "8:30 PM ET", "away_team": "DAL", "home_team": "HOU" }
-  ],
-
-  "2026-04-08": [
-    { "time_et": "3:30 PM ET", "away_team": "MIL", "home_team": "BOS" },
-    { "time_et": "4:00 PM ET", "away_team": "ORL", "home_team": "SAS" },
-    { "time_et": "6:00 PM ET", "away_team": "BKN", "home_team": "DET" },
-    { "time_et": "6:00 PM ET", "away_team": "CHI", "home_team": "MIA" },
-    { "time_et": "6:00 PM ET", "away_team": "SAC", "home_team": "WAS" },
-    { "time_et": "7:00 PM ET", "away_team": "LAL", "home_team": "NYK" },
-    { "time_et": "8:00 PM ET", "away_team": "LAC", "home_team": "PHX" },
-    { "time_et": "9:00 PM ET", "away_team": "CLE", "home_team": "POR" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "DEN" }
-  ],
-
-  "2026-04-09": [
-    { "time_et": "7:00 PM ET", "away_team": "NOP", "home_team": "CHA" },
-    { "time_et": "7:00 PM ET", "away_team": "HOU", "home_team": "IND" },
-    { "time_et": "9:30 PM ET", "away_team": "MIN", "home_team": "MEM" },
-    { "time_et": "10:30 PM ET", "away_team": "PHI", "home_team": "LAC" }
-  ],
-
-  "2026-04-10": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "DET" },
-    { "time_et": "7:00 PM ET", "away_team": "UTA", "home_team": "IND" },
-    { "time_et": "7:00 PM ET", "away_team": "NYK", "home_team": "WAS" },
-    { "time_et": "7:30 PM ET", "away_team": "LAL", "home_team": "BKN" },
-    { "time_et": "7:30 PM ET", "away_team": "ATL", "home_team": "MIA" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "DAL" },
-    { "time_et": "8:00 PM ET", "away_team": "CHI", "home_team": "MIL" },
-    { "time_et": "8:00 PM ET", "away_team": "ORL", "home_team": "OKC" },
-    { "time_et": "10:00 PM ET", "away_team": "PHI", "home_team": "GSW" }
-  ],
-
-  "2026-04-11": [
-    { "time_et": "11:00 PM ET", "away_team": "PHX", "home_team": "POR" }
-  ],
-
-  "2026-04-12": [
-    { "time_et": "7:00 PM ET", "away_team": "DEN", "home_team": "NYK" },
-    { "time_et": "7:30 PM ET", "away_team": "MIN", "home_team": "TOR" },
-    { "time_et": "8:00 PM ET", "away_team": "BOS", "home_team": "HOU" },
-    { "time_et": "8:00 PM ET", "away_team": "NOP", "home_team": "MIL" },
-    { "time_et": "9:30 PM ET", "away_team": "OKC", "home_team": "SAS" },
-    { "time_et": "10:00 PM ET", "away_team": "MEM", "home_team": "SAC" },
-    { "time_et": "10:30 PM ET", "away_team": "CLE", "home_team": "LAC" }
-  ]
-}
+[
+  {
+    "game_id": 18447110,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 29,
+    "home_team_name": "Utah Jazz",
+    "home_team_abbr": "UTA",
+    "away_team_id": 11,
+    "away_team_name": "Houston Rockets",
+    "away_team_abbr": "HOU"
+  },
+  {
+    "game_id": 18447111,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 6,
+    "home_team_name": "Cleveland Cavaliers",
+    "home_team_abbr": "CLE",
+    "away_team_id": 2,
+    "away_team_name": "Boston Celtics",
+    "away_team_abbr": "BOS"
+  },
+  {
+    "game_id": 18447112,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 20,
+    "home_team_name": "New York Knicks",
+    "home_team_abbr": "NYK",
+    "away_team_id": 28,
+    "away_team_name": "Toronto Raptors",
+    "away_team_abbr": "TOR"
+  },
+  {
+    "game_id": 18447113,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 6,
+    "home_team_id": 23,
+    "home_team_name": "Philadelphia 76ers",
+    "home_team_abbr": "PHI",
+    "away_team_id": 1,
+    "away_team_name": "Atlanta Hawks",
+    "away_team_abbr": "ATL"
+  },
+  {
+    "game_id": 18447114,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 25,
+    "home_team_name": "Portland Trail Blazers",
+    "home_team_abbr": "POR",
+    "away_team_id": 21,
+    "away_team_name": "Oklahoma City Thunder",
+    "away_team_abbr": "OKC"
+  },
+  {
+    "game_id": 18447115,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 18,
+    "home_team_name": "Minnesota Timberwolves",
+    "home_team_abbr": "MIN",
+    "away_team_id": 27,
+    "away_team_name": "San Antonio Spurs",
+    "away_team_abbr": "SAS"
+  },
+  {
+    "game_id": 18447116,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 26,
+    "home_team_name": "Sacramento Kings",
+    "home_team_abbr": "SAC",
+    "away_team_id": 15,
+    "away_team_name": "Memphis Grizzlies",
+    "away_team_abbr": "MEM"
+  },
+  {
+    "game_id": 18447117,
+    "game_date": "2025-11-30",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 14,
+    "home_team_name": "Los Angeles Lakers",
+    "home_team_abbr": "LAL",
+    "away_team_id": 19,
+    "away_team_name": "New Orleans Pelicans",
+    "away_team_abbr": "NOP"
+  },
+  {
+    "game_id": 18447118,
+    "game_date": "2025-12-01",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 9,
+    "home_team_name": "Detroit Pistons",
+    "home_team_abbr": "DET",
+    "away_team_id": 1,
+    "away_team_name": "Atlanta Hawks",
+    "away_team_abbr": "ATL"
+  },
+  {
+    "game_id": 18447119,
+    "game_date": "2025-12-01",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 12,
+    "home_team_name": "Indiana Pacers",
+    "home_team_abbr": "IND",
+    "away_team_id": 6,
+    "away_team_name": "Cleveland Cavaliers",
+    "away_team_abbr": "CLE"
+  },
+  {
+    "game_id": 18447120,
+    "game_date": "2025-12-01",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 30,
+    "home_team_name": "Washington Wizards",
+    "home_team_abbr": "WAS",
+    "away_team_id": 17,
+    "away_team_name": "Milwaukee Bucks",
+    "away_team_abbr": "MIL"
+  },
+  {
+    "game_id": 18447121,
+    "game_date": "2025-12-01",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 3,
+    "home_team_name": "Brooklyn Nets",
+    "home_team_abbr": "BKN",
+    "away_team_id": 4,
+    "away_team_name": "Charlotte Hornets",
+    "away_team_abbr": "CHA"
+  },
+  {
+    "game_id": 18447122,
+    "game_date": "2025-12-01",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 16,
+    "home_team_name": "Miami Heat",
+    "home_team_abbr": "MIA",
+    "away_team_id": 13,
+    "away_team_name": "LA Clippers",
+    "away_team_abbr": "LAC"
+  },
+  {
+    "game_id": 18447123,
+    "game_date": "2025-12-01",
+    "time_et": "Final",
+    "status": "Final",
+    "season": 2025,
+    "period": 4,
+    "home_team_id": 22,
+    "home_team_name": "Orlando Magic",
+    "home_team_abbr": "ORL",
+    "away_team_id": 5,
+    "away_team_name": "Chicago Bulls",
+    "away_team_abbr": "CHI"
+  },
+  {
+    "game_id": 18447124,
+    "game_date": "2025-12-01",
+    "time_et": "Q3 10:04",
+    "status": "3rd Qtr",
+    "season": 2025,
+    "period": 3,
+    "home_team_id": 8,
+    "home_team_name": "Denver Nuggets",
+    "home_team_abbr": "DEN",
+    "away_team_id": 7,
+    "away_team_name": "Dallas Mavericks",
+    "away_team_abbr": "DAL"
+  },
+  {
+    "game_id": 18447125,
+    "game_date": "2025-12-01",
+    "time_et": "Q3 11:09",
+    "status": "3rd Qtr",
+    "season": 2025,
+    "period": 3,
+    "home_team_id": 29,
+    "home_team_name": "Utah Jazz",
+    "home_team_abbr": "UTA",
+    "away_team_id": 11,
+    "away_team_name": "Houston Rockets",
+    "away_team_abbr": "HOU"
+  },
+  {
+    "game_id": 18447126,
+    "game_date": "2025-12-01",
+    "time_et": "Q1 5:55",
+    "status": "1st Qtr",
+    "season": 2025,
+    "period": 1,
+    "home_team_id": 14,
+    "home_team_name": "Los Angeles Lakers",
+    "home_team_abbr": "LAL",
+    "away_team_id": 24,
+    "away_team_name": "Phoenix Suns",
+    "away_team_abbr": "PHX"
+  },
+  {
+    "game_id": 18447127,
+    "game_date": "2025-12-02",
+    "time_et": null,
+    "status": "2025-12-03T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 23,
+    "home_team_name": "Philadelphia 76ers",
+    "home_team_abbr": "PHI",
+    "away_team_id": 30,
+    "away_team_name": "Washington Wizards",
+    "away_team_abbr": "WAS"
+  },
+  {
+    "game_id": 18447128,
+    "game_date": "2025-12-02",
+    "time_et": null,
+    "status": "2025-12-03T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 28,
+    "home_team_name": "Toronto Raptors",
+    "home_team_abbr": "TOR",
+    "away_team_id": 25,
+    "away_team_name": "Portland Trail Blazers",
+    "away_team_abbr": "POR"
+  },
+  {
+    "game_id": 18447129,
+    "game_date": "2025-12-02",
+    "time_et": null,
+    "status": "2025-12-03T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 2,
+    "home_team_name": "Boston Celtics",
+    "home_team_abbr": "BOS",
+    "away_team_id": 20,
+    "away_team_name": "New York Knicks",
+    "away_team_abbr": "NYK"
+  },
+  {
+    "game_id": 18447130,
+    "game_date": "2025-12-02",
+    "time_et": null,
+    "status": "2025-12-03T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 19,
+    "home_team_name": "New Orleans Pelicans",
+    "home_team_abbr": "NOP",
+    "away_team_id": 18,
+    "away_team_name": "Minnesota Timberwolves",
+    "away_team_abbr": "MIN"
+  },
+  {
+    "game_id": 18447131,
+    "game_date": "2025-12-02",
+    "time_et": null,
+    "status": "2025-12-03T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 27,
+    "home_team_name": "San Antonio Spurs",
+    "home_team_abbr": "SAS",
+    "away_team_id": 15,
+    "away_team_name": "Memphis Grizzlies",
+    "away_team_abbr": "MEM"
+  },
+  {
+    "game_id": 18447132,
+    "game_date": "2025-12-02",
+    "time_et": null,
+    "status": "2025-12-03T04:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 10,
+    "home_team_name": "Golden State Warriors",
+    "home_team_abbr": "GSW",
+    "away_team_id": 21,
+    "away_team_name": "Oklahoma City Thunder",
+    "away_team_abbr": "OKC"
+  },
+  {
+    "game_id": 18447133,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 6,
+    "home_team_name": "Cleveland Cavaliers",
+    "home_team_abbr": "CLE",
+    "away_team_id": 25,
+    "away_team_name": "Portland Trail Blazers",
+    "away_team_abbr": "POR"
+  },
+  {
+    "game_id": 18447134,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 12,
+    "home_team_name": "Indiana Pacers",
+    "home_team_abbr": "IND",
+    "away_team_id": 8,
+    "away_team_name": "Denver Nuggets",
+    "away_team_abbr": "DEN"
+  },
+  {
+    "game_id": 18447135,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 22,
+    "home_team_name": "Orlando Magic",
+    "home_team_abbr": "ORL",
+    "away_team_id": 27,
+    "away_team_name": "San Antonio Spurs",
+    "away_team_abbr": "SAS"
+  },
+  {
+    "game_id": 18447136,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 1,
+    "home_team_name": "Atlanta Hawks",
+    "home_team_abbr": "ATL",
+    "away_team_id": 13,
+    "away_team_name": "LA Clippers",
+    "away_team_abbr": "LAC"
+  },
+  {
+    "game_id": 18447137,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 20,
+    "home_team_name": "New York Knicks",
+    "home_team_abbr": "NYK",
+    "away_team_id": 4,
+    "away_team_name": "Charlotte Hornets",
+    "away_team_abbr": "CHA"
+  },
+  {
+    "game_id": 18447138,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 5,
+    "home_team_name": "Chicago Bulls",
+    "home_team_abbr": "CHI",
+    "away_team_id": 3,
+    "away_team_name": "Brooklyn Nets",
+    "away_team_abbr": "BKN"
+  },
+  {
+    "game_id": 18447139,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 11,
+    "home_team_name": "Houston Rockets",
+    "home_team_abbr": "HOU",
+    "away_team_id": 26,
+    "away_team_name": "Sacramento Kings",
+    "away_team_abbr": "SAC"
+  },
+  {
+    "game_id": 18447140,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 17,
+    "home_team_name": "Milwaukee Bucks",
+    "home_team_abbr": "MIL",
+    "away_team_id": 9,
+    "away_team_name": "Detroit Pistons",
+    "away_team_abbr": "DET"
+  },
+  {
+    "game_id": 18447141,
+    "game_date": "2025-12-03",
+    "time_et": null,
+    "status": "2025-12-04T01:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 7,
+    "home_team_name": "Dallas Mavericks",
+    "home_team_abbr": "DAL",
+    "away_team_id": 16,
+    "away_team_name": "Miami Heat",
+    "away_team_abbr": "MIA"
+  },
+  {
+    "game_id": 18447142,
+    "game_date": "2025-12-04",
+    "time_et": null,
+    "status": "2025-12-05T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 23,
+    "home_team_name": "Philadelphia 76ers",
+    "home_team_abbr": "PHI",
+    "away_team_id": 10,
+    "away_team_name": "Golden State Warriors",
+    "away_team_abbr": "GSW"
+  },
+  {
+    "game_id": 18447143,
+    "game_date": "2025-12-04",
+    "time_et": null,
+    "status": "2025-12-05T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 30,
+    "home_team_name": "Washington Wizards",
+    "home_team_abbr": "WAS",
+    "away_team_id": 2,
+    "away_team_name": "Boston Celtics",
+    "away_team_abbr": "BOS"
+  },
+  {
+    "game_id": 18447144,
+    "game_date": "2025-12-04",
+    "time_et": null,
+    "status": "2025-12-05T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 3,
+    "home_team_name": "Brooklyn Nets",
+    "home_team_abbr": "BKN",
+    "away_team_id": 29,
+    "away_team_name": "Utah Jazz",
+    "away_team_abbr": "UTA"
+  },
+  {
+    "game_id": 18447145,
+    "game_date": "2025-12-04",
+    "time_et": null,
+    "status": "2025-12-05T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 28,
+    "home_team_name": "Toronto Raptors",
+    "home_team_abbr": "TOR",
+    "away_team_id": 14,
+    "away_team_name": "Los Angeles Lakers",
+    "away_team_abbr": "LAL"
+  },
+  {
+    "game_id": 18447146,
+    "game_date": "2025-12-04",
+    "time_et": null,
+    "status": "2025-12-05T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 19,
+    "home_team_name": "New Orleans Pelicans",
+    "home_team_abbr": "NOP",
+    "away_team_id": 18,
+    "away_team_name": "Minnesota Timberwolves",
+    "away_team_abbr": "MIN"
+  },
+  {
+    "game_id": 18447147,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 2,
+    "home_team_name": "Boston Celtics",
+    "home_team_abbr": "BOS",
+    "away_team_id": 14,
+    "away_team_name": "Los Angeles Lakers",
+    "away_team_abbr": "LAL"
+  },
+  {
+    "game_id": 18447148,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 22,
+    "home_team_name": "Orlando Magic",
+    "home_team_abbr": "ORL",
+    "away_team_id": 16,
+    "away_team_name": "Miami Heat",
+    "away_team_abbr": "MIA"
+  },
+  {
+    "game_id": 18447149,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 1,
+    "home_team_name": "Atlanta Hawks",
+    "home_team_abbr": "ATL",
+    "away_team_id": 8,
+    "away_team_name": "Denver Nuggets",
+    "away_team_abbr": "DEN"
+  },
+  {
+    "game_id": 18447150,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 6,
+    "home_team_name": "Cleveland Cavaliers",
+    "home_team_abbr": "CLE",
+    "away_team_id": 27,
+    "away_team_name": "San Antonio Spurs",
+    "away_team_abbr": "SAS"
+  },
+  {
+    "game_id": 18447151,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 9,
+    "home_team_name": "Detroit Pistons",
+    "home_team_abbr": "DET",
+    "away_team_id": 25,
+    "away_team_name": "Portland Trail Blazers",
+    "away_team_abbr": "POR"
+  },
+  {
+    "game_id": 18447152,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 20,
+    "home_team_name": "New York Knicks",
+    "home_team_abbr": "NYK",
+    "away_team_id": 29,
+    "away_team_name": "Utah Jazz",
+    "away_team_abbr": "UTA"
+  },
+  {
+    "game_id": 18447153,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 28,
+    "home_team_name": "Toronto Raptors",
+    "home_team_abbr": "TOR",
+    "away_team_id": 4,
+    "away_team_name": "Charlotte Hornets",
+    "away_team_abbr": "CHA"
+  },
+  {
+    "game_id": 18447154,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 5,
+    "home_team_name": "Chicago Bulls",
+    "home_team_abbr": "CHI",
+    "away_team_id": 12,
+    "away_team_name": "Indiana Pacers",
+    "away_team_abbr": "IND"
+  },
+  {
+    "game_id": 18447155,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 11,
+    "home_team_name": "Houston Rockets",
+    "home_team_abbr": "HOU",
+    "away_team_id": 24,
+    "away_team_name": "Phoenix Suns",
+    "away_team_abbr": "PHX"
+  },
+  {
+    "game_id": 18447156,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 15,
+    "home_team_name": "Memphis Grizzlies",
+    "home_team_abbr": "MEM",
+    "away_team_id": 13,
+    "away_team_name": "LA Clippers",
+    "away_team_abbr": "LAC"
+  },
+  {
+    "game_id": 18447157,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 17,
+    "home_team_name": "Milwaukee Bucks",
+    "home_team_abbr": "MIL",
+    "away_team_id": 23,
+    "away_team_name": "Philadelphia 76ers",
+    "away_team_abbr": "PHI"
+  },
+  {
+    "game_id": 18447158,
+    "game_date": "2025-12-05",
+    "time_et": null,
+    "status": "2025-12-06T02:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 21,
+    "home_team_name": "Oklahoma City Thunder",
+    "home_team_abbr": "OKC",
+    "away_team_id": 7,
+    "away_team_name": "Dallas Mavericks",
+    "away_team_abbr": "DAL"
+  },
+  {
+    "game_id": 18447159,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-06T22:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 3,
+    "home_team_name": "Brooklyn Nets",
+    "home_team_abbr": "BKN",
+    "away_team_id": 19,
+    "away_team_name": "New Orleans Pelicans",
+    "away_team_abbr": "NOP"
+  },
+  {
+    "game_id": 18447160,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-07T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 30,
+    "home_team_name": "Washington Wizards",
+    "home_team_abbr": "WAS",
+    "away_team_id": 1,
+    "away_team_name": "Atlanta Hawks",
+    "away_team_abbr": "ATL"
+  },
+  {
+    "game_id": 18447161,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-07T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 6,
+    "home_team_name": "Cleveland Cavaliers",
+    "home_team_abbr": "CLE",
+    "away_team_id": 10,
+    "away_team_name": "Golden State Warriors",
+    "away_team_abbr": "GSW"
+  },
+  {
+    "game_id": 18447162,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-07T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 9,
+    "home_team_name": "Detroit Pistons",
+    "home_team_abbr": "DET",
+    "away_team_id": 17,
+    "away_team_name": "Milwaukee Bucks",
+    "away_team_abbr": "MIL"
+  },
+  {
+    "game_id": 18447163,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-07T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 16,
+    "home_team_name": "Miami Heat",
+    "home_team_abbr": "MIA",
+    "away_team_id": 26,
+    "away_team_name": "Sacramento Kings",
+    "away_team_abbr": "SAC"
+  },
+  {
+    "game_id": 18447164,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-07T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 18,
+    "home_team_name": "Minnesota Timberwolves",
+    "home_team_abbr": "MIN",
+    "away_team_id": 13,
+    "away_team_name": "LA Clippers",
+    "away_team_abbr": "LAC"
+  },
+  {
+    "game_id": 18447165,
+    "game_date": "2025-12-06",
+    "time_et": null,
+    "status": "2025-12-07T01:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 7,
+    "home_team_name": "Dallas Mavericks",
+    "home_team_abbr": "DAL",
+    "away_team_id": 11,
+    "away_team_name": "Houston Rockets",
+    "away_team_abbr": "HOU"
+  },
+  {
+    "game_id": 18447166,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-07T17:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 20,
+    "home_team_name": "New York Knicks",
+    "home_team_abbr": "NYK",
+    "away_team_id": 22,
+    "away_team_name": "Orlando Magic",
+    "away_team_abbr": "ORL"
+  },
+  {
+    "game_id": 18447167,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-07T20:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 28,
+    "home_team_name": "Toronto Raptors",
+    "home_team_abbr": "TOR",
+    "away_team_id": 2,
+    "away_team_name": "Boston Celtics",
+    "away_team_abbr": "BOS"
+  },
+  {
+    "game_id": 18447168,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-07T23:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 4,
+    "home_team_name": "Charlotte Hornets",
+    "home_team_abbr": "CHA",
+    "away_team_id": 8,
+    "away_team_name": "Denver Nuggets",
+    "away_team_abbr": "DEN"
+  },
+  {
+    "game_id": 18447169,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-07T23:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 15,
+    "home_team_name": "Memphis Grizzlies",
+    "home_team_abbr": "MEM",
+    "away_team_id": 25,
+    "away_team_name": "Portland Trail Blazers",
+    "away_team_abbr": "POR"
+  },
+  {
+    "game_id": 18447170,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-08T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 5,
+    "home_team_name": "Chicago Bulls",
+    "home_team_abbr": "CHI",
+    "away_team_id": 10,
+    "away_team_name": "Golden State Warriors",
+    "away_team_abbr": "GSW"
+  },
+  {
+    "game_id": 18447171,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-08T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 23,
+    "home_team_name": "Philadelphia 76ers",
+    "home_team_abbr": "PHI",
+    "away_team_id": 14,
+    "away_team_name": "Los Angeles Lakers",
+    "away_team_abbr": "LAL"
+  },
+  {
+    "game_id": 18447172,
+    "game_date": "2025-12-07",
+    "time_et": null,
+    "status": "2025-12-08T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 29,
+    "home_team_name": "Utah Jazz",
+    "home_team_abbr": "UTA",
+    "away_team_id": 21,
+    "away_team_name": "Oklahoma City Thunder",
+    "away_team_abbr": "OKC"
+  },
+  {
+    "game_id": 18447173,
+    "game_date": "2025-12-08",
+    "time_et": null,
+    "status": "2025-12-09T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 12,
+    "home_team_name": "Indiana Pacers",
+    "home_team_abbr": "IND",
+    "away_team_id": 26,
+    "away_team_name": "Sacramento Kings",
+    "away_team_abbr": "SAC"
+  },
+  {
+    "game_id": 18447174,
+    "game_date": "2025-12-08",
+    "time_et": null,
+    "status": "2025-12-09T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 18,
+    "home_team_name": "Minnesota Timberwolves",
+    "home_team_abbr": "MIN",
+    "away_team_id": 24,
+    "away_team_name": "Phoenix Suns",
+    "away_team_abbr": "PHX"
+  },
+  {
+    "game_id": 18447175,
+    "game_date": "2025-12-08",
+    "time_et": null,
+    "status": "2025-12-09T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 19,
+    "home_team_name": "New Orleans Pelicans",
+    "home_team_abbr": "NOP",
+    "away_team_id": 27,
+    "away_team_name": "San Antonio Spurs",
+    "away_team_abbr": "SAS"
+  },
+  {
+    "game_id": 20054033,
+    "game_date": "2025-12-09",
+    "time_et": null,
+    "status": "2025-12-09T23:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 22,
+    "home_team_name": "Orlando Magic",
+    "home_team_abbr": "ORL",
+    "away_team_id": 16,
+    "away_team_name": "Miami Heat",
+    "away_team_abbr": "MIA"
+  },
+  {
+    "game_id": 20054034,
+    "game_date": "2025-12-09",
+    "time_et": null,
+    "status": "2025-12-10T01:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 28,
+    "home_team_name": "Toronto Raptors",
+    "home_team_abbr": "TOR",
+    "away_team_id": 20,
+    "away_team_name": "New York Knicks",
+    "away_team_abbr": "NYK"
+  },
+  {
+    "game_id": 20054035,
+    "game_date": "2025-12-10",
+    "time_et": null,
+    "status": "2025-12-11T00:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 21,
+    "home_team_name": "Oklahoma City Thunder",
+    "home_team_abbr": "OKC",
+    "away_team_id": 24,
+    "away_team_name": "Phoenix Suns",
+    "away_team_abbr": "PHX"
+  },
+  {
+    "game_id": 20054036,
+    "game_date": "2025-12-10",
+    "time_et": null,
+    "status": "2025-12-11T03:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 14,
+    "home_team_name": "Los Angeles Lakers",
+    "home_team_abbr": "LAL",
+    "away_team_id": 27,
+    "away_team_name": "San Antonio Spurs",
+    "away_team_abbr": "SAS"
+  },
+  {
+    "game_id": 20054958,
+    "game_date": "2025-12-11",
+    "time_et": null,
+    "status": "2025-12-12T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 11,
+    "home_team_name": "Houston Rockets",
+    "home_team_abbr": "HOU",
+    "away_team_id": 13,
+    "away_team_name": "LA Clippers",
+    "away_team_abbr": "LAC"
+  },
+  {
+    "game_id": 20054959,
+    "game_date": "2025-12-11",
+    "time_et": null,
+    "status": "2025-12-12T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 17,
+    "home_team_name": "Milwaukee Bucks",
+    "home_team_abbr": "MIL",
+    "away_team_id": 2,
+    "away_team_name": "Boston Celtics",
+    "away_team_abbr": "BOS"
+  },
+  {
+    "game_id": 20054960,
+    "game_date": "2025-12-11",
+    "time_et": null,
+    "status": "2025-12-12T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 19,
+    "home_team_name": "New Orleans Pelicans",
+    "home_team_abbr": "NOP",
+    "away_team_id": 25,
+    "away_team_name": "Portland Trail Blazers",
+    "away_team_abbr": "POR"
+  },
+  {
+    "game_id": 20054961,
+    "game_date": "2025-12-11",
+    "time_et": null,
+    "status": "2025-12-12T03:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 26,
+    "home_team_name": "Sacramento Kings",
+    "home_team_abbr": "SAC",
+    "away_team_id": 8,
+    "away_team_name": "Denver Nuggets",
+    "away_team_abbr": "DEN"
+  },
+  {
+    "game_id": 20054962,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 4,
+    "home_team_name": "Charlotte Hornets",
+    "home_team_abbr": "CHA",
+    "away_team_id": 5,
+    "away_team_name": "Chicago Bulls",
+    "away_team_abbr": "CHI"
+  },
+  {
+    "game_id": 20054963,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 9,
+    "home_team_name": "Detroit Pistons",
+    "home_team_abbr": "DET",
+    "away_team_id": 1,
+    "away_team_name": "Atlanta Hawks",
+    "away_team_abbr": "ATL"
+  },
+  {
+    "game_id": 20054964,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 23,
+    "home_team_name": "Philadelphia 76ers",
+    "home_team_abbr": "PHI",
+    "away_team_id": 12,
+    "away_team_name": "Indiana Pacers",
+    "away_team_abbr": "IND"
+  },
+  {
+    "game_id": 20054965,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 30,
+    "home_team_name": "Washington Wizards",
+    "home_team_abbr": "WAS",
+    "away_team_id": 6,
+    "away_team_name": "Cleveland Cavaliers",
+    "away_team_abbr": "CLE"
+  },
+  {
+    "game_id": 20054966,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T01:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 15,
+    "home_team_name": "Memphis Grizzlies",
+    "home_team_abbr": "MEM",
+    "away_team_id": 29,
+    "away_team_name": "Utah Jazz",
+    "away_team_abbr": "UTA"
+  },
+  {
+    "game_id": 20054967,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T01:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 7,
+    "home_team_name": "Dallas Mavericks",
+    "home_team_abbr": "DAL",
+    "away_team_id": 3,
+    "away_team_name": "Brooklyn Nets",
+    "away_team_abbr": "BKN"
+  },
+  {
+    "game_id": 20054968,
+    "game_date": "2025-12-12",
+    "time_et": null,
+    "status": "2025-12-13T03:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 10,
+    "home_team_name": "Golden State Warriors",
+    "home_team_abbr": "GSW",
+    "away_team_id": 18,
+    "away_team_name": "Minnesota Timberwolves",
+    "away_team_abbr": "MIN"
+  },
+  {
+    "game_id": 20054969,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-14T20:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 12,
+    "home_team_name": "Indiana Pacers",
+    "home_team_abbr": "IND",
+    "away_team_id": 30,
+    "away_team_name": "Washington Wizards",
+    "away_team_abbr": "WAS"
+  },
+  {
+    "game_id": 20054970,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-14T23:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 1,
+    "home_team_name": "Atlanta Hawks",
+    "home_team_abbr": "ATL",
+    "away_team_id": 23,
+    "away_team_name": "Philadelphia 76ers",
+    "away_team_abbr": "PHI"
+  },
+  {
+    "game_id": 20054971,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-14T20:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 6,
+    "home_team_name": "Cleveland Cavaliers",
+    "home_team_abbr": "CLE",
+    "away_team_id": 4,
+    "away_team_name": "Charlotte Hornets",
+    "away_team_abbr": "CHA"
+  },
+  {
+    "game_id": 20054972,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-14T23:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 3,
+    "home_team_name": "Brooklyn Nets",
+    "home_team_abbr": "BKN",
+    "away_team_id": 17,
+    "away_team_name": "Milwaukee Bucks",
+    "away_team_abbr": "MIL"
+  },
+  {
+    "game_id": 20054973,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-15T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 18,
+    "home_team_name": "Minnesota Timberwolves",
+    "home_team_abbr": "MIN",
+    "away_team_id": 26,
+    "away_team_name": "Sacramento Kings",
+    "away_team_abbr": "SAC"
+  },
+  {
+    "game_id": 20054974,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-15T02:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 25,
+    "home_team_name": "Portland Trail Blazers",
+    "home_team_abbr": "POR",
+    "away_team_id": 10,
+    "away_team_name": "Golden State Warriors",
+    "away_team_abbr": "GSW"
+  },
+  {
+    "game_id": 20054976,
+    "game_date": "2025-12-14",
+    "time_et": null,
+    "status": "2025-12-15T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 5,
+    "home_team_name": "Chicago Bulls",
+    "home_team_abbr": "CHI",
+    "away_team_id": 19,
+    "away_team_name": "New Orleans Pelicans",
+    "away_team_abbr": "NOP"
+  },
+  {
+    "game_id": 20054975,
+    "game_date": "2025-12-15",
+    "time_et": null,
+    "status": "2025-12-16T00:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 2,
+    "home_team_name": "Boston Celtics",
+    "home_team_abbr": "BOS",
+    "away_team_id": 9,
+    "away_team_name": "Detroit Pistons",
+    "away_team_abbr": "DET"
+  },
+  {
+    "game_id": 20054977,
+    "game_date": "2025-12-15",
+    "time_et": null,
+    "status": "2025-12-16T02:00:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 29,
+    "home_team_name": "Utah Jazz",
+    "home_team_abbr": "UTA",
+    "away_team_id": 7,
+    "away_team_name": "Dallas Mavericks",
+    "away_team_abbr": "DAL"
+  },
+  {
+    "game_id": 20054978,
+    "game_date": "2025-12-15",
+    "time_et": null,
+    "status": "2025-12-16T02:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 8,
+    "home_team_name": "Denver Nuggets",
+    "home_team_abbr": "DEN",
+    "away_team_id": 11,
+    "away_team_name": "Houston Rockets",
+    "away_team_abbr": "HOU"
+  },
+  {
+    "game_id": 20054979,
+    "game_date": "2025-12-15",
+    "time_et": null,
+    "status": "2025-12-16T03:30:00Z",
+    "season": 2025,
+    "period": 0,
+    "home_team_id": 13,
+    "home_team_name": "LA Clippers",
+    "home_team_abbr": "LAC",
+    "away_team_id": 15,
+    "away_team_name": "Memphis Grizzlies",
+    "away_team_abbr": "MEM"
+  }
+]
