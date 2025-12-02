@@ -24,7 +24,7 @@ function labelForDate(date, today) {
   if (diffDays === -1) return "Yesterday";
   if (diffDays === 1) return "Tomorrow";
 
-  const opts = { weekday: "short" }; // e.g. Mon, Tue
+  const opts = { weekday: "short" };
   return date.toLocaleDateString(undefined, opts);
 }
 
@@ -71,17 +71,17 @@ function renderGamesList(games) {
     const card = document.createElement("div");
     card.className = "pp-card pp-card-clickable";
 
-    const tipTime = g.time || "TBA";
+    const tipTime = g.time_et || "TBA";
     const status = g.status || "Scheduled";
 
     card.innerHTML = `
       <div class="pp-game-row">
         <div class="pp-game-main">
           <div class="pp-game-teams">
-            ${g.visitor_team_abbr} @ ${g.home_team_abbr}
+            ${g.away_team_abbr} @ ${g.home_team_abbr}
           </div>
           <div class="pp-game-extra">
-            ${g.visitor_team_name} @ ${g.home_team_name}
+            ${g.away_team_name} @ ${g.home_team_name}
           </div>
         </div>
         <div class="pp-game-side">
@@ -106,10 +106,10 @@ function renderGameDetails(game) {
 
   panel.innerHTML = `
     <h3 style="margin-top:0;margin-bottom:0.35rem;">
-      ${game.visitor_team_name} @ ${game.home_team_name}
+      ${game.away_team_name} @ ${game.home_team_name}
     </h3>
     <p class="pp-game-extra" style="margin-top:0;margin-bottom:0.75rem;">
-      Game ID: ${game.game_id} · ${game.game_date} · ${game.time || "TBA"} · Status: ${
+      Game ID: ${game.game_id} · ${game.game_date} · ${game.time_et || "TBA"} · Status: ${
     game.status || "Scheduled"
   }
     </p>
@@ -139,11 +139,10 @@ async function init() {
 
   renderDateTabs(dates, todayIso, selectedIso, async (iso) => {
     selectedIso = iso;
-    renderDateTabs(dates, todayIso, selectedIso, () => {}); // rerender pills
+    renderDateTabs(dates, todayIso, selectedIso, () => {});
     await loadGamesForDate(selectedIso);
   });
 
-  // initial load
   await loadGamesForDate(selectedIso);
 }
 
