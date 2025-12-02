@@ -1815,17 +1815,6 @@
     "jersey": "15"
   },
   {
-    "id": 1028246784,
-    "name": "Jackson Rowe",
-    "first_name": "Jackson",
-    "last_name": "Rowe",
-    "team": "GSW",
-    "pos": "F",
-    "height": "6-6",
-    "weight": "210",
-    "jersey": "44"
-  },
-  {
     "id": 79,
     "name": "Jimmy Butler",
     "first_name": "Jimmy",
@@ -1879,6 +1868,17 @@
     "height": "7-0",
     "weight": "238",
     "jersey": "21"
+  },
+  {
+    "id": 114,
+    "name": "Seth Curry",
+    "first_name": "Seth",
+    "last_name": "Curry",
+    "team": "GSW",
+    "pos": "G",
+    "height": "6-1",
+    "weight": "185",
+    "jersey": "31"
   },
   {
     "id": 115,
