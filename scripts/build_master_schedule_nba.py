@@ -1,17 +1,13 @@
+import os
 import json
 import requests
-from datetime import datetime
 
 NBA_SCHEDULE_URL = "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json"
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 def build_internal_game_id(game_date: str, index_for_day: int) -> str:
-    """
-    Our own stable internal ID, so we never depend on NBA.com or BDL IDs.
-
-    Example: game_date = '2025-12-01', index_for_day = 1
-    -> 'g_20251201_001'
-    """
     compact = game_date.replace("-", "")
     return f"g_{compact}_{index_for_day:03d}"
 
@@ -21,7 +17,6 @@ def build_master_schedule():
     resp.raise_for_status()
     data = resp.json()
 
-    # This structure is based on the current NBA scheduleLeagueV2 format.
     game_dates = (
         data.get("leagueSchedule", {})
         .get("gameDates", [])
@@ -30,10 +25,8 @@ def build_master_schedule():
     master = []
 
     for gd in game_dates:
-        # Expect something like '2025-12-01'
         game_date = gd.get("gameDate")
         if not game_date:
-            # Some versions include 'gameDate' as 'YYYY-MM-DD', some as 'YYYY-MM-DDT00:00:00Z'
             raw_date = gd.get("gameDateEst") or gd.get("gameDateUTC")
             if raw_date:
                 game_date = raw_date[:10]
@@ -55,8 +48,42 @@ def build_master_schedule():
             home_abbr = home_team.get("teamTricode")
             away_abbr = away_team.get("teamTricode")
 
-            # NBA usually provides this
             time_et = g.get("gameTimeET") or "TBD"
 
-            # Game status (scheduled / in progress / final, etc.)
             status = "Scheduled"
+            game_status = g.get("gameStatusText") or g.get("gameStatus")
+            if isinstance(game_status, dict):
+                status = game_status.get("gameStatusText") or status
+            elif isinstance(game_status, str):
+                status = game_status
+
+            internal_id = build_internal_game_id(game_date, index_for_day)
+
+            master.append(
+                {
+                    "game_id": internal_id,
+
+                    "game_date": game_date,
+                    "time_et": time_et,
+
+                    "home_team_abbr": home_abbr,
+                    "away_team_abbr": away_abbr,
+
+                    "nba_game_id": nba_game_id,
+                    "bdl_game_id": None,
+
+                    "status": status,
+                    "home_score": None,
+                    "away_score": None,
+
+                    "bdl_payload": None,
+                }
+            )
+
+    output_path = os.path.join(REPO_ROOT, "schedule_master.json")
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(master, f, indent=2)
+
+
+if __name__ == "__main__":
+    build_master_schedule()
