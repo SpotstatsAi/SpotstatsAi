@@ -152,3 +152,82 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = `<div class="pp-empty">Error: ${err.message}</div>`;
   });
 });
+async function loadFallbackDashboard() {
+  console.log("Loading fallback dashboard…");
+
+  const statsRes = await fetch("/player_stats.json");
+  const rosterRes = await fetch("/rosters.json");
+
+  const stats = await statsRes.json();
+  const rosters = await rosterRes.json();
+
+  // 1. Trending players (Top 8 scoring averages)
+  const trending = [...stats]
+    .sort((a, b) => b.points_per_game - a.points_per_game)
+    .slice(0, 8);
+
+  renderTrendingPlayers(trending);
+
+  // 2. Prop Targets – players with highest consistency score
+  const propTargets = [...stats]
+    .map(p => ({
+      ...p,
+      consistency:
+        (p.points_per_game * 0.5) +
+        (p.rebounds_per_game * 0.3) +
+        (p.assists_per_game * 0.2)
+    }))
+    .sort((a, b) => b.consistency - a.consistency)
+    .slice(0, 8);
+
+  renderPropTargets(propTargets);
+
+  // 3. Rosters – grouped by team
+  const teams = {};
+  for (const p of rosters) {
+    if (!teams[p.team_abbreviation]) teams[p.team_abbreviation] = [];
+    teams[p.team_abbreviation].push(p);
+  }
+
+  renderTeamRosters(teams);
+
+  document.getElementById("no-games-dashboard").classList.remove("hidden");
+}
+
+// UI rendering functions
+function renderTrendingPlayers(players) {
+  const div = document.getElementById("trending-players");
+  div.innerHTML = players.map(p => `
+    <div class="player-card">
+      <h3>${p.first_name} ${p.last_name}</h3>
+      <div class="player-stat">PPG: ${p.points_per_game}</div>
+      <div class="player-stat">REB: ${p.rebounds_per_game}</div>
+      <div class="player-stat">AST: ${p.assists_per_game}</div>
+    </div>
+  `).join("");
+}
+
+function renderPropTargets(players) {
+  const div = document.getElementById("prop-targets");
+  div.innerHTML = players.map(p => `
+    <div class="player-card">
+      <h3>${p.first_name} ${p.last_name}</h3>
+      <div class="player-stat">Consistency: ${p.consistency.toFixed(1)}</div>
+      <div class="player-stat">PPG: ${p.points_per_game}</div>
+      <div class="player-stat">RPG: ${p.rebounds_per_game}</div>
+      <div class="player-stat">APG: ${p.assists_per_game}</div>
+    </div>
+  `).join("");
+}
+
+function renderTeamRosters(teams) {
+  const div = document.getElementById("team-rosters");
+  div.innerHTML = Object.entries(teams).map(([team, players]) => `
+    <div class="team-card">
+      <h3>${team}</h3>
+      <ul>
+        ${players.map(p => `<li>${p.first_name} ${p.last_name}</li>`).join("")}
+      </ul>
+    </div>
+  `).join("");
+}
