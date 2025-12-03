@@ -1837,6 +1837,17 @@
     "jersey": "1"
   },
   {
+    "id": 1057968644,
+    "name": "LJ Cryer",
+    "first_name": "LJ",
+    "last_name": "Cryer",
+    "team": "GSW",
+    "pos": "",
+    "height": "6-0",
+    "weight": null,
+    "jersey": "18"
+  },
+  {
     "id": 17553992,
     "name": "Moses Moody",
     "first_name": "Moses",
@@ -2057,17 +2068,6 @@
     "jersey": "7"
   },
   {
-    "id": 38017607,
-    "name": "Kevon Harris",
-    "first_name": "Kevon",
-    "last_name": "Harris",
-    "team": "HOU",
-    "pos": "G",
-    "height": "6-5",
-    "weight": "216",
-    "jersey": "00"
-  },
-  {
     "id": 1028028519,
     "name": "Reed Sheppard",
     "first_name": "Reed",
@@ -2099,6 +2099,17 @@
     "height": "6-8",
     "weight": "215",
     "jersey": "17"
+  },
+  {
+    "id": 1028038570,
+    "name": "Tyler Smith",
+    "first_name": "Tyler",
+    "last_name": "Smith",
+    "team": "HOU",
+    "pos": "F",
+    "height": "6-9",
+    "weight": "224",
+    "jersey": "21"
   },
   {
     "id": 3547250,
@@ -2154,6 +2165,17 @@
     "height": "6-4",
     "weight": "195",
     "jersey": "55"
+  },
+  {
+    "id": 666754,
+    "name": "Garrison Mathews",
+    "first_name": "Garrison",
+    "last_name": "Mathews",
+    "team": "IND",
+    "pos": "G",
+    "height": "6-5",
+    "weight": "215",
+    "jersey": "24"
   },
   {
     "id": 17896035,
