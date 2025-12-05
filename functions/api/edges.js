@@ -6,11 +6,9 @@
 //
 // Usage examples:
 //   /api/edges
-//   /api/edges?stat=pts&last_n=5&min_games=5&limit=50
+//   /api/edges?stat=pts&last_n=5&min_games=8&limit=50
 //   /api/edges?team=LAL
 //   /api/edges?position=G
-//
-// Edge score = lastNAvg(stat) - seasonAvg(stat)
 
 export async function onRequest(context) {
   const { request } = context;
@@ -52,7 +50,7 @@ export async function onRequest(context) {
       );
     }
     const statsRaw = await statsRes.json();
-    const rowsRaw = Array.isArray(statsRaw) ? statsRaw : statsRaw.data || [];
+    const rowsRaw = extractRowsFromStatsPayload(statsRaw);
     const rows = rowsRaw.map(normalizeRow).filter((r) => !!r);
 
     // Load rosters for team/pos filters
@@ -138,7 +136,10 @@ export async function onRequest(context) {
   } catch (err) {
     console.error("api/edges error:", err);
 
-    return jsonResponse({ error: "Failed to compute edge players." }, { status: 500 });
+    return jsonResponse(
+      { error: "Failed to compute edge players." },
+      { status: 500 }
+    );
   }
 }
 
@@ -154,6 +155,18 @@ function clampInt(v, min, max) {
   const n = parseInt(v, 10);
   if (Number.isNaN(n)) return min;
   return Math.min(max, Math.max(min, n));
+}
+
+function extractRowsFromStatsPayload(raw) {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw;
+  if (Array.isArray(raw.data)) return raw.data;
+  if (typeof raw === "object") {
+    for (const value of Object.values(raw)) {
+      if (Array.isArray(value)) return value;
+    }
+  }
+  return [];
 }
 
 function parseDateFromRow(row) {
