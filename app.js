@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPlayerModal();
   setupGameModal();
   setupEdgeBoardModal();
+  setupPlayerDetailRouting();
   ensureOverviewLoaded();
 });
 
@@ -26,9 +27,7 @@ function setupNav() {
       const target = tab.dataset.view;
 
       tabs.forEach((t) => t.classList.toggle("active", t === tab));
-      views.forEach((v) =>
-        v.classList.toggle("active", v.id === target)
-      );
+      views.forEach((v) => v.classList.toggle("active", v.id === target));
 
       if (target === "players-view") {
         ensurePlayersLoaded();
@@ -1095,6 +1094,7 @@ function openPlayerModal(player) {
   const metaEl = document.getElementById("modal-player-meta");
   const summaryEl = document.getElementById("modal-summary");
   const tbody = document.getElementById("modal-stats-rows");
+  const detailBtn = document.getElementById("modal-view-detail");
 
   if (nameEl) nameEl.textContent = player.name || "Player";
   if (metaEl) {
@@ -1110,6 +1110,16 @@ function openPlayerModal(player) {
   if (tbody) {
     tbody.innerHTML =
       '<tr><td colspan="6" class="muted">Loading...</td></tr>';
+  }
+
+  if (detailBtn) {
+    detailBtn.onclick = () => {
+      closePlayerModal();
+      // Use hash routing so deep link works
+      if (player.id) {
+        window.location.hash = `#player-${player.id}`;
+      }
+    };
   }
 
   if (!player.id) {
@@ -1142,8 +1152,7 @@ async function loadPlayerStats(playerId, summaryEl, tbody) {
 
     if (!rows.length) {
       if (summaryEl)
-        summaryEl.textContent =
-          "No recent games found.";
+        summaryEl.textContent = "No recent games found.";
       if (tbody) {
         tbody.innerHTML =
           '<tr><td colspan="6" class="muted">No rows.</td></tr>';
@@ -1562,6 +1571,475 @@ function populateEdgeBoardTeamsFilter() {
     );
   });
   teamSelect.innerHTML = opts.join("");
+}
+
+/* ---------------- PLAYER DETAIL VIEW ---------------- */
+
+const PlayerDetailState = {
+  playersById: new Map(),
+  loadedRoster: false,
+  currentPlayerId: null,
+};
+
+async function pdFetchJSON(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${path}`);
+  return res.json();
+}
+
+async function pdEnsureRosterLoaded() {
+  if (PlayerDetailState.loadedRoster) return;
+  const data = await pdFetchJSON("/api/players");
+  const list = Array.isArray(data) ? data : data.data || [];
+  PlayerDetailState.playersById.clear();
+  list.forEach((p) => {
+    if (p.id != null) {
+      PlayerDetailState.playersById.set(String(p.id), p);
+    }
+  });
+  PlayerDetailState.loadedRoster = true;
+}
+
+function pdGetRosterPlayer(id) {
+  return PlayerDetailState.playersById.get(String(id)) || null;
+}
+
+function pdComputeAverages(gameLogs, fields, sliceCount) {
+  const subset =
+    sliceCount && sliceCount > 0 ? gameLogs.slice(0, sliceCount) : gameLogs;
+
+  const result = {};
+  fields.forEach((f) => {
+    let total = 0;
+    let n = 0;
+    subset.forEach((g) => {
+      const val = Number(g[f]);
+      if (!Number.isNaN(val)) {
+        total += val;
+        n += 1;
+      }
+    });
+    result[f] = n > 0 ? total / n : null;
+  });
+  return result;
+}
+
+function pdFmt(val) {
+  if (val == null || Number.isNaN(val)) return "–";
+  const num = Number(val);
+  if (Number.isNaN(num)) return "–";
+  return num.toFixed(1);
+}
+
+function pdShowPlayerDetailView() {
+  const views = document.querySelectorAll(".view");
+  views.forEach((v) => v.classList.remove("active"));
+  const view = document.getElementById("player-detail-view");
+  if (view) view.classList.add("active");
+}
+
+function pdHidePlayerDetailView() {
+  const view = document.getElementById("player-detail-view");
+  if (view) view.classList.remove("active");
+  // Default back to Players view if it exists; otherwise Overview
+  const playersView = document.getElementById("players-view");
+  const overviewView = document.getElementById("overview-view");
+  if (playersView) {
+    playersView.classList.add("active");
+  } else if (overviewView) {
+    overviewView.classList.add("active");
+  }
+}
+
+function pdSetLoading(isLoading, errorMsg) {
+  const loadingEl = document.getElementById("pd-loading");
+  const errorEl = document.getElementById("pd-error");
+  if (!loadingEl || !errorEl) return;
+
+  if (isLoading) {
+    loadingEl.classList.remove("hidden");
+    errorEl.classList.add("hidden");
+  } else {
+    loadingEl.classList.add("hidden");
+  }
+
+  if (errorMsg) {
+    errorEl.textContent = errorMsg;
+    errorEl.classList.remove("hidden");
+  } else {
+    errorEl.classList.add("hidden");
+  }
+}
+
+async function openPlayerDetail(playerId) {
+  if (!playerId) return;
+  PlayerDetailState.currentPlayerId = String(playerId);
+
+  pdShowPlayerDetailView();
+  pdSetLoading(true, null);
+
+  try {
+    await pdEnsureRosterLoaded();
+  } catch (err) {
+    console.error(err);
+  }
+
+  const rosterPlayer = pdGetRosterPlayer(playerId);
+
+  const [logsRes, ptsRes, rebRes, astRes] = await Promise.allSettled([
+    pdFetchJSON(`/api/stats?player_id=${encodeURIComponent(
+      playerId
+    )}&last_n=82`),
+    pdFetchJSON("/api/edges?stat=pts&limit=200"),
+    pdFetchJSON("/api/edges?stat=reb&limit=200"),
+    pdFetchJSON("/api/edges?stat=ast&limit=200"),
+  ]);
+
+  pdSetLoading(false, null);
+
+  let gameLogs = [];
+  if (logsRes.status === "fulfilled") {
+    const val = logsRes.value;
+    gameLogs = Array.isArray(val) ? val : val.data || [];
+  } else {
+    console.error(logsRes.reason);
+    pdSetLoading(false, "Failed to load game logs.");
+  }
+
+  const edgesByStat = {
+    pts:
+      ptsRes.status === "fulfilled"
+        ? (Array.isArray(ptsRes.value)
+            ? ptsRes.value
+            : ptsRes.value.data || [])
+        : [],
+    reb:
+      rebRes.status === "fulfilled"
+        ? (Array.isArray(rebRes.value)
+            ? rebRes.value
+            : rebRes.value.data || [])
+        : [],
+    ast:
+      astRes.status === "fulfilled"
+        ? (Array.isArray(astRes.value)
+            ? astRes.value
+            : astRes.value.data || [])
+        : [],
+  };
+
+  pdRenderHeader(rosterPlayer, playerId);
+  pdRenderSeasonSnapshot(rosterPlayer, gameLogs);
+  pdRenderGameLog(gameLogs);
+  pdRenderSeasonAverages(gameLogs);
+  pdRenderPropPreview(rosterPlayer, playerId, edgesByStat);
+}
+
+function pdRenderHeader(player, playerId) {
+  const nameEl = document.getElementById("pd-name");
+  const metaEl = document.getElementById("pd-meta");
+  const tagsEl = document.getElementById("pd-tags");
+  if (!nameEl || !metaEl || !tagsEl) return;
+
+  const name =
+    player?.name ||
+    `${player?.first_name || ""} ${player?.last_name || ""}`.trim() ||
+    `Player ${playerId}`;
+
+  nameEl.textContent = name;
+
+  const parts = [];
+  if (player?.team) parts.push(player.team);
+  if (player?.pos) parts.push(player.pos);
+  if (player?.height) parts.push(player.height);
+  if (player?.weight) parts.push(`${player.weight} lb`);
+
+  metaEl.innerHTML = parts.map((p) => `<span>${escapeHtml(p)}</span>`).join("");
+
+  tagsEl.innerHTML = "";
+  const idTag = document.createElement("span");
+  idTag.className = "tag tag-secondary";
+  idTag.textContent = `ID: ${playerId}`;
+  tagsEl.appendChild(idTag);
+
+  if (player?.jersey) {
+    const j = document.createElement("span");
+    j.className = "tag tag-secondary";
+    j.textContent = `#${player.jersey}`;
+    tagsEl.appendChild(j);
+  }
+}
+
+function pdRenderSeasonSnapshot(player, gameLogs) {
+  const container = document.getElementById("pd-season-snapshot");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const metaRow = document.createElement("div");
+  metaRow.className = "pd-stat-row";
+  metaRow.innerHTML = `
+    <div class="pd-stat-label">
+      Team: <strong>${escapeHtml(player?.team || "–")}</strong>
+      &nbsp;·&nbsp;
+      Pos: <strong>${escapeHtml(player?.pos || "–")}</strong>
+    </div>
+    <div class="pd-stat-values">
+      <span class="tag tag-secondary">${
+        Array.isArray(gameLogs) ? gameLogs.length : 0
+      } GP</span>
+    </div>
+  `;
+  container.appendChild(metaRow);
+
+  if (!Array.isArray(gameLogs) || gameLogs.length === 0) {
+    const noData = document.createElement("div");
+    noData.className = "inline-status";
+    noData.textContent = "No game logs available.";
+    container.appendChild(noData);
+    return;
+  }
+
+  const fields = ["pts", "reb", "ast"];
+  const season = pdComputeAverages(gameLogs, fields);
+  const l10 = pdComputeAverages(gameLogs, fields, 10);
+  const l5 = pdComputeAverages(gameLogs, fields, 5);
+
+  fields.forEach((f) => {
+    const row = document.createElement("div");
+    row.className = "pd-stat-row";
+    row.innerHTML = `
+      <div class="pd-stat-label">${f.toUpperCase()}</div>
+      <div class="pd-stat-values">
+        <span>Season: <strong>${pdFmt(season[f])}</strong></span>
+        <span>L10: <strong>${pdFmt(l10[f])}</strong></span>
+        <span>L5: <strong>${pdFmt(l5[f])}</strong></span>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function pdRenderGameLog(gameLogs) {
+  const container = document.getElementById("pd-gamelog");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!Array.isArray(gameLogs) || gameLogs.length === 0) {
+    container.textContent = "No game logs.";
+    return;
+  }
+
+  const recent = gameLogs.slice(0, 10);
+  recent.forEach((g) => {
+    const row = document.createElement("div");
+    row.className = "pd-gamelog-row";
+
+    const date = g.game_date || g.date || "";
+    const opp = g.opponent || g.opp || "";
+    const ha = g.home_away || g.ha || "";
+    const pts = g.pts ?? g.points;
+    const reb = g.reb ?? g.rebounds ?? g.reb_tot;
+    const ast = g.ast ?? g.assists;
+
+    row.innerHTML = `
+      <div class="pd-gamelog-date">${escapeHtml(String(date))}</div>
+      <div class="pd-gamelog-opp">
+        ${escapeHtml(ha || "")} vs ${escapeHtml(opp || "")}
+        <div class="pd-gamelog-line">
+          ${
+            g.line_pts != null
+              ? `PTS line: ${escapeHtml(g.line_pts)}`
+              : g.prop_pts_line != null
+              ? `PTS line: ${escapeHtml(g.prop_pts_line)}`
+              : ""
+          }
+        </div>
+      </div>
+      <div class="pd-gamelog-statline">
+        ${pts != null ? `P:${escapeHtml(pts)} ` : ""}
+        ${reb != null ? `R:${escapeHtml(reb)} ` : ""}
+        ${ast != null ? `A:${escapeHtml(ast)}` : ""}
+      </div>
+    `;
+
+    container.appendChild(row);
+  });
+}
+
+function pdRenderSeasonAverages(gameLogs) {
+  const tbody = document.getElementById("pd-avg-body");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  if (!Array.isArray(gameLogs) || gameLogs.length === 0) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td colspan="4">No game logs.</td>';
+    tbody.appendChild(tr);
+    return;
+  }
+
+  const fields = ["pts", "reb", "ast"];
+  const season = pdComputeAverages(gameLogs, fields);
+  const l10 = pdComputeAverages(gameLogs, fields, 10);
+  const l5 = pdComputeAverages(gameLogs, fields, 5);
+
+  fields.forEach((f) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="cell-left">${f.toUpperCase()}</td>
+      <td>${pdFmt(season[f])}</td>
+      <td>${pdFmt(l10[f])}</td>
+      <td>${pdFmt(l5[f])}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function pdFilterEdgesForPlayer(edges, playerId, rosterPlayer) {
+  if (!Array.isArray(edges) || edges.length === 0) return [];
+
+  const name =
+    rosterPlayer?.name ||
+    `${rosterPlayer?.first_name || ""} ${
+      rosterPlayer?.last_name || ""
+    }`.trim().toLowerCase();
+
+  return edges.filter((e) => {
+    if (e.player_id != null && String(e.player_id) === String(playerId)) {
+      return true;
+    }
+    if (name) {
+      const ep = (e.player_name || e.player || e.name || "").toLowerCase();
+      if (ep === name) return true;
+    }
+    return false;
+  });
+}
+
+function pdRenderPropPreview(rosterPlayer, playerId, edgesByStat) {
+  const container = document.getElementById("pd-props");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const stats = ["pts", "reb", "ast"];
+  let any = false;
+
+  stats.forEach((stat) => {
+    const all = edgesByStat[stat] || [];
+    const filtered = pdFilterEdgesForPlayer(all, playerId, rosterPlayer)
+      .slice()
+      .sort((a, b) => {
+        const ea =
+          a.delta != null
+            ? a.delta
+            : a.edge != null
+            ? a.edge
+            : a.ev_edge != null
+            ? a.ev_edge
+            : 0;
+        const eb =
+          b.delta != null
+            ? b.delta
+            : b.edge != null
+            ? b.edge
+            : b.ev_edge != null
+            ? b.ev_edge
+            : 0;
+        return Number(eb) - Number(ea);
+      })
+      .slice(0, 5);
+
+    if (filtered.length === 0) return;
+    any = true;
+
+    const group = document.createElement("div");
+    group.className = "pd-prop-group";
+
+    const header = document.createElement("div");
+    header.className = "pd-prop-header";
+    header.innerHTML = `
+      <div>${stat.toUpperCase()}</div>
+      <div>${filtered.length} edges</div>
+    `;
+    group.appendChild(header);
+
+    filtered.forEach((e) => {
+      const row = document.createElement("div");
+      row.className = "pd-prop-row";
+
+      const book = e.book || e.source || "";
+      const line =
+        e.line != null
+          ? e.line
+          : e.prop_line != null
+          ? e.prop_line
+          : e.market_line != null
+          ? e.market_line
+          : "";
+      const recent = e.recent != null ? e.recent : e.proj;
+      const season =
+        e.seasonAvg != null ? e.seasonAvg : e.avg != null ? e.avg : null;
+      const delta =
+        e.delta != null
+          ? e.delta
+          : e.edge != null
+          ? e.edge
+          : e.ev_edge != null
+          ? e.ev_edge
+          : null;
+
+      row.innerHTML = `
+        <div>${escapeHtml(book)}</div>
+        <div>${line !== "" ? escapeHtml(line) : "–"}</div>
+        <div>${
+          recent != null
+            ? pdFmt(recent)
+            : "–"
+        }</div>
+        <div>${delta != null ? pdFmt(delta) : "–"}</div>
+      `;
+      group.appendChild(row);
+    });
+
+    container.appendChild(group);
+  });
+
+  if (!any) {
+    container.textContent = "No props currently available for this player.";
+  }
+}
+
+function setupPlayerDetailRouting() {
+  const backBtn = document.getElementById("player-detail-back");
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      // Clear hash and go back to main tab view
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+      pdHidePlayerDetailView();
+    });
+  }
+
+  function handleHashChange() {
+    const hash = window.location.hash || "";
+    if (hash.startsWith("#player-")) {
+      const id = hash.slice("#player-".length);
+      if (id) {
+        openPlayerDetail(id);
+      }
+    } else {
+      // Leaving player detail hash; hide detail view if it was active
+      const detailView = document.getElementById("player-detail-view");
+      if (detailView && detailView.classList.contains("active")) {
+        pdHidePlayerDetailView();
+      }
+    }
+  }
+
+  window.addEventListener("hashchange", handleHashChange);
+  handleHashChange();
 }
 
 /* ---------------- UTIL ---------------- */
