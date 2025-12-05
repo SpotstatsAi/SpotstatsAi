@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupTeamsView();
   setupTrendsView();
   setupOverviewView();
+  setupPlayerModal();
   // Ensure Overview loads on first paint
   ensureOverviewLoaded();
 });
@@ -318,9 +319,14 @@ function renderPlayerCard(p) {
   const height = escapeHtml(p.height || "–");
   const weight = p.weight ? `${p.weight} lb` : "–";
   const jersey = p.jersey ? `#${p.jersey}` : "—";
+  const id = p.id != null ? String(p.id) : "";
 
   return `
-    <div class="player-card">
+    <div class="player-card"
+         data-player-id="${id}"
+         data-player-name="${name}"
+         data-player-team="${team}"
+         data-player-pos="${pos}">
       <div class="player-card-header">
         <div>
           <div class="player-name">${name}</div>
@@ -639,7 +645,9 @@ async function loadTrends(stat, pos) {
       return;
     }
 
-    const rows = data.map((p) => renderTrendRow(p)).join("");
+    const rows = data
+      .map((p) => renderTrendRow(p))
+      .join("");
     list.innerHTML = `<div class="trends-list">${rows}</div>`;
   } catch (err) {
     console.error(err);
@@ -653,9 +661,14 @@ function renderTrendRow(p) {
   const pos = escapeHtml(p.pos || "");
   const stat = p.stat || "pts";
   const val = p.score != null ? p.score.toFixed(1) : "–";
+  const id = p.player_id != null ? String(p.player_id) : p.id != null ? String(p.id) : "";
 
   return `
-    <div class="trend-row">
+    <div class="trend-row"
+         data-player-id="${id}"
+         data-player-name="${name}"
+         data-player-team="${team}"
+         data-player-pos="${pos}">
       <div class="trend-main">
         <span>${name}</span>
         <span class="muted">${team}${pos ? " • " + pos : ""}</span>
@@ -764,9 +777,14 @@ async function loadOverviewEdges(stat) {
         const delta = p.delta != null ? p.delta.toFixed(1) : "–";
         const recent = p.recent != null ? p.recent.toFixed(1) : "–";
         const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+        const id = p.player_id != null ? String(p.player_id) : p.id != null ? String(p.id) : "";
 
         return `
-          <div class="overview-row">
+          <div class="overview-row"
+               data-player-id="${id}"
+               data-player-name="${name}"
+               data-player-team="${team}"
+               data-player-pos="${pos}">
             <div class="overview-row-main">
               <span>${name}</span>
               <span class="muted">${team}${pos ? " • " + pos : ""}</span>
@@ -813,9 +831,14 @@ async function loadOverviewTrending(stat) {
         const team = escapeHtml(p.team || "");
         const pos = escapeHtml(p.pos || "");
         const score = p.score != null ? p.score.toFixed(1) : "–";
+        const id = p.player_id != null ? String(p.player_id) : p.id != null ? String(p.id) : "";
 
         return `
-          <div class="overview-row">
+          <div class="overview-row"
+               data-player-id="${id}"
+               data-player-name="${name}"
+               data-player-team="${team}"
+               data-player-pos="${pos}">
             <div class="overview-row-main">
               <span>${name}</span>
               <span class="muted">${team}${pos ? " • " + pos : ""}</span>
@@ -879,9 +902,14 @@ async function loadOverviewEdgeBoard() {
         const recent = p.recent != null ? p.recent.toFixed(1) : "–";
         const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
         const delta = p.delta != null ? p.delta.toFixed(1) : "–";
+        const id = p.player_id != null ? String(p.player_id) : p.id != null ? String(p.id) : "";
 
         return `
-          <div class="overview-row">
+          <div class="overview-row"
+               data-player-id="${id}"
+               data-player-name="${name}"
+               data-player-team="${team}"
+               data-player-pos="${pos}">
             <div class="overview-row-main">
               <span>${name}</span>
               <span class="muted">${team}${pos ? " • " + pos : ""}</span>
@@ -900,6 +928,139 @@ async function loadOverviewEdgeBoard() {
   } catch (err) {
     console.error(err);
     el.innerHTML = `<p class="muted">Error loading edge board.</p>`;
+  }
+}
+
+/* ---------------- PLAYER MODAL ---------------- */
+
+function setupPlayerModal() {
+  const modal = document.getElementById("player-modal");
+  if (!modal) return;
+
+  const closeBtn = document.getElementById("modal-close");
+  const backdrop = modal.querySelector(".modal-backdrop");
+
+  if (closeBtn) closeBtn.addEventListener("click", closePlayerModal);
+  if (backdrop) backdrop.addEventListener("click", closePlayerModal);
+
+  // Delegate clicks from any element carrying data-player-id
+  document.addEventListener("click", (evt) => {
+    const target = evt.target.closest("[data-player-id]");
+    if (!target) return;
+
+    const id = target.dataset.playerId || "";
+    const name = target.dataset.playerName || "";
+    const team = target.dataset.playerTeam || "";
+    const pos = target.dataset.playerPos || "";
+
+    if (!id) return; // no id, nothing to fetch
+
+    openPlayerModal({ id, name, team, pos });
+  });
+}
+
+function openPlayerModal(player) {
+  const modal = document.getElementById("player-modal");
+  if (!modal) return;
+
+  modal.classList.remove("hidden");
+
+  const nameEl = document.getElementById("modal-player-name");
+  const metaEl = document.getElementById("modal-player-meta");
+  const summaryEl = document.getElementById("modal-summary");
+  const tbody = document.getElementById("modal-stats-rows");
+
+  if (nameEl) nameEl.textContent = player.name || "Player";
+  if (metaEl) {
+    const bits = [];
+    if (player.team) bits.push(player.team);
+    if (player.pos) bits.push(player.pos);
+    if (player.id) bits.push(`ID ${player.id}`);
+    metaEl.textContent = bits.join(" • ");
+  }
+
+  if (summaryEl)
+    summaryEl.textContent = "Loading last games from BallDontLie...";
+  if (tbody) {
+    tbody.innerHTML =
+      '<tr><td colspan="6" class="muted">Loading...</td></tr>';
+  }
+
+  if (!player.id) {
+    if (summaryEl) summaryEl.textContent = "No player id available.";
+    if (tbody) {
+      tbody.innerHTML =
+        '<tr><td colspan="6" class="muted">No stats to display.</td></tr>';
+    }
+    return;
+  }
+
+  loadPlayerStats(player.id, summaryEl, tbody);
+}
+
+function closePlayerModal() {
+  const modal = document.getElementById("player-modal");
+  if (modal) modal.classList.add("hidden");
+}
+
+async function loadPlayerStats(playerId, summaryEl, tbody) {
+  try {
+    const url = `/api/stats?player_id=${encodeURIComponent(
+      playerId
+    )}&last_n=10`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("stats fetch failed");
+    const json = await res.json();
+    const rows = json.data || [];
+    const meta = json.meta || {};
+
+    if (!rows.length) {
+      if (summaryEl)
+        summaryEl.textContent =
+          "No recent games found in player_stats.json.";
+      if (tbody) {
+        tbody.innerHTML =
+          '<tr><td colspan="6" class="muted">No rows.</td></tr>';
+      }
+      return;
+    }
+
+    const lastN = meta.lastN || rows.length;
+    const teamMeta = meta.team || meta.teamAbbr || "";
+    if (summaryEl) {
+      summaryEl.textContent = `Last ${lastN} games${
+        teamMeta ? ` • ${teamMeta}` : ""
+      }`;
+    }
+
+    const trHtml = rows
+      .map((r) => {
+        const date = r.game_date || r.date || "";
+        const opp = r.opponent || r.opp || "";
+        const min =
+          r.min != null ? r.min : r.minutes != null ? r.minutes : "";
+        const pts = r.pts != null ? r.pts : "";
+        const reb = r.reb != null ? r.reb : r.reb_tot != null ? r.reb_tot : "";
+        const ast = r.ast != null ? r.ast : "";
+
+        return `<tr>
+          <td class="cell-left">${escapeHtml(String(date).slice(5))}</td>
+          <td class="cell-left">${escapeHtml(opp)}</td>
+          <td>${escapeHtml(min)}</td>
+          <td>${escapeHtml(pts)}</td>
+          <td>${escapeHtml(reb)}</td>
+          <td>${escapeHtml(ast)}</td>
+        </tr>`;
+      })
+      .join("");
+    if (tbody) tbody.innerHTML = trHtml;
+  } catch (err) {
+    console.error(err);
+    if (summaryEl) summaryEl.textContent = "Error loading stats.";
+    if (tbody) {
+      tbody.innerHTML =
+        '<tr><td colspan="6" class="muted">Error loading stats.</td></tr>';
+    }
   }
 }
 
