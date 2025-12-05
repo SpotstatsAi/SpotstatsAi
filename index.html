@@ -1,51 +1,136 @@
+<!-- index.html -->
+<!-- :contentReference[oaicite:0]{index=0} -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>PropsParlor</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <title>Props Parlor | Player Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="app-shell">
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-mark">PP</div>
+        <div class="brand-text">
+          <span class="brand-title">Props Parlor</span>
+          <span class="brand-subtitle">NBA Player Hub</span>
+        </div>
+      </div>
+      <div class="top-meta">
+        <div class="status-pill status-pill--idle">
+          <span class="dot"></span>
+          <span>No games scheduled</span>
+        </div>
+        <div class="meta-stat">
+          <span id="playerCount">0</span>
+          <label>Players</label>
+        </div>
+      </div>
+    </header>
 
-<header class="top-bar">
-    <div class="logo">PROP<span>SPARLOR</span></div>
-    <nav class="nav">
-        <a onclick="showSection('players-section')">Players</a>
-        <a onclick="showSection('teams-section')">Teams</a>
-        <a onclick="showSection('games-section')">Games</a>
-        <a onclick="showSection('trends-section')">Trending</a>
-    </nav>
-</header>
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="panel panel--filters">
+          <header class="panel-header">
+            <h2>Filters</h2>
+            <button id="resetFilters" class="ghost-btn">Reset</button>
+          </header>
 
-<main>
+          <div class="field">
+            <label for="searchInput">Search</label>
+            <div class="field-input-wrapper">
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="Player, team, jersey..."
+                autocomplete="off"
+              />
+            </div>
+          </div>
 
-    <!-- PLAYERS -->
-    <section id="players-section" class="page-section visible">
-        <h1>Players</h1>
-        <div id="players-grid" class="grid"></div>
-    </section>
+          <div class="field-group">
+            <div class="field">
+              <label for="teamSelect">Team</label>
+              <select id="teamSelect">
+                <option value="">All teams</option>
+              </select>
+            </div>
 
-    <!-- TEAMS -->
-    <section id="teams-section" class="page-section">
-        <h1>Teams</h1>
-        <div id="teams-grid" class="grid"></div>
-    </section>
+            <div class="field">
+              <label for="positionSelect">Position</label>
+              <select id="positionSelect">
+                <option value="">All positions</option>
+              </select>
+            </div>
+          </div>
 
-    <!-- GAMES -->
-    <section id="games-section" class="page-section">
-        <h1>Today's Games</h1>
-        <div id="games-list" class="grid"></div>
-    </section>
+          <div class="field">
+            <label for="sortSelect">Sort</label>
+            <select id="sortSelect">
+              <option value="name-asc">Name A → Z</option>
+              <option value="team">Team, then name</option>
+              <option value="height-desc">Height (tallest)</option>
+              <option value="weight-desc">Weight (heaviest)</option>
+              <option value="jersey-asc">Jersey #</option>
+            </select>
+          </div>
 
-    <!-- TRENDING -->
-    <section id="trends-section" class="page-section">
-        <h1>Trending Players</h1>
-        <div id="trending-grid" class="grid"></div>
-    </section>
+          <div class="filter-chips" id="activeFilters"></div>
+        </section>
 
-</main>
+        <section class="panel panel--summary">
+          <header class="panel-header">
+            <h2>Snapshot</h2>
+          </header>
+          <div class="summary-list">
+            <div class="summary-row">
+              <span>Unique teams</span>
+              <span id="teamCount">0</span>
+            </div>
+            <div class="summary-row">
+              <span>Guards</span>
+              <span id="guardCount">0</span>
+            </div>
+            <div class="summary-row">
+              <span>Wings / Forwards</span>
+              <span id="forwardCount">0</span>
+            </div>
+            <div class="summary-row">
+              <span>Bigs / Centers</span>
+              <span id="centerCount">0</span>
+            </div>
+          </div>
+        </section>
+      </aside>
 
-<script src="app.js"></script>
+      <main class="main">
+        <section class="panel panel--players">
+          <header class="panel-header">
+            <h2>Players</h2>
+            <span class="panel-subtitle" id="resultSummary">Loading rosters…</span>
+          </header>
+
+          <div id="playersGrid" class="players-grid"></div>
+
+          <div id="emptyState" class="empty-state hidden">
+            <div class="empty-pill">No players match your filters.</div>
+            <p>Adjust search, team, or position filters to see more players.</p>
+            <button class="primary-btn" id="clearFiltersFromEmpty">
+              Clear filters
+            </button>
+          </div>
+
+          <div id="errorState" class="empty-state empty-state--error hidden">
+            <div class="empty-pill empty-pill--error">Error loading rosters.</div>
+            <p>Ensure <code>rosters.json</code> is available at the project root.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
