@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEdgeBoardModal();
   setupEdgesTabView();
   setupPlayerDetailRouting();
+  setupPlayerDetailUI();
   ensureOverviewLoaded();
 });
 
@@ -1722,6 +1723,14 @@ const PlayerDetailState = {
   playersById: new Map(),
   loadedRoster: false,
   currentPlayerId: null,
+  currentRosterPlayer: null,
+  currentGameLogs: [],
+  currentEdgesByStat: null,
+};
+
+const PlayerDetailUIState = {
+  propStatFilter: "all", // "all" | "pts" | "reb" | "ast"
+  bookFilter: "",
 };
 
 async function pdFetchJSON(path) {
@@ -1808,6 +1817,12 @@ async function openPlayerDetail(playerId) {
   if (!playerId) return;
   PlayerDetailState.currentPlayerId = String(playerId);
 
+  // reset UI filters
+  PlayerDetailUIState.propStatFilter = "all";
+  PlayerDetailUIState.bookFilter = "";
+  pdSyncPropStatButtons();
+  pdSyncBookFilterSelect();
+
   pdShowPlayerDetailView();
   pdSetLoading(true, null);
 
@@ -1860,11 +1875,15 @@ async function openPlayerDetail(playerId) {
         : [],
   };
 
+  PlayerDetailState.currentRosterPlayer = rosterPlayer;
+  PlayerDetailState.currentGameLogs = gameLogs;
+  PlayerDetailState.currentEdgesByStat = edgesByStat;
+
   pdRenderHeader(rosterPlayer, playerId);
   pdRenderSeasonSnapshot(rosterPlayer, gameLogs);
   pdRenderGameLog(gameLogs);
   pdRenderSeasonAverages(gameLogs);
-  pdRenderPropPreview(rosterPlayer, playerId, edgesByStat);
+  pdRenderPropPreview();
 }
 
 function pdRenderHeader(player, playerId) {
@@ -2051,18 +2070,67 @@ function pdFilterEdgesForPlayer(edges, playerId, rosterPlayer) {
   });
 }
 
-function pdRenderPropPreview(rosterPlayer, playerId, edgesByStat) {
+function pdUpdatePropBookFilterOptions(edgesByStat) {
+  const select = document.getElementById("pd-props-book-filter");
+  if (!select || !edgesByStat) return;
+
+  const books = new Set();
+  ["pts", "reb", "ast"].forEach((stat) => {
+    const arr = edgesByStat[stat] || [];
+    arr.forEach((e) => {
+      const b = e.book || e.source || "";
+      if (b) books.add(b);
+    });
+  });
+
+  const current = PlayerDetailUIState.bookFilter || "";
+  let options = '<option value="">All books</option>';
+
+  const sortedBooks = Array.from(books).sort();
+  sortedBooks.forEach((b) => {
+    options += `<option value="${escapeHtml(b)}"${
+      current === b ? " selected" : ""
+    }>${escapeHtml(b)}</option>`;
+  });
+
+  select.innerHTML = options;
+
+  if (current && !books.has(current)) {
+    PlayerDetailUIState.bookFilter = "";
+    select.value = "";
+  }
+}
+
+function pdRenderPropPreview() {
   const container = document.getElementById("pd-props");
   if (!container) return;
 
+  const edgesByStat = PlayerDetailState.currentEdgesByStat;
+  const rosterPlayer = PlayerDetailState.currentRosterPlayer;
+  const playerId = PlayerDetailState.currentPlayerId;
+
   container.innerHTML = "";
+
+  if (!edgesByStat || !playerId) {
+    container.textContent = "No props currently available for this player.";
+    return;
+  }
+
+  pdUpdatePropBookFilterOptions(edgesByStat);
 
   const stats = ["pts", "reb", "ast"];
   let any = false;
 
   stats.forEach((stat) => {
+    if (
+      PlayerDetailUIState.propStatFilter !== "all" &&
+      PlayerDetailUIState.propStatFilter !== stat
+    ) {
+      return;
+    }
+
     const all = edgesByStat[stat] || [];
-    const filtered = pdFilterEdgesForPlayer(all, playerId, rosterPlayer)
+    let filtered = pdFilterEdgesForPlayer(all, playerId, rosterPlayer)
       .slice()
       .sort((a, b) => {
         const ea =
@@ -2082,8 +2150,17 @@ function pdRenderPropPreview(rosterPlayer, playerId, edgesByStat) {
             ? b.ev_edge
             : 0;
         return Number(eb) - Number(ea);
-      })
-      .slice(0, 5);
+      });
+
+    if (PlayerDetailUIState.bookFilter) {
+      const bf = PlayerDetailUIState.bookFilter;
+      filtered = filtered.filter((e) => {
+        const b = e.book || e.source || "";
+        return b === bf;
+      });
+    }
+
+    filtered = filtered.slice(0, 5);
 
     if (filtered.length === 0) return;
     any = true;
@@ -2137,8 +2214,53 @@ function pdRenderPropPreview(rosterPlayer, playerId, edgesByStat) {
   });
 
   if (!any) {
-    container.textContent = "No props currently available for this player.";
+    container.textContent = "No props currently match these filters.";
   }
+}
+
+function setupPlayerDetailUI() {
+  const statButtons = document.querySelectorAll("[data-pd-prop-stat]");
+  const bookSelect = document.getElementById("pd-props-book-filter");
+
+  statButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const stat = btn.getAttribute("data-pd-prop-stat") || "all";
+      PlayerDetailUIState.propStatFilter = stat;
+
+      statButtons.forEach((b) => {
+        b.classList.toggle(
+          "active",
+          b.getAttribute("data-pd-prop-stat") === stat
+        );
+      });
+
+      pdRenderPropPreview();
+    });
+  });
+
+  if (bookSelect) {
+    bookSelect.addEventListener("change", () => {
+      PlayerDetailUIState.bookFilter = bookSelect.value || "";
+      pdRenderPropPreview();
+    });
+  }
+}
+
+function pdSyncPropStatButtons() {
+  const statButtons = document.querySelectorAll("[data-pd-prop-stat]");
+  const current = PlayerDetailUIState.propStatFilter;
+  statButtons.forEach((b) => {
+    b.classList.toggle(
+      "active",
+      b.getAttribute("data-pd-prop-stat") === current
+    );
+  });
+}
+
+function pdSyncBookFilterSelect() {
+  const bookSelect = document.getElementById("pd-props-book-filter");
+  if (!bookSelect) return;
+  bookSelect.value = PlayerDetailUIState.bookFilter || "";
 }
 
 function setupPlayerDetailRouting() {
