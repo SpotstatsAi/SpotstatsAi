@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupTeamsView();
   setupTrendsView();
   setupOverviewView();
+  // Ensure Overview loads on first paint
+  ensureOverviewLoaded();
 });
 
 /* ---------------- NAV ---------------- */
@@ -391,38 +393,23 @@ function ensureGamesLoaded() {
 
 async function loadGames(range) {
   const list = document.getElementById("games-list");
-  const countEl = document.getElementById("overview-games-count");
   if (!list) return;
   list.innerHTML = `<p class="muted">Loading games...</p>`;
 
   try {
-    const today = new Date();
-    const targetDate = new Date(
-      today.getTime() + (range === "tomorrow" ? 86400000 : 0)
-    );
-    const yyyy = targetDate.getUTCFullYear();
-    const mm = String(targetDate.getUTCMonth() + 1).padStart(2, "0");
-    const dd = String(targetDate.getUTCDate()).padStart(2, "0");
-    const dateStr = `${yyyy}-${mm}-${dd}`;
-
+    const { dateStr } = buildDate(range);
     const res = await fetch(`/api/games?date=${dateStr}`);
     if (!res.ok) throw new Error("Failed to load games");
     const json = await res.json();
     const games = json.data || [];
     gamesLoaded = true;
 
-    if (countEl) {
-      countEl.textContent = `${games.length} games`;
-    }
-
     if (games.length === 0) {
       list.innerHTML = `<p class="muted">No games for ${dateStr}.</p>`;
       return;
     }
 
-    const rows = games
-      .map((g) => renderGameRow(g))
-      .join("");
+    const rows = games.map((g) => renderGameRow(g)).join("");
     list.innerHTML = `<div class="overview-list">${rows}</div>`;
   } catch (err) {
     console.error(err);
@@ -500,10 +487,7 @@ async function loadTeams() {
       });
       filterSelect.innerHTML = opts.join("");
       filterSelect.addEventListener("change", () => {
-        renderTeamsList(
-          teams,
-          filterSelect.value || ""
-        );
+        renderTeamsList(teams, filterSelect.value || "");
       });
     }
 
@@ -519,10 +503,7 @@ async function loadTeams() {
       });
       overviewFilter.innerHTML = opts.join("");
       overviewFilter.addEventListener("change", () => {
-        renderTeamsOverview(
-          teams,
-          overviewFilter.value || ""
-        );
+        renderTeamsOverview(teams, overviewFilter.value || "");
       });
     }
 
@@ -561,7 +542,7 @@ function renderTeamsList(teams, filterTeam) {
         <div class="team-row">
           <div class="team-header">
             ${name}
-            <div class="team-sub"> ${abbr} • ${total} players</div>
+            <div class="team-sub">${abbr} • ${total} players</div>
           </div>
           <div class="overview-row-meta">
             <div class="team-sub">G: ${guards} • F: ${forwards} • C: ${centers}</div>
@@ -658,9 +639,7 @@ async function loadTrends(stat, pos) {
       return;
     }
 
-    const rows = data
-      .map((p) => renderTrendRow(p))
-      .join("");
+    const rows = data.map((p) => renderTrendRow(p)).join("");
     list.innerHTML = `<div class="trends-list">${rows}</div>`;
   } catch (err) {
     console.error(err);
@@ -696,8 +675,9 @@ function setupOverviewView() {
   const edgesStatSelect = document.getElementById("overview-edges-stat");
   if (edgesStatSelect) {
     edgesStatSelect.addEventListener("change", () => {
-      loadOverviewEdges(edgesStatSelect.value || "pts");
-      loadOverviewEdgeBoard(); // keep Edge Board in sync with stat changes
+      const stat = edgesStatSelect.value || "pts";
+      loadOverviewEdges(stat);
+      loadOverviewEdgeBoard();
     });
   }
 
@@ -719,11 +699,42 @@ function loadOverview() {
   const edgesStatSelect = document.getElementById("overview-edges-stat");
   const trendingStatSelect = document.getElementById("overview-trending-stat");
 
-  loadGames("today");
+  loadOverviewGames();
   loadOverviewEdges(edgesStatSelect?.value || "pts");
   loadOverviewTrending(trendingStatSelect?.value || "pts");
   ensureTeamsLoaded();
   loadOverviewEdgeBoard();
+}
+
+// Today's Games card in Overview
+async function loadOverviewGames() {
+  const body = document.getElementById("overview-games");
+  const countEl = document.getElementById("overview-games-count");
+  if (!body) return;
+  body.innerHTML = `<p class="muted">Loading games...</p>`;
+
+  try {
+    const { dateStr } = buildDate("today");
+    const res = await fetch(`/api/games?date=${dateStr}`);
+    if (!res.ok) throw new Error("Failed to load games");
+    const json = await res.json();
+    const games = json.data || [];
+
+    if (countEl) {
+      countEl.textContent = `${games.length} games`;
+    }
+
+    if (!games.length) {
+      body.innerHTML = `<p class="muted">No games for ${dateStr}.</p>`;
+      return;
+    }
+
+    const rows = games.map((g) => renderGameRow(g)).join("");
+    body.innerHTML = `<div class="overview-list">${rows}</div>`;
+  } catch (err) {
+    console.error(err);
+    body.innerHTML = `<p class="muted">Error loading games.</p>`;
+  }
 }
 
 async function loadOverviewEdges(stat) {
@@ -750,12 +761,9 @@ async function loadOverviewEdges(stat) {
         const name = escapeHtml(p.name);
         const team = escapeHtml(p.team || "");
         const pos = escapeHtml(p.pos || "");
-        const delta =
-          p.delta != null ? p.delta.toFixed(1) : "–";
-        const recent =
-          p.recent != null ? p.recent.toFixed(1) : "–";
-        const season =
-          p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+        const delta = p.delta != null ? p.delta.toFixed(1) : "–";
+        const recent = p.recent != null ? p.recent.toFixed(1) : "–";
+        const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
 
         return `
           <div class="overview-row">
@@ -804,8 +812,7 @@ async function loadOverviewTrending(stat) {
         const name = escapeHtml(p.name);
         const team = escapeHtml(p.team || "");
         const pos = escapeHtml(p.pos || "");
-        const score =
-          p.score != null ? p.score.toFixed(1) : "–";
+        const score = p.score != null ? p.score.toFixed(1) : "–";
 
         return `
           <div class="overview-row">
@@ -869,12 +876,9 @@ async function loadOverviewEdgeBoard() {
         const team = escapeHtml(p.team || "");
         const pos = escapeHtml(p.pos || "");
         const statLabel = labels[p.stat] || p.stat.toUpperCase();
-        const recent =
-          p.recent != null ? p.recent.toFixed(1) : "–";
-        const season =
-          p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
-        const delta =
-          p.delta != null ? p.delta.toFixed(1) : "–";
+        const recent = p.recent != null ? p.recent.toFixed(1) : "–";
+        const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+        const delta = p.delta != null ? p.delta.toFixed(1) : "–";
 
         return `
           <div class="overview-row">
@@ -900,6 +904,17 @@ async function loadOverviewEdgeBoard() {
 }
 
 /* ---------------- UTIL ---------------- */
+
+function buildDate(range) {
+  const today = new Date();
+  const targetDate = new Date(
+    today.getTime() + (range === "tomorrow" ? 86400000 : 0)
+  );
+  const yyyy = targetDate.getUTCFullYear();
+  const mm = String(targetDate.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(targetDate.getUTCDate()).padStart(2, "0");
+  return { dateStr: `${yyyy}-${mm}-${dd}` };
+}
 
 function debounce(fn, delay) {
   let id;
