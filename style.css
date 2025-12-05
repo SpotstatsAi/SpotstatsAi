@@ -667,6 +667,10 @@ body {
 .modal-summary {
   font-size: 11px;
   color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .modal-table-wrapper {
@@ -714,6 +718,37 @@ body {
   text-align: left;
 }
 
+/* Modal sections for game modal */
+
+.modal-sections-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.modal-section {
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 8px;
+  max-height: 45vh;
+  overflow: auto;
+}
+
+.modal-section-title {
+  margin: 0 0 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+
+.modal-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 /* Responsive */
 
 @media (max-width: 1024px) {
@@ -738,5 +773,8 @@ body {
   }
   .app-nav {
     width: 100%;
+  }
+  .modal-sections-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
