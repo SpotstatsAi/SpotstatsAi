@@ -1,15 +1,10 @@
 // functions/api/bdl/players.js
 //
 // Live proxy to BallDontLie NBA players endpoint.
-// Does NOT expose your API key to the client.
-//
-// Usage examples (from browser or frontend):
+// Usage:
+//   /api/bdl/players
 //   /api/bdl/players?search=lebron
 //   /api/bdl/players?team_ids[]=14&per_page=50
-//   /api/bdl/players?cursor=123
-//
-// This forwards query params directly to BDL:
-//   https://api.balldontlie.io/v1/players?...  (with Authorization header)
 
 export async function onRequest(context) {
   const { request, env } = context;
@@ -23,7 +18,6 @@ export async function onRequest(context) {
 
   const apiKey = env.BDL_API_KEY;
   if (!apiKey) {
-    // Misconfiguration on Cloudflare side
     return jsonResponse(
       { error: "BDL_API_KEY is not configured in Cloudflare Pages env" },
       { status: 500 }
@@ -33,11 +27,11 @@ export async function onRequest(context) {
   try {
     const incomingUrl = new URL(request.url);
 
-    // Base NBA API; change here if they ever move it.
-    const bdlBase = "https://api.balldontlie.io/v1";
-    const bdlUrl = new URL("/players", bdlBase);
+    // Correct base + path: /v1/players
+    const bdlBase = "https://api.balldontlie.io";
+    const bdlUrl = new URL("/v1/players", bdlBase);
 
-    // Forward ALL query params directly to BDL
+    // Forward all query params
     incomingUrl.searchParams.forEach((value, key) => {
       bdlUrl.searchParams.append(key, value);
     });
@@ -48,7 +42,6 @@ export async function onRequest(context) {
     const bdlResponse = await fetch(bdlUrl.toString(), {
       method: "GET",
       headers,
-      // keep it live-ish, but still allow small caching
       cf: {
         cacheTtl: 5,
         cacheEverything: false,
@@ -74,7 +67,6 @@ export async function onRequest(context) {
       );
     }
 
-    // Pass through BDL JSON as-is, plus a small meta wrapper
     return jsonResponse(
       {
         source: "balldontlie",
