@@ -261,9 +261,7 @@
                 </div>
               </header>
               <div class="panel-body">
-                <div id="player-grid" class="player-grid">
-                  <!-- cards injected here -->
-                </div>
+                <div id="player-grid" class="player-grid"></div>
                 <div id="player-empty" class="empty-state hidden">
                   <p>No players match your filters.</p>
                   <p class="muted">
@@ -410,9 +408,7 @@
                 <th>AST</th>
               </tr>
             </thead>
-            <tbody id="modal-stats-rows">
-              <!-- filled by loadPlayerStats -->
-            </tbody>
+            <tbody id="modal-stats-rows"></tbody>
           </table>
         </div>
       </div>
@@ -475,7 +471,20 @@
               <div class="card-block-header">
                 <h2 class="card-block-title">Prop Preview</h2>
               </div>
-              <div class="card-block-body pd-scroll" id="pd-props"></div>
+              <div class="card-block-body">
+                <div class="pd-props-controls">
+                  <div class="pd-props-stat-toggle">
+                    <button type="button" class="chip-toggle small active" data-pd-prop-stat="all">All</button>
+                    <button type="button" class="chip-toggle small" data-pd-prop-stat="pts">PTS</button>
+                    <button type="button" class="chip-toggle small" data-pd-prop-stat="reb">REB</button>
+                    <button type="button" class="chip-toggle small" data-pd-prop-stat="ast">AST</button>
+                  </div>
+                  <select id="pd-props-book-filter" class="panel-select pd-props-book-filter">
+                    <option value="">All books</option>
+                  </select>
+                </div>
+                <div class="pd-scroll" id="pd-props"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -511,15 +520,11 @@
         <div class="modal-sections-grid">
           <section class="modal-section">
             <h3 class="modal-section-title">Edges</h3>
-            <div id="game-modal-edges" class="modal-section-body">
-              <!-- filled by loadGameContext -->
-            </div>
+            <div id="game-modal-edges" class="modal-section-body"></div>
           </section>
           <section class="modal-section">
             <h3 class="modal-section-title">Trending</h3>
-            <div id="game-modal-trending" class="modal-section-body">
-              <!-- filled by loadGameContext -->
-            </div>
+            <div id="game-modal-trending" class="modal-section-body"></div>
           </section>
         </div>
       </div>
@@ -572,9 +577,7 @@
                 <th>Δ</th>
               </tr>
             </thead>
-            <tbody id="edge-modal-rows">
-              <!-- filled by renderEdgeBoardTable -->
-            </tbody>
+            <tbody id="edge-modal-rows"></tbody>
           </table>
         </div>
       </div>
