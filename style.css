@@ -210,7 +210,7 @@ body {
   border-radius: 999px;
   background: rgba(9, 10, 20, 0.9);
   border: 1px solid var(--border-subtle);
-  max-width: 620px;
+  max-width: 520px;
 }
 
 .nav-tab {
@@ -480,12 +480,40 @@ body {
   color: var(--text-soft);
 }
 
+/* Team badge with logo */
+
 .player-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   border-radius: 999px;
   padding: 2px 8px;
   background: rgba(9, 10, 24, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 10px;
+}
+
+.player-badge-logo-wrap {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.player-badge-logo-wrap.no-logo {
+  display: none;
+}
+
+.player-badge-text {
+  white-space: nowrap;
+}
+
+.team-logo-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .player-tagline {
@@ -580,12 +608,6 @@ body {
   cursor: pointer;
 }
 
-.tiny-btn.active {
-  background: var(--accent-soft);
-  color: #ffe6c3;
-  border-color: rgba(255, 183, 77, 0.7);
-}
-
 .muted {
   color: var(--text-muted);
   font-size: 12px;
@@ -619,7 +641,7 @@ body {
 
 .modal-panel {
   position: relative;
-  max-width: 840px;
+  max-width: 720px;
   width: 90%;
   max-height: 80vh;
   background: radial-gradient(circle at top left, #2d315a, #101221);
@@ -633,7 +655,7 @@ body {
 
 .modal-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   padding: 12px 16px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -645,9 +667,21 @@ body {
   gap: 2px;
 }
 
+/* Name + logo */
+
 .modal-player-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 15px;
   font-weight: 600;
+}
+
+.modal-team-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .modal-player-meta {
@@ -682,12 +716,6 @@ body {
   padding: 6px 8px;
   overflow: auto;
   max-height: 52vh;
-}
-
-.modal-footer-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
 }
 
 /* Stats table */
@@ -726,196 +754,6 @@ body {
   text-align: left;
 }
 
-/* Game / Edge modal sections */
-
-.modal-section-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.modal-section {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.modal-section-title {
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.modal-section-body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.modal-section-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Player Detail */
-
-.inline-status {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 2px 8px;
-  font-size: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.tag-secondary {
-  border-color: rgba(255, 183, 77, 0.5);
-  background: rgba(255, 183, 77, 0.1);
-  color: #ffe6c3;
-}
-
-.pd-tags-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
-}
-
-.pd-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-  gap: 12px;
-  align-items: flex-start;
-}
-
-.pd-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.pd-section {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.pd-section-title {
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.pd-stat-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  padding: 4px 0;
-}
-
-.pd-stat-label {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.pd-stat-values {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.pd-gamelog-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 11px;
-}
-
-.pd-gamelog-row {
-  display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) 110px;
-  gap: 6px;
-  padding: 4px 6px;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.pd-gamelog-date {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.pd-gamelog-opp {
-  font-size: 11px;
-}
-
-.pd-gamelog-line {
-  font-size: 10px;
-  color: var(--text-soft);
-}
-
-.pd-gamelog-statline {
-  font-size: 11px;
-  text-align: right;
-}
-
-.pd-section-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.pd-props-filters {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.pd-prop-stat-toggle {
-  display: flex;
-  gap: 4px;
-}
-
-.pd-props-body {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 11px;
-}
-
-.pd-prop-group {
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 6px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.pd-prop-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.pd-prop-row {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr;
-  gap: 4px;
-  font-size: 11px;
-}
-
 /* Responsive */
 
 @media (max-width: 1024px) {
@@ -926,12 +764,6 @@ body {
     grid-column: span 1;
   }
   .players-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .pd-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .modal-section-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
