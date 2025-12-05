@@ -589,7 +589,7 @@ body {
   display: none !important;
 }
 
-/* Modal */
+/* Modal base */
 
 .modal {
   position: fixed;
@@ -623,6 +623,14 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.game-modal-panel {
+  max-width: 860px;
+}
+
+.edge-modal-panel {
+  max-width: 980px;
 }
 
 .modal-header {
@@ -678,6 +686,46 @@ body {
   max-height: 52vh;
 }
 
+/* Game modal specific */
+
+.game-modal-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.game-modal-column {
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 8px 9px;
+  overflow: auto;
+  max-height: 52vh;
+}
+
+.modal-section-title {
+  font-size: 11px;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+
+.modal-section-body .overview-row {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Edge modal small selects */
+
+.modal-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.small-select {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
 /* Stats table */
 
 .stats-table {
@@ -724,6 +772,9 @@ body {
     grid-column: span 1;
   }
   .players-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .game-modal-body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
