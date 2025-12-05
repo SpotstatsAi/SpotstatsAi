@@ -377,48 +377,48 @@
     </main>
   </div>
 
-  <!-- PLAYER MODAL (simple game log) -->
-  <div id="player-modal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-panel">
-      <header class="modal-header">
-        <div class="modal-title-block">
-          <div id="modal-player-name" class="modal-player-name">Player</div>
-          <div id="modal-player-meta" class="modal-player-meta"></div>
-        </div>
-        <button id="modal-close" class="modal-close-btn">&times;</button>
-      </header>
-      <div class="modal-body">
-        <div id="modal-summary" class="modal-summary muted">
-          Loading last games from BallDontLie...
-        </div>
-        <div class="modal-table-wrapper">
-          <table class="stats-table">
-            <thead>
-              <tr>
-                <th class="cell-left">Date</th>
-                <th class="cell-left">Opp</th>
-                <th>MIN</th>
-                <th>PTS</th>
-                <th>REB</th>
-                <th>AST</th>
-              </tr>
-            </thead>
-            <tbody id="modal-stats-rows">
-              <tr>
-                <td colspan="6" class="muted">Loading...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer-actions">
-          <button id="modal-view-detail" class="tiny-btn">
-            View Detail Page
-          </button>
-        </div>
+<!-- PLAYER MODAL -->
+<div id="player-modal" class="modal hidden">
+  <div class="modal-backdrop"></div>
+
+  <div class="modal-panel">
+    <header class="modal-header">
+      <div class="modal-title-block">
+        <div id="modal-player-name" class="modal-player-name"></div>
+        <div id="modal-player-meta" class="modal-player-meta"></div>
       </div>
+      <button id="modal-close" class="modal-close-btn">&times;</button>
+    </header>
+
+    <div class="modal-body">
+      <div id="modal-summary" class="modal-summary"></div>
+
+      <div class="modal-table-wrapper">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th class="cell-left">Date</th>
+              <th class="cell-left">Opp</th>
+              <th>MIN</th>
+              <th>PTS</th>
+              <th>REB</th>
+              <th>AST</th>
+            </tr>
+          </thead>
+          <tbody id="modal-stats-rows">
+            <tr>
+              <td colspan="6" class="muted">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- This is the button JS is looking for -->
+      <button id="player-detail-btn" class="tiny-btn">View Detail Page</button>
     </div>
   </div>
+</div>
+
 
   <!-- GAME MODAL -->
   <div id="game-modal" class="modal hidden">
