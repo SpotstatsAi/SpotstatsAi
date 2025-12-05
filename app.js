@@ -15,7 +15,7 @@ const dom = {};
 document.addEventListener("DOMContentLoaded", () => {
   cacheDom();
   bindEvents();
-  loadPlayersFromBackend();
+  loadRosters();
 });
 
 function cacheDom() {
@@ -62,32 +62,26 @@ function bindEvents() {
   dom.clearFiltersFromEmpty.addEventListener("click", resetFilters);
 }
 
-async function loadPlayersFromBackend() {
+async function loadRosters() {
   try {
-    dom.resultSummary.textContent = "Loading players…";
-
-    const res = await fetch("/api/players", { cache: "no-store" });
+    const res = await fetch("rosters.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
 
-    const json = await res.json();
-    const raw = Array.isArray(json.data) ? json.data : [];
-
-    state.players = raw.map(enrichPlayer);
-
-    initFiltersFromData();
+    state.players = data.map(enrichPlayer);
     updateSummary();
+    initFiltersFromData();
     applyFilters();
   } catch (err) {
-    console.error("Error loading players from backend", err);
+    console.error("Error loading rosters.json", err);
     dom.errorState.classList.remove("hidden");
-    dom.resultSummary.textContent = "Unable to load players.";
+    dom.resultSummary.textContent = "Unable to load rosters.";
   }
 }
 
 function enrichPlayer(p) {
   return {
     ...p,
-    name: p.name || `${p.first_name || ""} ${p.last_name || ""}`.trim(),
     team: p.team || "",
     pos: p.pos || "",
     jersey: p.jersey || "",
@@ -193,7 +187,7 @@ function sortPlayers(list, sortKey) {
     case "team":
       arr.sort((a, b) => {
         if (a.team === b.team) {
-          return (a.last_name || "").localeCompare(b.last_name || "");
+          return a.last_name.localeCompare(b.last_name);
         }
         return a.team.localeCompare(b.team);
       });
@@ -202,28 +196,26 @@ function sortPlayers(list, sortKey) {
       arr.sort((a, b) => {
         const ha = a.heightInches ?? -1;
         const hb = b.heightInches ?? -1;
-        return hb - ha || (a.last_name || "").localeCompare(b.last_name || "");
+        return hb - ha || a.last_name.localeCompare(b.last_name);
       });
       break;
     case "weight-desc":
       arr.sort((a, b) => {
         const wa = a.weightNum ?? -1;
         const wb = b.weightNum ?? -1;
-        return wb - wa || (a.last_name || "").localeCompare(b.last_name || "");
+        return wb - wa || a.last_name.localeCompare(b.last_name);
       });
       break;
     case "jersey-asc":
       arr.sort((a, b) => {
         const ja = parseInt(a.jersey, 10) || 0;
         const jb = parseInt(b.jersey, 10) || 0;
-        return ja - jb || (a.last_name || "").localeCompare(b.last_name || "");
+        return ja - jb || a.last_name.localeCompare(b.last_name);
       });
       break;
     case "name-asc":
     default:
-      arr.sort((a, b) =>
-        (a.last_name || a.name || "").localeCompare(b.last_name || b.name || "")
-      );
+      arr.sort((a, b) => a.last_name.localeCompare(b.last_name));
       break;
   }
 
@@ -255,13 +247,13 @@ function renderPlayers() {
     card.innerHTML = `
       <div class="player-card-header">
         <div class="player-name-block">
-          <div class="player-name">${p.first_name || ""} ${p.last_name || ""}</div>
+          <div class="player-name">${p.first_name} ${p.last_name}</div>
           <div class="player-meta-line">
             <span>${p.pos || "N/A"}</span>
             <span>•</span>
             <span>ID ${p.id}</span>
           </div>
-          <div class="player-tagline">Vegas board • Player-only view</div>
+          <div class="player-tagline">Always available • Player-only view</div>
         </div>
         <div class="team-pill">${p.team || "FA"}</div>
       </div>
@@ -398,7 +390,7 @@ function resetFilters() {
 
   dom.searchInput.value = "";
   dom.teamSelect.value = "";
-  dom.positionSelect.value = "";
+  dom.positionSelect.value = ""; // will be set; no "All" ID needed
   dom.sortSelect.value = "name-asc";
 
   applyFilters();
