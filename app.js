@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupGameModal();
   setupEdgeBoardModal();
   setupEdgesTabView();
+  setupEdgesRowClickHandlers(); // NEW: edges rows → player detail popup
   setupPlayerDetailRouting();
   setupPlayerDetailUI();
   ensureOverviewLoaded();
@@ -1715,6 +1716,37 @@ function renderEdgesTabTable() {
     .join("");
 
   tbody.innerHTML = html;
+}
+
+/* ---------------- EDGES ROWS → PLAYER DETAIL POPUP ---------------- */
+
+function setupEdgesRowClickHandlers() {
+  const edgesTabBody = document.getElementById("edges-tab-rows");
+  const edgeModalBody = document.getElementById("edge-modal-rows");
+
+  // Edges tab table rows
+  if (edgesTabBody) {
+    edgesTabBody.addEventListener("click", (e) => {
+      const row = e.target.closest("tr[data-player-id]");
+      if (!row) return;
+      const id = row.dataset.playerId;
+      if (!id) return;
+      e.stopPropagation(); // prevent basic player modal handler
+      openPlayerDetail(id);
+    });
+  }
+
+  // Edge Board modal table rows
+  if (edgeModalBody) {
+    edgeModalBody.addEventListener("click", (e) => {
+      const row = e.target.closest("tr[data-player-id]");
+      if (!row) return;
+      const id = row.dataset.playerId;
+      if (!id) return;
+      e.stopPropagation(); // prevent basic player modal handler
+      openPlayerDetail(id);
+    });
+  }
 }
 
 /* ---------------- PLAYER DETAIL MODAL (season + props) ---------------- */
