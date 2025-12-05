@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupTeamsView();
   setupTrendsView();
   setupOverviewView();
-  setupEdgesView();        // Edges tab (safe if HTML not present)
+  setupEdgesView();        // Edges tab (no-op if HTML not present)
   setupPlayerModal();
   setupGameModal();
   setupEdgeBoardModal();
@@ -1326,6 +1326,7 @@ function openPlayerModal(player) {
   if (detailCard) {
     detailCard.classList.add("hidden");
     detailCard.innerHTML = "";
+    detailCard._propEdges = null;
   }
   if (detailBtn) {
     detailBtn.textContent = "View Detail Page";
@@ -1446,7 +1447,7 @@ async function loadPlayerStats(playerId, summaryEl, tbody, lastN = 10) {
   }
 }
 
-// builds indepth card inside modal when "View Detail Page" is clicked
+// builds indepth card + prop preview inside modal when "View Detail Page" is clicked
 async function openPlayerDetailCard(player) {
   const detailCard = document.getElementById("player-detail-card");
   const summaryEl = document.getElementById("modal-summary");
@@ -1634,6 +1635,19 @@ async function openPlayerDetailCard(player) {
               </table>
             </div>
           </section>
+
+          <section class="player-detail-section prop-preview-section">
+            <div class="player-detail-section-title">Prop Preview</div>
+            <div class="prop-preview-controls">
+              <button class="chip-toggle prop-chip active" data-prop-stat="all">All</button>
+              <button class="chip-toggle prop-chip" data-prop-stat="pts">PTS</button>
+              <button class="chip-toggle prop-chip" data-prop-stat="reb">REB</button>
+              <button class="chip-toggle prop-chip" data-prop-stat="ast">AST</button>
+            </div>
+            <div class="prop-preview-list" id="prop-preview-list">
+              <div class="muted">Loading props…</div>
+            </div>
+          </section>
         </section>
 
         <section class="player-detail-right">
@@ -1643,12 +1657,14 @@ async function openPlayerDetailCard(player) {
               Full sample from BallDontLie
             </div>
           </header>
-          <!-- main table is reused above; this block is mainly for description -->
+          <!-- main table on right already shows full game log -->
         </section>
       </div>
     `;
 
     detailCard.classList.remove("hidden");
+    loadPlayerPropPreview(player, detailCard);
+
     if (detailBtn) {
       detailBtn.textContent = "Detail loaded";
       detailBtn.disabled = true;
@@ -1663,6 +1679,128 @@ async function openPlayerDetailCard(player) {
       detailBtn.textContent = "View Detail Page";
       detailBtn.disabled = false;
     }
+  }
+}
+
+// fetch /api/edges and build per-player prop preview (PTS/REB/AST)
+async function loadPlayerPropPreview(player, detailCard) {
+  const listEl = detailCard.querySelector("#prop-preview-list");
+  const chipEls = detailCard.querySelectorAll("[data-prop-stat]");
+  if (!listEl) return;
+
+  listEl.innerHTML = `<div class="muted">Loading props…</div>`;
+
+  const stats = ["pts", "reb", "ast"];
+
+  try {
+    const results = await Promise.allSettled(
+      stats.map((s) =>
+        fetch(`/api/edges?stat=${encodeURIComponent(s)}&limit=200`).then((r) =>
+          r.ok ? r.json() : Promise.reject(new Error("edges fetch failed"))
+        )
+      )
+    );
+
+    const allEdges = [];
+    results.forEach((res, idx) => {
+      if (res.status !== "fulfilled") return;
+      const data = res.value.data || [];
+      const stat = stats[idx];
+      data.forEach((row) => {
+        allEdges.push({ ...row, stat });
+      });
+    });
+
+    const playerIdStr = player.id != null ? String(player.id) : "";
+    const matches = allEdges.filter((e) => {
+      const eid =
+        e.player_id != null
+          ? String(e.player_id)
+          : e.id != null
+          ? String(e.id)
+          : "";
+      if (playerIdStr && eid && eid === playerIdStr) return true;
+      if (
+        player.name &&
+        e.name &&
+        player.name.toLowerCase() === String(e.name).toLowerCase() &&
+        (!player.team || !e.team || player.team === e.team)
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    if (!matches.length) {
+      listEl.innerHTML =
+        '<div class="muted">No props currently match these filters.</div>';
+      return;
+    }
+
+    detailCard._propEdges = matches;
+
+    function render(statFilter) {
+      let rows = detailCard._propEdges || [];
+      if (statFilter && statFilter !== "all") {
+        rows = rows.filter((r) => r.stat === statFilter);
+      }
+      rows = rows.slice().sort((a, b) => (b.delta || 0) - (a.delta || 0));
+      if (!rows.length) {
+        listEl.innerHTML =
+          '<div class="muted">No props currently match these filters.</div>';
+        return;
+      }
+      const html = rows
+        .slice(0, 12)
+        .map((p) => {
+          const statLabel = (p.stat || "").toUpperCase();
+          const recent =
+            p.recent != null ? Number(p.recent).toFixed(1) : "–";
+          const season =
+            p.seasonAvg != null ? Number(p.seasonAvg).toFixed(1) : "–";
+          const delta =
+            p.delta != null ? Number(p.delta).toFixed(1) : "–";
+          let line = p.line != null ? p.line : p.market_line;
+          if (typeof line === "string") {
+            const num = parseFloat(line);
+            if (!Number.isNaN(num)) line = num;
+          }
+          const lineText =
+            line != null && line !== ""
+              ? Number(line).toFixed(1)
+              : "–";
+          return `
+            <div class="prop-row">
+              <div class="prop-row-main">
+                <span class="prop-row-stat">${statLabel}</span>
+                <span class="prop-row-line">Line: ${lineText}</span>
+              </div>
+              <div class="prop-row-meta">
+                <span>Recent: ${recent}</span>
+                <span>Season: ${season}</span>
+                <span>Δ ${delta}</span>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+      listEl.innerHTML = html;
+    }
+
+    // initial render: All
+    render("all");
+
+    chipEls.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        chipEls.forEach((b) => b.classList.toggle("active", b === btn));
+        const key = btn.dataset.propStat || "all";
+        render(key);
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    listEl.innerHTML =
+      '<div class="muted">Error loading prop preview.</div>';
   }
 }
 
