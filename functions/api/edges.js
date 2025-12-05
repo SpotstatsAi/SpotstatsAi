@@ -1,12 +1,18 @@
 // functions/api/edges.js
 //
-// Edge candidates endpoint: compares a player's recent form vs their
-// season-long average for a stat and returns players with the largest
-// positive delta.
+// Edge candidates from player_stats.json (aggregate per-player file).
+//
+// Edge score = recentStat - seasonStat, where:
+//   recentStat = last5_* field
+//   seasonStat = base field (pts, reb, ast)
+//
+// For stat=pts:  delta = last5_pts - pts
+// For stat=reb:  delta = last5_reb - reb
+// For stat=ast:  delta = last5_ast - ast
 //
 // Usage examples:
 //   /api/edges
-//   /api/edges?stat=pts&last_n=5&min_games=8&limit=50
+//   /api/edges?stat=pts&limit=40
 //   /api/edges?team=LAL
 //   /api/edges?position=G
 
@@ -21,23 +27,16 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const sp = url.searchParams;
 
-    const stat = (sp.get("stat") || "pts").toLowerCase();
-    const lastN = sp.get("last_n")
-      ? clampInt(sp.get("last_n"), 2, 20)
-      : 5;
-    const minGames = sp.get("min_games")
-      ? clampInt(sp.get("min_games"), lastN + 1, 82)
-      : Math.max(8, lastN + 1);
+    const stat = (sp.get("stat") || "pts").toLowerCase(); // pts | reb | ast
     const limit = sp.get("limit")
       ? clampInt(sp.get("limit"), 1, 200)
       : 50;
+    const minGames = sp.get("min_games")
+      ? clampInt(sp.get("min_games"), 1, 82)
+      : 5;
 
-    const teamFilter = sp.get("team")
-      ? String(sp.get("team")).trim().toUpperCase()
-      : "";
-    const posFilter = sp.get("position")
-      ? String(sp.get("position")).trim().toUpperCase()
-      : "";
+    const teamFilter = (sp.get("team") || "").trim().toUpperCase();
+    const posFilter = (sp.get("position") || "").trim().toUpperCase();
 
     // Load stats
     const statsUrl = new URL("/player_stats.json", url);
@@ -50,58 +49,52 @@ export async function onRequest(context) {
       );
     }
     const statsRaw = await statsRes.json();
-    const rowsRaw = extractRowsFromStatsPayload(statsRaw);
-    const rows = rowsRaw.map(normalizeRow).filter((r) => !!r);
+    const players = normalizePlayersFromMap(statsRaw);
 
     // Load rosters for team/pos filters
     const rosters = await loadRosters(url);
     const rosterIndex = buildRosterIndex(rosters);
 
-    const byPlayer = groupByPlayer(rows);
-
     const edges = [];
 
-    for (const [playerId, entries] of byPlayer.entries()) {
-      // sort by date descending
-      entries.sort((a, b) => (b.gameDate || "").localeCompare(a.gameDate || ""));
+    for (const p of players) {
+      if ((p.games || 0) < minGames) continue;
 
-      const statValues = entries
-        .map((e) => e.stats[stat])
-        .filter((v) => v != null);
+      const roster = rosterIndex.get(p.id) || rosterIndex.get(p.name) || null;
+      const team = roster ? roster.team : p.team;
+      const pos = roster ? roster.pos : null;
 
-      if (statValues.length < minGames) continue;
-
-      const lastSlice = statValues.slice(0, lastN);
-      const lastNAvg = lastSlice.reduce((s, v) => s + v, 0) / lastSlice.length;
-
-      const seasonAvg =
-        statValues.reduce((s, v) => s + v, 0) / statValues.length;
-
-      const delta = lastNAvg - seasonAvg;
-      if (!(delta > 0)) continue; // keep only positive edges
-
-      const roster = rosterIndex.get(playerId) || null;
-      if (teamFilter && (!roster || roster.team !== teamFilter)) continue;
+      if (teamFilter && team !== teamFilter) continue;
       if (
         posFilter &&
-        (!roster ||
-          !roster.pos ||
-          !roster.pos.toUpperCase().includes(posFilter))
+        (!pos || !pos.toUpperCase().includes(posFilter))
       )
         continue;
 
+      const { recent, season } = getStatPair(p, stat);
+      if (recent == null || season == null) continue;
+
+      const delta = recent - season;
+      if (!(delta > 0)) continue;
+
       edges.push({
-        playerId,
-        name: entries[0].name,
-        team: roster ? roster.team : entries[0].team,
-        pos: roster ? roster.pos : null,
+        playerId: p.id,
+        name: p.name,
+        team,
+        pos,
         stat,
-        lastN,
-        lastNGames: lastSlice.length,
-        lastNAvg,
-        seasonGames: statValues.length,
-        seasonAvg,
+        games: p.games,
+        season: p.season,
+        recent,
+        seasonAvg: season,
         delta,
+        pts: p.pts,
+        reb: p.reb,
+        ast: p.ast,
+        last5_pts: p.last5_pts,
+        last5_reb: p.last5_reb,
+        last5_ast: p.last5_ast,
+        usage: p.usage,
       });
     }
 
@@ -110,12 +103,11 @@ export async function onRequest(context) {
     const limited = edges.slice(0, limit);
 
     const meta = {
-      totalPlayers: byPlayer.size,
+      totalPlayers: players.length,
       edgePlayers: limited.length,
       stat,
-      lastN,
-      minGames,
       limit,
+      minGames,
       filters: {
         team: teamFilter || "",
         position: posFilter || "",
@@ -157,83 +149,50 @@ function clampInt(v, min, max) {
   return Math.min(max, Math.max(min, n));
 }
 
-function extractRowsFromStatsPayload(raw) {
-  if (!raw) return [];
-  if (Array.isArray(raw)) return raw;
-  if (Array.isArray(raw.data)) return raw.data;
-  if (typeof raw === "object") {
-    for (const value of Object.values(raw)) {
-      if (Array.isArray(value)) return value;
-    }
-  }
-  return [];
-}
-
-function parseDateFromRow(row) {
-  const candidates = ["game_date", "date", "day", "dt"];
-  for (const key of candidates) {
-    if (row[key]) {
-      const raw = String(row[key]);
-      if (raw.length >= 10 && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
-        return raw.slice(0, 10);
-      }
-    }
-  }
-  return null;
-}
-
 function numberOrNull(v) {
   if (v === undefined || v === null || v === "") return null;
   const n = Number(v);
   return Number.isNaN(n) ? null : n;
 }
 
-function normalizeRow(raw) {
-  if (!raw) return null;
+function normalizePlayersFromMap(raw) {
+  if (!raw || typeof raw !== "object") return [];
 
-  const playerId =
-    raw.player_id ||
-    (raw.player && raw.player.id) ||
-    raw.id ||
-    null;
+  const players = [];
+  for (const [name, v] of Object.entries(raw)) {
+    if (!v || typeof v !== "object") continue;
+    const id =
+      v.player_id != null ? String(v.player_id) : name;
+    const team = v.team ? String(v.team).toUpperCase() : "";
+    players.push({
+      id,
+      name,
+      team,
+      season: v.season != null ? Number(v.season) : null,
+      games: numberOrNull(v.games),
+      pts: numberOrNull(v.pts),
+      reb: numberOrNull(v.reb),
+      ast: numberOrNull(v.ast),
+      last5_pts: numberOrNull(v.last5_pts),
+      last5_reb: numberOrNull(v.last5_reb),
+      last5_ast: numberOrNull(v.last5_ast),
+      usage: numberOrNull(v.usage),
+      raw: v,
+    });
+  }
+  return players;
+}
 
-  const firstName =
-    (raw.player && (raw.player.first_name || raw.player.firstName)) ||
-    raw.first_name ||
-    raw.firstName ||
-    "";
-  const lastName =
-    (raw.player && (raw.player.last_name || raw.player.lastName)) ||
-    raw.last_name ||
-    raw.lastName ||
-    "";
-
-  const name = raw.player_name || `${firstName} ${lastName}`.trim();
-
-  const teamAbbr =
-    raw.team ||
-    raw.team_abbr ||
-    (raw.team && raw.team.abbreviation) ||
-    raw.team_abbreviation ||
-    "";
-
-  const gameDate = parseDateFromRow(raw);
-
-  return {
-    playerId: playerId != null ? String(playerId) : null,
-    name,
-    team: teamAbbr ? String(teamAbbr).toUpperCase() : "",
-    gameDate,
-    raw,
-    stats: {
-      pts: numberOrNull(raw.pts ?? raw.points),
-      reb: numberOrNull(raw.reb ?? raw.rebounds),
-      ast: numberOrNull(raw.ast ?? raw.assists),
-      stl: numberOrNull(raw.stl ?? raw.steals),
-      blk: numberOrNull(raw.blk ?? raw.blocks),
-      fg3m: numberOrNull(raw.fg3m ?? raw.threes_made),
-    },
-  };
+function getStatPair(p, stat) {
+  switch (stat) {
+    case "reb":
+      return { recent: p.last5_reb, season: p.reb };
+    case "ast":
+      return { recent: p.last5_ast, season: p.ast };
+    case "pts":
+    default:
+      return { recent: p.last5_pts, season: p.pts };
+  }
 }
 
 async function loadRosters(baseUrl) {
@@ -254,28 +213,28 @@ function buildRosterIndex(rosters) {
   const idx = new Map();
   rosters.forEach((p) => {
     const id =
-      p.id != null ? String(p.id) : p.player_id != null ? String(p.player_id) : null;
-    if (!id) return;
+      p.id != null ? String(p.id) :
+      p.player_id != null ? String(p.player_id) :
+      null;
+    const name = p.name || `${p.first_name || ""} ${p.last_name || ""}`.trim();
     const team =
       p.team ||
       p.team_abbr ||
       (p.team && p.team.abbreviation) ||
       "";
     const pos = p.pos || p.position || "";
-    idx.set(id, {
-      team: team ? String(team).toUpperCase() : "",
-      pos,
-    });
+    if (id) {
+      idx.set(id, {
+        team: team ? String(team).toUpperCase() : "",
+        pos,
+      });
+    }
+    if (name) {
+      idx.set(name, {
+        team: team ? String(team).toUpperCase() : "",
+        pos,
+      });
+    }
   });
   return idx;
-}
-
-function groupByPlayer(rows) {
-  const map = new Map();
-  rows.forEach((r) => {
-    if (!r.playerId) return;
-    if (!map.has(r.playerId)) map.set(r.playerId, []);
-    map.get(r.playerId).push(r);
-  });
-  return map;
 }
