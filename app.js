@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupTrendsView();
   setupOverviewView();
   setupPlayerModal();
-  // Ensure Overview loads on first paint
   ensureOverviewLoaded();
 });
 
@@ -53,11 +52,26 @@ function setupNav() {
   }
 }
 
+/* ---------------- GLOBAL SEARCH ---------------- */
+
 function setupGlobalSearch() {
   const input = document.getElementById("global-search");
-  if (!input) return;
+  const resultsEl = document.getElementById("global-search-results");
+  if (!input || !resultsEl) return;
+
+  input.addEventListener(
+    "input",
+    debounce(() => handleGlobalSearchInput(input, resultsEl), 200)
+  );
+
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
+      const first = resultsEl.querySelector(".search-result-item");
+      if (first) {
+        e.preventDefault();
+        first.click();
+        return;
+      }
       const q = input.value.trim();
       if (!q) return;
       document
@@ -68,8 +82,85 @@ function setupGlobalSearch() {
         playerSearch.value = q;
         applyPlayerFilters();
       }
+    } else if (e.key === "Escape") {
+      hideGlobalSearchResults(resultsEl);
+      input.blur();
     }
   });
+
+  input.addEventListener("blur", () => {
+    setTimeout(() => hideGlobalSearchResults(resultsEl), 150);
+  });
+
+  resultsEl.addEventListener("click", () => {
+    hideGlobalSearchResults(resultsEl);
+  });
+}
+
+function handleGlobalSearchInput(input, resultsEl) {
+  const q = input.value.trim();
+  if (q.length < 3) {
+    hideGlobalSearchResults(resultsEl);
+    return;
+  }
+
+  resultsEl.classList.remove("hidden");
+  resultsEl.innerHTML = `<div class="search-result-empty">Searching "${escapeHtml(
+    q
+  )}"…</div>`;
+
+  const params = new URLSearchParams();
+  params.set("search", q);
+  params.set("per_page", "10");
+
+  fetch(`/api/bdl/players?${params.toString()}`)
+    .then((res) => {
+      if (!res.ok) throw new Error("Search failed");
+      return res.json();
+    })
+    .then((json) => {
+      const data = json.data || [];
+      if (!data.length) {
+        resultsEl.innerHTML =
+          '<div class="search-result-empty">No players found.</div>';
+        return;
+      }
+      const html = data
+        .map((p) => {
+          const id = p.id != null ? String(p.id) : "";
+          const name = escapeHtml(p.name || "");
+          const team = escapeHtml(p.team || "");
+          const pos = escapeHtml(p.pos || "");
+          const fullTeam = escapeHtml(p.full_team || "");
+
+          return `
+            <div class="search-result-item"
+                 data-player-id="${id}"
+                 data-player-name="${name}"
+                 data-player-team="${team}"
+                 data-player-pos="${pos}">
+              <div class="search-result-name">${name}</div>
+              <div class="search-result-meta">
+                ${team ? team : ""}${pos ? " • " + pos : ""}${
+            fullTeam ? " • " + fullTeam : ""
+          }
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+      resultsEl.innerHTML = html;
+    })
+    .catch((err) => {
+      console.error(err);
+      resultsEl.innerHTML =
+        '<div class="search-result-empty">Error searching players.</div>';
+    });
+}
+
+function hideGlobalSearchResults(resultsEl) {
+  resultsEl.classList.add("hidden");
+  resultsEl.innerHTML = "";
 }
 
 /* ---------------- PLAYERS ---------------- */
@@ -943,7 +1034,6 @@ function setupPlayerModal() {
   if (closeBtn) closeBtn.addEventListener("click", closePlayerModal);
   if (backdrop) backdrop.addEventListener("click", closePlayerModal);
 
-  // Delegate clicks from any element carrying data-player-id
   document.addEventListener("click", (evt) => {
     const target = evt.target.closest("[data-player-id]");
     if (!target) return;
@@ -953,7 +1043,7 @@ function setupPlayerModal() {
     const team = target.dataset.playerTeam || "";
     const pos = target.dataset.playerPos || "";
 
-    if (!id) return; // no id, nothing to fetch
+    if (!id) return;
 
     openPlayerModal({ id, name, team, pos });
   });
@@ -1017,7 +1107,7 @@ async function loadPlayerStats(playerId, summaryEl, tbody) {
     if (!rows.length) {
       if (summaryEl)
         summaryEl.textContent =
-          "No recent games found in player_stats.json.";
+          "No recent games found.";
       if (tbody) {
         tbody.innerHTML =
           '<tr><td colspan="6" class="muted">No rows.</td></tr>';
