@@ -1270,25 +1270,27 @@ function setupPlayerModal() {
   if (closeBtn) closeBtn.addEventListener("click", closePlayerModal);
   if (backdrop) backdrop.addEventListener("click", closePlayerModal);
 
-  // "View Detail Page" -> reload stats with more games
+  // Ensure we have a container inside the modal for the detail card
+  const modalBody = modal.querySelector(".modal-body");
+  if (modalBody && !document.getElementById("player-detail-card")) {
+    const detailDiv = document.createElement("div");
+    detailDiv.id = "player-detail-card";
+    detailDiv.className = "player-detail-card hidden";
+    modalBody.appendChild(detailDiv);
+  }
+
+  // "View Detail Page" -> build detail card
   const detailBtn = document.getElementById("player-detail-btn");
   if (detailBtn) {
     detailBtn.addEventListener("click", () => {
       if (!currentPlayerModal || !currentPlayerModal.id) return;
-      const summaryEl = document.getElementById("modal-summary");
-      const tbody = document.getElementById("modal-stats-rows");
-      if (!summaryEl || !tbody) return;
-
-      // Load 50 games as a "detail" view
-      loadPlayerStats(currentPlayerModal.id, summaryEl, tbody, 50);
-      detailBtn.textContent = "Showing 50 games";
-      detailBtn.disabled = true;
+      openPlayerDetailCard(currentPlayerModal);
     });
   }
 
-  // Global handler for ANY non-card element with data-player-id
+  // Global handler for non-card elements with data-player-id
   document.addEventListener("click", (evt) => {
-    // Player cards have their own handler; avoid double-fire
+    // Player cards already wired; avoid double-fire
     if (evt.target.closest(".player-card")) return;
 
     const target = evt.target.closest("[data-player-id]");
@@ -1309,7 +1311,7 @@ function openPlayerModal(player) {
   const modal = document.getElementById("player-modal");
   if (!modal) return;
 
-  currentPlayerModal = player; // store for "View Detail Page"
+  currentPlayerModal = player; // store for detail view
 
   modal.classList.remove("hidden");
 
@@ -1318,8 +1320,13 @@ function openPlayerModal(player) {
   const summaryEl = document.getElementById("modal-summary");
   const tbody = document.getElementById("modal-stats-rows");
   const detailBtn = document.getElementById("player-detail-btn");
+  const detailCard = document.getElementById("player-detail-card");
 
-  // reset detail button on each open
+  // reset detail card each open
+  if (detailCard) {
+    detailCard.classList.add("hidden");
+    detailCard.innerHTML = "";
+  }
   if (detailBtn) {
     detailBtn.textContent = "View Detail Page";
     detailBtn.disabled = false;
@@ -1369,7 +1376,7 @@ function openPlayerModal(player) {
     return;
   }
 
-  // initial is last 10
+  // initial = last 10
   loadPlayerStats(player.id, summaryEl, tbody, 10);
 }
 
@@ -1435,6 +1442,226 @@ async function loadPlayerStats(playerId, summaryEl, tbody, lastN = 10) {
     if (tbody) {
       tbody.innerHTML =
         '<tr><td colspan="6" class="muted">Error loading stats.</td></tr>';
+    }
+  }
+}
+
+// builds indepth card inside modal when "View Detail Page" is clicked
+async function openPlayerDetailCard(player) {
+  const detailCard = document.getElementById("player-detail-card");
+  const summaryEl = document.getElementById("modal-summary");
+  const tbody = document.getElementById("modal-stats-rows");
+  const detailBtn = document.getElementById("player-detail-btn");
+  if (!detailCard || !summaryEl || !tbody) return;
+
+  if (detailBtn) {
+    detailBtn.textContent = "Loading detail…";
+    detailBtn.disabled = true;
+  }
+
+  try {
+    const url = `/api/stats?player_id=${encodeURIComponent(
+      player.id
+    )}&last_n=50`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("stats fetch failed");
+    const json = await res.json();
+    const rows = json.data || [];
+    const meta = json.meta || {};
+
+    if (!rows.length) {
+      summaryEl.textContent = "No extended stats available.";
+      detailCard.innerHTML =
+        '<div class="muted">No additional detail for this player.</div>';
+      detailCard.classList.remove("hidden");
+      return;
+    }
+
+    const teamMeta = meta.team || meta.teamAbbr || player.team || "";
+    const sampleSize = rows.length;
+
+    const last10 = rows.slice(0, 10);
+    const last5 = rows.slice(0, 5);
+
+    const makeAvg = (list, statKey) => {
+      if (!list.length) return null;
+      let sum = 0;
+      let count = 0;
+      for (const r of list) {
+        let v = r[statKey];
+        if (v == null && statKey === "reb") v = r.reb_tot;
+        if (v == null) continue;
+        if (typeof v === "string") v = parseFloat(v);
+        if (Number.isNaN(v)) continue;
+        sum += v;
+        count += 1;
+      }
+      if (!count) return null;
+      return sum / count;
+    };
+
+    const stats = ["pts", "reb", "ast"];
+    const labels = { pts: "PTS", reb: "REB", ast: "AST" };
+    const rowsSummary = stats.map((key) => {
+      const season = makeAvg(rows, key);
+      const l10 = makeAvg(last10, key);
+      const l5 = makeAvg(last5, key);
+      return {
+        key,
+        label: labels[key] || key.toUpperCase(),
+        season,
+        l10,
+        l5,
+      };
+    });
+
+    // rebuild main table to use the full 50 for the right side
+    const trHtml = rows
+      .map((r) => {
+        const date = r.game_date || r.date || "";
+        const opp = r.opponent || r.opp || "";
+        const min =
+          r.min != null ? r.min : r.minutes != null ? r.minutes : "";
+        const pts = r.pts != null ? r.pts : "";
+        const reb = r.reb != null ? r.reb : r.reb_tot != null ? r.reb_tot : "";
+        const ast = r.ast != null ? r.ast : "";
+
+        return `<tr>
+          <td class="cell-left">${escapeHtml(String(date).slice(5))}</td>
+          <td class="cell-left">${escapeHtml(opp)}</td>
+          <td>${escapeHtml(min)}</td>
+          <td>${escapeHtml(pts)}</td>
+          <td>${escapeHtml(reb)}</td>
+          <td>${escapeHtml(ast)}</td>
+        </tr>`;
+      })
+      .join("");
+    tbody.innerHTML = trHtml;
+
+    summaryEl.textContent = `Last ${sampleSize} games${
+      teamMeta ? ` • ${teamMeta}` : ""
+    }`;
+
+    const snapshotRows = rowsSummary
+      .map((row) => {
+        const s =
+          row.season != null ? row.season.toFixed(1) : "&mdash;";
+        const l10 = row.l10 != null ? row.l10.toFixed(1) : "&mdash;";
+        const l5 = row.l5 != null ? row.l5.toFixed(1) : "&mdash;";
+        return `
+          <div class="detail-snapshot-row">
+            <span class="detail-snapshot-label">${row.label}</span>
+            <span class="detail-snapshot-val">Season: <b>${s}</b></span>
+            <span class="detail-snapshot-val">L10: <b>${l10}</b></span>
+            <span class="detail-snapshot-val">L5: <b>${l5}</b></span>
+          </div>
+        `;
+      })
+      .join("");
+
+    const tableRows = rowsSummary
+      .map((row) => {
+        const s =
+          row.season != null ? row.season.toFixed(1) : "&mdash;";
+        const l10 = row.l10 != null ? row.l10.toFixed(1) : "&mdash;";
+        const l5 = row.l5 != null ? row.l5.toFixed(1) : "&mdash;";
+        return `
+          <tr>
+            <td class="cell-left">${row.label}</td>
+            <td>${s}</td>
+            <td>${l10}</td>
+            <td>${l5}</td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    const logoUrl = getTeamLogoUrl(player.team);
+    const safeName = escapeHtml(player.name || "");
+    const safeTeam = escapeHtml(player.team || "");
+    const safePos = escapeHtml(player.pos || "");
+
+    detailCard.innerHTML = `
+      <div class="player-detail-grid">
+        <section class="player-detail-left">
+          <header class="player-detail-header">
+            <div class="player-detail-main">
+              <div class="player-detail-name-row">
+                ${
+                  logoUrl
+                    ? `<img src="${logoUrl}" alt="${safeTeam} logo"
+                             class="detail-team-logo team-logo-img"
+                             onerror="this.style.display='none';" />`
+                    : ""
+                }
+                <div class="player-detail-name-block">
+                  <div class="player-detail-name">${safeName}</div>
+                  <div class="player-detail-meta">
+                    ${safeTeam || "FA"}${
+      safePos ? " • " + safePos : ""
+    }${player.id ? " • ID " + player.id : ""}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="player-detail-idpill">
+              Sample: ${sampleSize} GP
+            </div>
+          </header>
+
+          <section class="player-detail-section">
+            <div class="player-detail-section-title">Season Snapshot</div>
+            <div class="player-detail-snapshot">
+              ${snapshotRows}
+            </div>
+          </section>
+
+          <section class="player-detail-section">
+            <div class="player-detail-section-title">Season Averages</div>
+            <div class="player-detail-averages-wrap">
+              <table class="stats-table detail-averages-table">
+                <thead>
+                  <tr>
+                    <th class="cell-left">Stat</th>
+                    <th>Season</th>
+                    <th>L10</th>
+                    <th>L5</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${tableRows}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="player-detail-right">
+          <header class="player-detail-section">
+            <div class="player-detail-section-title">Recent Games</div>
+            <div class="player-detail-section-sub">
+              Full sample from BallDontLie
+            </div>
+          </header>
+          <!-- main table is reused above; this block is mainly for description -->
+        </section>
+      </div>
+    `;
+
+    detailCard.classList.remove("hidden");
+    if (detailBtn) {
+      detailBtn.textContent = "Detail loaded";
+      detailBtn.disabled = true;
+    }
+  } catch (err) {
+    console.error(err);
+    summaryEl.textContent = "Error loading extended stats.";
+    detailCard.innerHTML =
+      '<div class="muted">Error loading detail for this player.</div>';
+    detailCard.classList.remove("hidden");
+    if (detailBtn) {
+      detailBtn.textContent = "View Detail Page";
+      detailBtn.disabled = false;
     }
   }
 }
