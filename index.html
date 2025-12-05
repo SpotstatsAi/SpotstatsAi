@@ -25,6 +25,7 @@
             type="search"
             placeholder="Search players or teams..."
           />
+          <div id="global-search-results" class="search-results hidden"></div>
         </div>
       </div>
 
@@ -258,9 +259,7 @@
                 </div>
               </header>
               <div class="panel-body">
-                <div id="player-grid" class="player-grid">
-                  <!-- cards injected here -->
-                </div>
+                <div id="player-grid" class="player-grid"></div>
                 <div id="player-empty" class="empty-state hidden">
                   <p>No players match your filters.</p>
                   <p class="muted">
