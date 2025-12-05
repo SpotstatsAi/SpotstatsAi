@@ -210,7 +210,7 @@ body {
   border-radius: 999px;
   background: rgba(9, 10, 20, 0.9);
   border: 1px solid var(--border-subtle);
-  max-width: 520px;
+  max-width: 640px;
 }
 
 .nav-tab {
@@ -480,36 +480,27 @@ body {
   color: var(--text-soft);
 }
 
-/* Team badge with logo */
-
 .player-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   border-radius: 999px;
-  padding: 2px 8px;
+  padding: 2px 8px 2px 4px;
   background: rgba(9, 10, 24, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 10px;
 }
 
 .player-badge-logo {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  object-fit: contain;
 }
 
 .player-badge-text {
-  white-space: nowrap;
-}
-
-.team-logo-img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
+  font-size: 10px;
 }
 
 .player-tagline {
@@ -604,6 +595,12 @@ body {
   cursor: pointer;
 }
 
+.modal-footer-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 6px;
+}
+
 .muted {
   color: var(--text-muted);
   font-size: 12px;
@@ -637,9 +634,9 @@ body {
 
 .modal-panel {
   position: relative;
-  max-width: 720px;
-  width: 90%;
-  max-height: 80vh;
+  max-width: 900px;
+  width: 92%;
+  max-height: 90vh;
   background: radial-gradient(circle at top left, #2d315a, #101221);
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -663,21 +660,9 @@ body {
   gap: 2px;
 }
 
-/* Name + logo */
-
 .modal-player-name {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
   font-size: 15px;
   font-weight: 600;
-}
-
-.modal-team-logo {
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  overflow: hidden;
 }
 
 .modal-player-meta {
@@ -698,6 +683,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow-y: auto;
 }
 
 .modal-summary {
@@ -726,6 +712,7 @@ body {
   position: sticky;
   top: 0;
   background: rgba(8, 9, 22, 0.98);
+  z-index: 1;
 }
 
 .stats-table th,
@@ -750,42 +737,119 @@ body {
   text-align: left;
 }
 
-/* Responsive */
+/* Game modal layout */
 
-@media (max-width: 1024px) {
-  .overview-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .panel.span-2 {
-    grid-column: span 1;
-  }
-  .players-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.game-modal-body {
+  gap: 10px;
 }
 
-@media (max-width: 768px) {
-  .app-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .header-actions {
-    justify-content: flex-end;
-  }
-  .app-nav {
-    width: 100%;
-  }
+.game-modal-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-/* Make modal scrollable inside viewport */
-.modal-panel {
-  max-height: 90vh;
+
+.game-modal-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.modal-section-title {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.modal-section-body {
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 8px;
+  max-height: 50vh;
   overflow-y: auto;
+}
+
+/* Edge board modal */
+
+.modal-edge-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+/* Edges table wrapper */
+
+.edges-table-wrapper {
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 8px;
+  overflow-x: auto;
+}
+
+/* Prop likelihood pills */
+
+.prop-pill {
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.prop-pill-green {
+  background: rgba(34, 197, 94, 0.18);
+  border-color: rgba(34, 197, 94, 0.7);
+  color: #bbf7d0;
+}
+
+.prop-pill-yellow {
+  background: rgba(250, 204, 21, 0.2);
+  border-color: rgba(250, 204, 21, 0.75);
+  color: #fef9c3;
+}
+
+.prop-pill-red {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.75);
+  color: #fecaca;
+}
+
+.prop-pill-neutral {
+  background: rgba(148, 163, 184, 0.15);
+  border-color: rgba(148, 163, 184, 0.6);
+  color: #e5e7eb;
+}
+
+/* Delta bar visualization */
+
+.delta-badge-wrap {
+  position: relative;
+  min-width: 80px;
+  padding-left: 0;
+}
+
+.delta-bar {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 6px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(248, 250, 252, 0.06), rgba(148, 163, 184, 0.2));
+}
+
+.delta-pill-inner {
+  position: relative;
+  display: inline-block;
 }
 
 /* Player modal mini charts */
 
 .player-modal-charts {
-  margin-top: 8px;
+  margin-top: 4px;
   padding: 8px 10px;
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.25);
@@ -818,36 +882,51 @@ body {
   background: rgba(0, 0, 0, 0.35);
 }
 
-/* Prop / edge likelihood pills */
+/* Trend list bars */
 
-.prop-pill {
+.trend-score-wrap {
+  position: relative;
+  width: 120px;
+  height: 8px;
   border-radius: 999px;
-  padding: 2px 8px;
-  font-size: 10px;
-  font-weight: 500;
-  border: 1px solid transparent;
+  background: rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+  margin-top: 2px;
 }
 
-.prop-pill-green {
-  background: rgba(34, 197, 94, 0.18);
-  border-color: rgba(34, 197, 94, 0.7);
-  color: #bbf7d0;
+.trend-score-bar {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.8), rgba(129, 140, 248, 0.8));
 }
 
-.prop-pill-yellow {
-  background: rgba(250, 204, 21, 0.2);
-  border-color: rgba(250, 204, 21, 0.75);
-  color: #fef9c3;
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .overview-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .panel.span-2 {
+    grid-column: span 1;
+  }
+  .players-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
-.prop-pill-red {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: rgba(239, 68, 68, 0.75);
-  color: #fecaca;
-}
-
-.prop-pill-neutral {
-  background: rgba(148, 163, 184, 0.15);
-  border-color: rgba(148, 163, 184, 0.6);
-  color: #e5e7eb;
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .header-actions {
+    justify-content: flex-end;
+  }
+  .app-nav {
+    width: 100%;
+  }
+  .game-modal-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
