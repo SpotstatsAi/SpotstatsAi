@@ -43,7 +43,6 @@ function setupNav() {
   const edgeBtn = document.getElementById("edge-board-btn");
   if (edgeBtn) {
     edgeBtn.addEventListener("click", () => {
-      // Jump to Trends / edges-centric view
       document
         .querySelector('.nav-tab[data-view="trends-view"]')
         .click();
@@ -58,7 +57,6 @@ function setupGlobalSearch() {
     if (e.key === "Enter") {
       const q = input.value.trim();
       if (!q) return;
-      // Switch to Players view and fill search
       document
         .querySelector('.nav-tab[data-view="players-view"]')
         .click();
@@ -699,6 +697,7 @@ function setupOverviewView() {
   if (edgesStatSelect) {
     edgesStatSelect.addEventListener("change", () => {
       loadOverviewEdges(edgesStatSelect.value || "pts");
+      loadOverviewEdgeBoard(); // keep Edge Board in sync with stat changes
     });
   }
 
@@ -723,7 +722,8 @@ function loadOverview() {
   loadGames("today");
   loadOverviewEdges(edgesStatSelect?.value || "pts");
   loadOverviewTrending(trendingStatSelect?.value || "pts");
-  ensureTeamsLoaded(); // populates overview teams card as well
+  ensureTeamsLoaded();
+  loadOverviewEdgeBoard();
 }
 
 async function loadOverviewEdges(stat) {
@@ -825,6 +825,77 @@ async function loadOverviewTrending(stat) {
   } catch (err) {
     console.error(err);
     el.innerHTML = `<p class="muted">Error loading trending players.</p>`;
+  }
+}
+
+// Edge Board summary: combine top edges across PTS/REB/AST
+async function loadOverviewEdgeBoard() {
+  const el = document.getElementById("overview-edgeboard");
+  if (!el) return;
+  el.innerHTML = `<p class="muted">Loading edge board...</p>`;
+
+  try {
+    const stats = ["pts", "reb", "ast"];
+    const labels = { pts: "PTS", reb: "REB", ast: "AST" };
+
+    const promises = stats.map((s) =>
+      fetch(`/api/edges?stat=${s}&limit=3`).then((r) =>
+        r.ok ? r.json() : Promise.reject(new Error("edges fetch failed"))
+      )
+    );
+
+    const results = await Promise.allSettled(promises);
+    const rows = [];
+
+    results.forEach((res, idx) => {
+      if (res.status !== "fulfilled") return;
+      const stat = stats[idx];
+      const data = res.value.data || [];
+      data.forEach((p) => {
+        rows.push({ ...p, stat });
+      });
+    });
+
+    if (!rows.length) {
+      el.innerHTML = `<p class="muted">No edge candidates available yet.</p>`;
+      return;
+    }
+
+    rows.sort((a, b) => (b.delta || 0) - (a.delta || 0));
+
+    const html = rows
+      .map((p) => {
+        const name = escapeHtml(p.name);
+        const team = escapeHtml(p.team || "");
+        const pos = escapeHtml(p.pos || "");
+        const statLabel = labels[p.stat] || p.stat.toUpperCase();
+        const recent =
+          p.recent != null ? p.recent.toFixed(1) : "–";
+        const season =
+          p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+        const delta =
+          p.delta != null ? p.delta.toFixed(1) : "–";
+
+        return `
+          <div class="overview-row">
+            <div class="overview-row-main">
+              <span>${name}</span>
+              <span class="muted">${team}${pos ? " • " + pos : ""}</span>
+            </div>
+            <div class="overview-row-meta">
+              <div class="team-sub">${statLabel}</div>
+              <div class="team-sub">Recent: ${recent} • Season: ${season}</div>
+              <div class="badge-soft">Δ ${delta}</div>
+            </div>
+          </div>
+        `;
+      })
+      .join("");
+
+    el.innerHTML = `<div class="overview-list">${html}</div>`;
+  } catch (err) {
+    console.error(err);
+    el.innerHTML = `<p class="muted">Error loading edge board.</p>`;
   }
 }
 
