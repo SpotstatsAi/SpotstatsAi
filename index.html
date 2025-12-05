@@ -2,317 +2,331 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>PropsParlor – Prop Engine</title>
+  <title>PropsParlor | Vegas Player Board</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-shell">
+    <!-- Top bar -->
     <header class="app-header">
-      <div class="app-title-block">
-        <div class="app-logo">PP</div>
-        <div class="app-title-text">
-          <h1>PropsParlor</h1>
-          <span class="app-subtitle">Prop Engine · Player Hub</span>
+      <div class="brand">
+        <div class="brand-badge">PP</div>
+        <div class="brand-meta">
+          <div class="brand-title">PropsParlor</div>
+          <div class="brand-subtitle">NBA props, edges &amp; game context</div>
         </div>
       </div>
-      <div class="app-header-center">
-        <div class="pill pill-today">
-          <span id="today-label">Today</span>
-          <span id="today-date"></span>
-        </div>
-      </div>
-      <div class="app-header-right">
-        <div class="global-search">
+
+      <div class="header-center">
+        <div class="search-shell">
           <input
-            id="global-search-input"
-            type="text"
-            placeholder="Search players (BDL)…"
-            autocomplete="off"
+            id="global-search"
+            type="search"
+            placeholder="Search players or teams..."
           />
-          <div id="global-search-results" class="global-search-results"></div>
         </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="edge-board-btn" class="primary-cta">
+          View Today's Edge Board
+        </button>
       </div>
     </header>
 
+    <!-- Nav tabs -->
     <nav class="app-nav">
-      <button class="nav-tab active" data-view="overview">Overview</button>
-      <button class="nav-tab" data-view="games">Games</button>
-      <button class="nav-tab" data-view="players">Players</button>
-      <button class="nav-tab" data-view="teams">Teams</button>
-      <button class="nav-tab" data-view="trends">Trends</button>
+      <button class="nav-tab active" data-view="overview-view">Overview</button>
+      <button class="nav-tab" data-view="games-view">Games</button>
+      <button class="nav-tab" data-view="players-view">Players</button>
+      <button class="nav-tab" data-view="teams-view">Teams</button>
+      <button class="nav-tab" data-view="trends-view">Trends</button>
     </nav>
 
+    <!-- Main content -->
     <main class="app-main">
-      <!-- Overview -->
-      <section id="view-overview" class="view active">
-        <div class="grid-2">
-          <div class="card" id="overview-todays-games">
-            <div class="card-header">
-              <h2>Today’s Games</h2>
-              <span class="tag tag-secondary" id="overview-games-count">0</span>
+      <!-- OVERVIEW -->
+      <section id="overview-view" class="view active">
+        <div class="overview-grid">
+          <!-- Today's Games -->
+          <article class="panel">
+            <header class="panel-header">
+              <div>
+                <h2 class="panel-title">Today's Games</h2>
+                <p class="panel-subtitle">Matchups &amp; basic context</p>
+              </div>
+              <span class="chip" id="overview-games-count">0 games</span>
+            </header>
+            <div class="panel-body" id="overview-games">
+              <p class="muted">Loading games...</p>
             </div>
-            <div class="card-body scroll-y" id="overview-games-list"></div>
-          </div>
+          </article>
 
-          <div class="card" id="overview-top-props">
-            <div class="card-header">
-              <h2>Top Prop Targets</h2>
+          <!-- Top Prop Targets (Edges) -->
+          <article class="panel">
+            <header class="panel-header">
+              <div>
+                <h2 class="panel-title">Top Prop Targets</h2>
+                <p class="panel-subtitle">Statistically juicy spots</p>
+              </div>
+              <select id="overview-edges-stat" class="panel-select">
+                <option value="pts">Points</option>
+                <option value="reb">Rebounds</option>
+                <option value="ast">Assists</option>
+              </select>
+            </header>
+            <div class="panel-body" id="overview-edges">
+              <p class="muted">Loading edge candidates...</p>
             </div>
-            <div class="card-body scroll-y" id="overview-top-props-list"></div>
-          </div>
-        </div>
+          </article>
 
-        <div class="grid-3 mt-lg">
-          <div class="card" id="overview-trending">
-            <div class="card-header">
-              <h2>Trending Players</h2>
+          <!-- Trending Players -->
+          <article class="panel">
+            <header class="panel-header">
+              <div>
+                <h2 class="panel-title">🔥 Trending Players</h2>
+                <p class="panel-subtitle">Running hot last few games</p>
+              </div>
+              <select id="overview-trending-stat" class="panel-select">
+                <option value="pts">Points</option>
+                <option value="reb">Rebounds</option>
+                <option value="ast">Assists</option>
+                <option value="usage">Usage</option>
+              </select>
+            </header>
+            <div class="panel-body" id="overview-trending">
+              <p class="muted">Loading trending players...</p>
             </div>
-            <div class="card-body scroll-y" id="overview-trending-list"></div>
-          </div>
+          </article>
 
-          <div class="card" id="overview-rosters-snapshot">
-            <div class="card-header">
-              <h2>Team Rosters Snapshot</h2>
+          <!-- Team Rosters snapshot -->
+          <article class="panel span-2">
+            <header class="panel-header">
+              <div>
+                <h2 class="panel-title">Team Rosters</h2>
+                <p class="panel-subtitle">Snapshot by team</p>
+              </div>
+              <select id="overview-teams-filter" class="panel-select">
+                <option value="">All teams</option>
+              </select>
+            </header>
+            <div class="panel-body" id="overview-teams">
+              <p class="muted">Loading team overview...</p>
             </div>
-            <div class="card-body scroll-y" id="overview-rosters-list"></div>
-          </div>
+          </article>
 
-          <div class="card" id="overview-edge-summary">
-            <div class="card-header">
-              <h2>Edge Board Summary</h2>
+          <!-- Edge Board summary -->
+          <article class="panel">
+            <header class="panel-header">
+              <div>
+                <h2 class="panel-title">📊 Edge Board</h2>
+                <p class="panel-subtitle">Quick view of strongest leans</p>
+              </div>
+            </header>
+            <div class="panel-body" id="overview-edgeboard">
+              <p class="muted">
+                Use this panel to summarize your strongest props across stats.
+              </p>
             </div>
-            <div class="card-body scroll-y" id="overview-edge-summary-body"></div>
-          </div>
+          </article>
         </div>
       </section>
 
-      <!-- Games -->
-      <section id="view-games" class="view">
-        <div class="toolbar">
-          <button class="btn btn-sm btn-toggle" data-games-date="today">Today</button>
-          <button class="btn btn-sm btn-toggle" data-games-date="tomorrow">Tomorrow</button>
-        </div>
-        <div class="card mt-md">
-          <div class="card-header">
-            <h2>Schedule</h2>
-            <span id="games-date-label" class="tag tag-secondary"></span>
-          </div>
-          <div class="card-body scroll-y" id="games-list"></div>
-        </div>
-      </section>
-
-      <!-- Players -->
-      <section id="view-players" class="view">
-        <div class="toolbar">
-          <div class="toolbar-group">
-            <label class="toolbar-label">Team</label>
-            <select id="players-filter-team">
-              <option value="">All</option>
-            </select>
-          </div>
-          <div class="toolbar-group">
-            <label class="toolbar-label">Position</label>
-            <select id="players-filter-pos">
-              <option value="">All</option>
-              <option value="G">G</option>
-              <option value="F">F</option>
-              <option value="C">C</option>
-            </select>
-          </div>
-          <div class="toolbar-group flex-1">
-            <input
-              id="players-filter-text"
-              type="text"
-              placeholder="Filter players…"
-            />
-          </div>
-        </div>
-
-        <div class="card mt-md">
-          <div class="card-header">
-            <h2>Player Board</h2>
-          </div>
-          <div class="card-body scroll-y">
-            <table class="table" id="players-table">
-              <thead>
-                <tr>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th>Pos</th>
-                  <th>Height</th>
-                  <th>Weight</th>
-                  <th>Jersey</th>
-                </tr>
-              </thead>
-              <tbody id="players-table-body"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Teams -->
-      <section id="view-teams" class="view">
-        <div class="card">
-          <div class="card-header">
-            <h2>Teams</h2>
-          </div>
-          <div class="card-body scroll-y">
-            <table class="table" id="teams-table">
-              <thead>
-                <tr>
-                  <th>Team</th>
-                  <th>Players</th>
-                </tr>
-              </thead>
-              <tbody id="teams-table-body"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Trends -->
-      <section id="view-trends" class="view">
-        <div class="toolbar">
-          <div class="toolbar-group">
-            <label class="toolbar-label">Stat</label>
-            <select id="trends-filter-stat">
-              <option value="pts">Points</option>
-              <option value="reb">Rebounds</option>
-              <option value="ast">Assists</option>
-            </select>
-          </div>
-          <div class="toolbar-group">
-            <label class="toolbar-label">Limit</label>
-            <select id="trends-filter-limit">
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="card mt-md">
-          <div class="card-header">
-            <h2>Trends</h2>
-          </div>
-          <div class="card-body scroll-y">
-            <table class="table" id="trends-table">
-              <thead>
-                <tr>
-                  <th>Player</th>
-                  <th>Team</th>
-                  <th>Stat</th>
-                  <th>Trend</th>
-                </tr>
-              </thead>
-              <tbody id="trends-table-body"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Player Detail PAGE -->
-      <section id="view-player-detail" class="view">
-        <div class="player-detail-header">
-          <button id="player-detail-back" class="btn btn-sm btn-ghost">
-            ← Back to Players
-          </button>
-          <div class="player-detail-header-main">
+      <!-- GAMES -->
+      <section id="games-view" class="view">
+        <article class="panel span-2">
+          <header class="panel-header">
             <div>
-              <div class="player-detail-name" id="player-detail-name"></div>
-              <div class="player-detail-meta" id="player-detail-meta"></div>
+              <h2 class="panel-title">Games Hub</h2>
+              <p class="panel-subtitle">Schedule-backed + live context</p>
             </div>
-            <div class="player-detail-tags" id="player-detail-tags"></div>
+            <div class="panel-actions">
+              <button class="chip-toggle active" data-games-range="today">
+                Today
+              </button>
+              <button class="chip-toggle" data-games-range="tomorrow">
+                Tomorrow
+              </button>
+            </div>
+          </header>
+          <div class="panel-body" id="games-list">
+            <p class="muted">Loading games...</p>
           </div>
-          <div class="player-detail-actions">
-            <button id="player-detail-edgeboard-btn" class="btn btn-sm">
-              Open Full Edge Board
-            </button>
-          </div>
+        </article>
+      </section>
+
+      <!-- PLAYERS -->
+      <section id="players-view" class="view">
+        <div class="players-layout">
+          <!-- Filters column -->
+          <aside class="filters-column">
+            <div class="panel filters-panel">
+              <header class="panel-header">
+                <h2 class="panel-title">Filters</h2>
+                <button id="filters-reset" class="tiny-btn">Reset</button>
+              </header>
+
+              <div class="filters-group">
+                <label class="filter-label">Search</label>
+                <div class="filter-control">
+                  <input
+                    id="player-search"
+                    type="search"
+                    placeholder="Player, team, jersey..."
+                  />
+                </div>
+              </div>
+
+              <div class="filters-row">
+                <div class="filters-group">
+                  <label class="filter-label">Team</label>
+                  <div class="filter-control">
+                    <select id="filter-team">
+                      <option value="">All teams</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="filters-group">
+                  <label class="filter-label">Position</label>
+                  <div class="filter-control">
+                    <select id="filter-position">
+                      <option value="">All positions</option>
+                      <option value="G">Guards</option>
+                      <option value="F">Wings / Forwards</option>
+                      <option value="C">Bigs / Centers</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filters-group">
+                <label class="filter-label">Sort</label>
+                <div class="filter-control">
+                  <select id="sort-order">
+                    <option value="name-asc">Name A → Z</option>
+                    <option value="team">Team</option>
+                    <option value="height-desc">Height (tall → short)</option>
+                    <option value="weight-desc">Weight (heavy → light)</option>
+                    <option value="jersey-asc">Jersey #</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel snapshot-panel">
+              <header class="panel-header">
+                <h2 class="panel-title">Snapshot</h2>
+              </header>
+              <div class="snapshot-list">
+                <div class="snapshot-row">
+                  <span>Unique teams</span>
+                  <span id="snapshot-teams">0</span>
+                </div>
+                <div class="snapshot-row">
+                  <span>Guards</span>
+                  <span id="snapshot-guards">0</span>
+                </div>
+                <div class="snapshot-row">
+                  <span>Wings / Forwards</span>
+                  <span id="snapshot-forwards">0</span>
+                </div>
+                <div class="snapshot-row">
+                  <span>Bigs / Centers</span>
+                  <span id="snapshot-centers">0</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Player board column -->
+          <section class="player-board-column">
+            <article class="panel">
+              <header class="panel-header">
+                <div>
+                  <h2 class="panel-title">Player Board</h2>
+                  <p class="panel-subtitle" id="player-board-subtitle">
+                    Loading players...
+                  </p>
+                </div>
+                <div class="panel-meta">
+                  <span class="meta-dot"></span>
+                  <span class="meta-text">Always on • No schedule required</span>
+                  <span class="meta-count" id="player-count">0</span>
+                  <span class="meta-label">Players</span>
+                </div>
+              </header>
+              <div class="panel-body">
+                <div id="player-grid" class="player-grid">
+                  <!-- cards injected here -->
+                </div>
+                <div id="player-empty" class="empty-state hidden">
+                  <p>No players match your filters.</p>
+                  <p class="muted">
+                    Adjust search, team, or position filters to see more players.
+                  </p>
+                  <button id="player-clear-filters" class="tiny-btn">
+                    Clear filters
+                  </button>
+                </div>
+              </div>
+            </article>
+          </section>
         </div>
+      </section>
 
-        <div class="player-detail-grid mt-md">
-          <div class="player-detail-column">
-            <div class="card">
-              <div class="card-header">
-                <h2>Season Snapshot</h2>
-              </div>
-              <div class="card-body" id="player-detail-season-snapshot"></div>
+      <!-- TEAMS -->
+      <section id="teams-view" class="view">
+        <article class="panel span-2">
+          <header class="panel-header">
+            <div>
+              <h2 class="panel-title">Teams Hub</h2>
+              <p class="panel-subtitle">Rosters grouped by team</p>
             </div>
-
-            <div class="card mt-md">
-              <div class="card-header">
-                <h2>Game Log (Recent)</h2>
-              </div>
-              <div class="card-body scroll-y" id="player-detail-gamelog"></div>
-            </div>
+            <select id="teams-filter-team" class="panel-select">
+              <option value="">All teams</option>
+            </select>
+          </header>
+          <div class="panel-body" id="teams-list">
+            <p class="muted">Loading teams...</p>
           </div>
+        </article>
+      </section>
 
-          <div class="player-detail-column">
-            <div class="card">
-              <div class="card-header">
-                <h2>Season Averages</h2>
-              </div>
-              <div class="card-body scroll-y">
-                <table class="table" id="player-detail-season-averages-table">
-                  <thead>
-                    <tr>
-                      <th>Stat</th>
-                      <th>Season</th>
-                      <th>Last 10</th>
-                      <th>Last 5</th>
-                    </tr>
-                  </thead>
-                  <tbody id="player-detail-season-averages-body"></tbody>
-                </table>
-              </div>
+      <!-- TRENDS -->
+      <section id="trends-view" class="view">
+        <article class="panel span-2">
+          <header class="panel-header">
+            <div>
+              <h2 class="panel-title">Trends &amp; Signals</h2>
+              <p class="panel-subtitle">
+                Running hot vs season baselines
+              </p>
             </div>
-
-            <div class="card mt-md">
-              <div class="card-header">
-                <h2>Prop Preview</h2>
-              </div>
-              <div class="card-body scroll-y" id="player-detail-prop-preview"></div>
+            <div class="panel-actions">
+              <select id="trends-stat" class="panel-select">
+                <option value="pts">Points</option>
+                <option value="reb">Rebounds</option>
+                <option value="ast">Assists</option>
+                <option value="usage">Usage</option>
+              </select>
+              <select id="trends-position" class="panel-select">
+                <option value="">All positions</option>
+                <option value="G">Guards</option>
+                <option value="F">Wings / Forwards</option>
+                <option value="C">Bigs / Centers</option>
+              </select>
             </div>
+          </header>
+          <div class="panel-body" id="trends-list">
+            <p class="muted">Loading trends...</p>
           </div>
-        </div>
-
-        <div id="player-detail-loading" class="inline-status hidden">
-          Loading player detail…
-        </div>
-        <div id="player-detail-error" class="inline-status error hidden"></div>
+        </article>
       </section>
     </main>
-
-    <!-- Modals -->
-    <div id="modal-overlay" class="modal-overlay hidden">
-      <div class="modal" id="player-modal">
-        <div class="modal-header">
-          <h2 id="player-modal-title"></h2>
-          <button class="modal-close" data-modal-close>&times;</button>
-        </div>
-        <div class="modal-body" id="player-modal-body"></div>
-      </div>
-
-      <div class="modal" id="edgeboard-modal">
-        <div class="modal-header">
-          <h2>Edge Board</h2>
-          <button class="modal-close" data-modal-close>&times;</button>
-        </div>
-        <div class="modal-body scroll-y" id="edgeboard-modal-body"></div>
-      </div>
-
-      <div class="modal" id="game-modal">
-        <div class="modal-header">
-          <h2 id="game-modal-title"></h2>
-          <button class="modal-close" data-modal-close>&times;</button>
-        </div>
-        <div class="modal-body scroll-y" id="game-modal-body"></div>
-      </div>
-    </div>
   </div>
 
-  <script src="./app.js" defer></script>
+  <script src="app.js"></script>
 </body>
 </html>
