@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupGameModal();
   setupEdgeBoardModal();
   setupEdgesTabView();
-  setupEdgesRowClickHandlers(); // NEW: edges rows → player detail popup
+  setupEdgesRowClickHandlers();
   setupPlayerDetailRouting();
   setupPlayerDetailUI();
   ensureOverviewLoaded();
@@ -837,7 +837,6 @@ function loadOverview() {
   loadOverviewEdgeBoard();
 }
 
-// Today's Games card in Overview
 async function loadOverviewGames() {
   const body = document.getElementById("overview-games");
   const countEl = document.getElementById("overview-games-count");
@@ -986,7 +985,6 @@ async function loadOverviewTrending(stat) {
   }
 }
 
-// Edge Board summary: combine top edges across PTS/REB/AST
 async function loadOverviewEdgeBoard() {
   const el = document.getElementById("overview-edgeboard");
   if (!el) return;
@@ -1724,26 +1722,24 @@ function setupEdgesRowClickHandlers() {
   const edgesTabBody = document.getElementById("edges-tab-rows");
   const edgeModalBody = document.getElementById("edge-modal-rows");
 
-  // Edges tab table rows
   if (edgesTabBody) {
     edgesTabBody.addEventListener("click", (e) => {
       const row = e.target.closest("tr[data-player-id]");
       if (!row) return;
       const id = row.dataset.playerId;
       if (!id) return;
-      e.stopPropagation(); // prevent basic player modal handler
+      e.stopPropagation();
       openPlayerDetail(id);
     });
   }
 
-  // Edge Board modal table rows
   if (edgeModalBody) {
     edgeModalBody.addEventListener("click", (e) => {
       const row = e.target.closest("tr[data-player-id]");
       if (!row) return;
       const id = row.dataset.playerId;
       if (!id) return;
-      e.stopPropagation(); // prevent basic player modal handler
+      e.stopPropagation();
       openPlayerDetail(id);
     });
   }
@@ -1761,7 +1757,7 @@ const PlayerDetailState = {
 };
 
 const PlayerDetailUIState = {
-  propStatFilter: "all", // "all" | "pts" | "reb" | "ast"
+  propStatFilter: "all",
   bookFilter: "",
 };
 
@@ -1849,7 +1845,6 @@ async function openPlayerDetail(playerId) {
   if (!playerId) return;
   PlayerDetailState.currentPlayerId = String(playerId);
 
-  // reset UI filters
   PlayerDetailUIState.propStatFilter = "all";
   PlayerDetailUIState.bookFilter = "";
   pdSyncPropStatButtons();
