@@ -1,17 +1,31 @@
 // functions/api/stats.js
 //
-// Generic stats endpoint backed by player_stats.json
+// Per-player aggregate stats endpoint backed by player_stats.json.
+//
+// Shape of player_stats.json (per your repo):
+// {
+//   "Player Name": {
+//      "pts": 23.1,
+//      "reb": 7.4,
+//      "ast": 5.2,
+//      "last5_pts": 28.3,
+//      "last5_reb": 8.1,
+//      "last5_ast": 6.4,
+//      "games": 60,
+//      "team": "LAL",
+//      "season": 2025,
+//      "usage": 29.4,
+//      ...
+//   },
+//   ...
+// }
 //
 // Usage examples:
 //   /api/stats
-//   /api/stats?player_id=237
 //   /api/stats?team=LAL
-//   /api/stats?date_from=2025-01-01&date_to=2025-01-31
-//   /api/stats?player_id=237&last_n=10&sort=date-desc
-//
-// Notes:
-// - Assumes player_stats.json contains an array somewhere; we try to
-//   detect it via extractRowsFromStatsPayload.
+//   /api/stats?player=LeBron%20James
+//   /api/stats?sort=pts-desc
+//   /api/stats?sort=last5_pts-desc&limit=50
 
 export async function onRequest(context) {
   const { request } = context;
@@ -25,14 +39,18 @@ export async function onRequest(context) {
     const sp = url.searchParams;
 
     const filters = {
-      playerId: sp.get("player_id") ? String(sp.get("player_id")).trim() : "",
-      team: sp.get("team")
-        ? String(sp.get("team")).trim().toUpperCase()
-        : "",
-      dateFrom: sp.get("date_from") ? String(sp.get("date_from")).trim() : "",
-      dateTo: sp.get("date_to") ? String(sp.get("date_to")).trim() : "",
-      lastN: sp.get("last_n") ? parseInt(sp.get("last_n"), 10) || null : null,
-      sort: sp.get("sort") || "date-desc", // date-desc | date-asc | stat-pts-desc | stat-pts-asc
+      player: (sp.get("player") || "").trim(),        // match by name
+      team: (sp.get("team") || "").trim().toUpperCase(),
+      minGames: sp.get("min_games")
+        ? parseInt(sp.get("min_games"), 10) || 0
+        : 0,
+      season: sp.get("season")
+        ? parseInt(sp.get("season"), 10) || null
+        : null,
+      sort: (sp.get("sort") || "name-asc").trim(),    // name-asc | pts-desc | last5_pts-desc | usage-desc | games-desc
+      limit: sp.get("limit")
+        ? clampInt(sp.get("limit"), 1, 500)
+        : 500,
     };
 
     const statsUrl = new URL("/player_stats.json", url);
@@ -47,21 +65,16 @@ export async function onRequest(context) {
     }
 
     const raw = await statsRes.json();
-    const rowsRaw = extractRowsFromStatsPayload(raw);
-    const rows = rowsRaw.map(normalizeRow).filter((r) => !!r);
+    const players = normalizePlayersFromMap(raw);
 
-    let filtered = applyFilters(rows, filters);
+    let filtered = applyPlayerFilters(players, filters);
+    filtered = applyPlayerSort(filtered, filters.sort);
 
-    // Apply last_n AFTER filters/date range (keeping most recent first)
-    if (filters.lastN && filters.lastN > 0) {
-      filtered = filtered
-        .sort((a, b) => (b.gameDate || "").localeCompare(a.gameDate || ""))
-        .slice(0, filters.lastN);
+    if (filters.limit && filtered.length > filters.limit) {
+      filtered = filtered.slice(0, filters.limit);
     }
 
-    filtered = applySort(filtered, filters.sort);
-
-    const meta = buildMeta(rows, filtered, filters);
+    const meta = buildMeta(players, filtered, filters);
 
     return jsonResponse(
       {
@@ -90,88 +103,10 @@ function jsonResponse(body, options = {}) {
   return new Response(JSON.stringify(body, null, 2), { ...options, headers });
 }
 
-// Try to find the actual array of stat rows inside an arbitrary JSON payload.
-function extractRowsFromStatsPayload(raw) {
-  if (!raw) return [];
-
-  if (Array.isArray(raw)) return raw;
-
-  if (Array.isArray(raw.data)) return raw.data;
-
-  // Fallback: first array-valued property.
-  if (typeof raw === "object") {
-    for (const value of Object.values(raw)) {
-      if (Array.isArray(value)) return value;
-    }
-  }
-
-  return [];
-}
-
-function parseDateFromRow(row) {
-  const candidates = ["game_date", "date", "day", "dt"];
-  for (const key of candidates) {
-    if (row[key]) {
-      const raw = String(row[key]);
-      if (raw.length >= 10 && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
-        return raw.slice(0, 10);
-      }
-    }
-  }
-  return null;
-}
-
-function normalizeRow(raw) {
-  if (!raw) return null;
-
-  const playerId =
-    raw.player_id ||
-    (raw.player && raw.player.id) ||
-    raw.id ||
-    null;
-
-  const firstName =
-    (raw.player && (raw.player.first_name || raw.player.firstName)) ||
-    raw.first_name ||
-    raw.firstName ||
-    "";
-  const lastName =
-    (raw.player && (raw.player.last_name || raw.player.lastName)) ||
-    raw.last_name ||
-    raw.lastName ||
-    "";
-
-  const name = raw.player_name || `${firstName} ${lastName}`.trim();
-
-  const teamAbbr =
-    raw.team ||
-    raw.team_abbr ||
-    (raw.team && raw.team.abbreviation) ||
-    raw.team_abbreviation ||
-    "";
-
-  const gameDate = parseDateFromRow(raw);
-
-  const stats = {
-    pts: numberOrNull(raw.pts ?? raw.points),
-    reb: numberOrNull(raw.reb ?? raw.rebounds),
-    ast: numberOrNull(raw.ast ?? raw.assists),
-    stl: numberOrNull(raw.stl ?? raw.steals),
-    blk: numberOrNull(raw.blk ?? raw.blocks),
-    fg3m: numberOrNull(raw.fg3m ?? raw.threes_made),
-    min: raw.min || raw.minutes || null,
-  };
-
-  return {
-    playerId: playerId != null ? String(playerId) : null,
-    name,
-    firstName,
-    lastName,
-    team: teamAbbr ? String(teamAbbr).toUpperCase() : "",
-    gameDate,
-    raw,
-    stats,
-  };
+function clampInt(v, min, max) {
+  const n = parseInt(v, 10);
+  if (Number.isNaN(n)) return min;
+  return Math.min(max, Math.max(min, n));
 }
 
 function numberOrNull(v) {
@@ -180,79 +115,119 @@ function numberOrNull(v) {
   return Number.isNaN(n) ? null : n;
 }
 
-function applyFilters(rows, filters) {
-  const { playerId, team, dateFrom, dateTo } = filters;
-  let out = rows.slice();
+// Convert map { "Name": { ...stats... }, ... } -> array of player objects.
+function normalizePlayersFromMap(raw) {
+  if (!raw || typeof raw !== "object") return [];
 
-  if (playerId) {
-    out = out.filter((r) => r.playerId === playerId);
+  const players = [];
+
+  for (const [name, v] of Object.entries(raw)) {
+    if (!v || typeof v !== "object") continue;
+
+    const id =
+      v.player_id != null ? String(v.player_id) : name;
+
+    const team = v.team ? String(v.team).toUpperCase() : "";
+
+    players.push({
+      id,
+      name,
+      team,
+      season: v.season != null ? Number(v.season) : null,
+      games: numberOrNull(v.games),
+      pts: numberOrNull(v.pts),
+      reb: numberOrNull(v.reb),
+      ast: numberOrNull(v.ast),
+      last5_pts: numberOrNull(v.last5_pts),
+      last5_reb: numberOrNull(v.last5_reb),
+      last5_ast: numberOrNull(v.last5_ast),
+      usage: numberOrNull(v.usage),
+      raw: v,
+    });
+  }
+
+  return players;
+}
+
+function applyPlayerFilters(players, filters) {
+  const { player, team, minGames, season } = filters;
+  let list = players.slice();
+
+  if (player) {
+    const q = player.toLowerCase();
+    list = list.filter((p) => p.name.toLowerCase().includes(q));
   }
 
   if (team) {
-    out = out.filter((r) => r.team === team);
+    list = list.filter((p) => p.team === team);
   }
 
-  if (dateFrom) {
-    out = out.filter(
-      (r) => !r.gameDate || r.gameDate >= dateFrom
-    );
+  if (season) {
+    list = list.filter((p) => p.season === season);
   }
 
-  if (dateTo) {
-    out = out.filter(
-      (r) => !r.gameDate || r.gameDate <= dateTo
-    );
+  if (minGames > 0) {
+    list = list.filter((p) => (p.games || 0) >= minGames);
   }
 
-  return out;
+  return list;
 }
 
-function applySort(rows, sortKey) {
-  const list = rows.slice();
+function applyPlayerSort(players, sortKeyRaw) {
+  const sortKey = sortKeyRaw || "name-asc";
+  const list = players.slice();
+
+  const byNumeric = (field, dir = -1) => (a, b) => {
+    const av = a[field] ?? -1;
+    const bv = b[field] ?? -1;
+    if (av === bv) return a.name.localeCompare(b.name);
+    return dir * (av - bv);
+  };
 
   switch (sortKey) {
-    case "date-asc":
-      list.sort((a, b) => (a.gameDate || "").localeCompare(b.gameDate || ""));
+    case "pts-desc":
+      list.sort(byNumeric("pts", -1));
       break;
-    case "stat-pts-asc":
-      list.sort(
-        (a, b) =>
-          (a.stats.pts ?? -1) - (b.stats.pts ?? -1)
-      );
+    case "reb-desc":
+      list.sort(byNumeric("reb", -1));
       break;
-    case "stat-pts-desc":
-      list.sort(
-        (a, b) =>
-          (b.stats.pts ?? -1) - (a.stats.pts ?? -1)
-      );
+    case "ast-desc":
+      list.sort(byNumeric("ast", -1));
       break;
-    case "date-desc":
+    case "last5_pts-desc":
+      list.sort(byNumeric("last5_pts", -1));
+      break;
+    case "usage-desc":
+      list.sort(byNumeric("usage", -1));
+      break;
+    case "games-desc":
+      list.sort(byNumeric("games", -1));
+      break;
+    case "name-asc":
     default:
-      list.sort((a, b) => (b.gameDate || "").localeCompare(a.gameDate || ""));
+      list.sort((a, b) => a.name.localeCompare(b.name));
       break;
   }
 
   return list;
 }
 
-function buildMeta(allRows, filteredRows, filters) {
-  const uniquePlayers = new Set(
-    allRows.map((r) => r.playerId).filter(Boolean)
+function buildMeta(allPlayers, filteredPlayers, filters) {
+  const teams = new Set(
+    allPlayers.map((p) => p.team).filter(Boolean)
   );
-  const uniqueTeams = new Set(allRows.map((r) => r.team).filter(Boolean));
 
   return {
-    totalRows: allRows.length,
-    filteredRows: filteredRows.length,
-    uniquePlayers: uniquePlayers.size,
-    uniqueTeams: uniqueTeams.size,
+    totalPlayers: allPlayers.length,
+    filteredPlayers: filteredPlayers.length,
+    uniqueTeams: teams.size,
     filters: {
-      playerId: filters.playerId || "",
+      player: filters.player || "",
       team: filters.team || "",
-      dateFrom: filters.dateFrom || "",
-      dateTo: filters.dateTo || "",
-      lastN: filters.lastN || null,
-      sort: filters.sort || "date-desc",
+      minGames: filters.minGames || 0,
+      season: filters.season || null,
+      sort: filters.sort || "name-asc",
+      limit: filters.limit || null,
     },
     source: "player_stats.json",
   };
