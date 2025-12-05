@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPlayerModal();
   setupGameModal();
   setupEdgeBoardModal();
+  setupEdgesTabView();
   setupPlayerDetailRouting();
   ensureOverviewLoaded();
 });
@@ -39,6 +40,8 @@ function setupNav() {
         ensureTrendsLoaded();
       } else if (target === "overview-view") {
         ensureOverviewLoaded();
+      } else if (target === "edges-view") {
+        ensureEdgesTabLoaded();
       }
     });
   });
@@ -568,6 +571,7 @@ function setupTeamsView() {}
 function ensureTeamsLoaded() {
   if (teamsLoaded) {
     populateEdgeBoardTeamsFilter();
+    populateEdgesTabTeamsFilter();
     return;
   }
   loadTeams();
@@ -623,6 +627,7 @@ async function loadTeams() {
     renderTeamsList(teams, "");
     renderTeamsOverview(teams, "");
     populateEdgeBoardTeamsFilter();
+    populateEdgesTabTeamsFilter();
   } catch (err) {
     console.error(err);
     list.innerHTML = `<p class="muted">Error loading teams.</p>`;
@@ -1073,7 +1078,6 @@ function setupPlayerModal() {
     const target = evt.target.closest("[data-player-id]");
     if (!target) return;
 
-    // If click originated from detail modal or edge table we still want modal; it's global.
     const id = target.dataset.playerId || "";
     const name = target.dataset.playerName || "";
     const team = target.dataset.playerTeam || "";
@@ -1117,7 +1121,7 @@ function openPlayerModal(player) {
     detailBtn.onclick = () => {
       if (player.id) {
         closePlayerModal();
-        openPlayerDetail(player.id); // pop up detail modal
+        openPlayerDetail(player.id);
       }
     };
   }
@@ -1571,6 +1575,145 @@ function populateEdgeBoardTeamsFilter() {
     );
   });
   teamSelect.innerHTML = opts.join("");
+}
+
+/* ---------------- EDGES TAB VIEW ---------------- */
+
+let edgesTabInitialized = false;
+const edgesTabState = {
+  currentStat: "pts",
+  position: "",
+  team: "",
+};
+
+function setupEdgesTabView() {
+  const statSelect = document.getElementById("edges-tab-stat");
+  const posSelect = document.getElementById("edges-tab-position");
+  const teamSelect = document.getElementById("edges-tab-team");
+  const tbody = document.getElementById("edges-tab-rows");
+
+  if (!statSelect || !posSelect || !teamSelect || !tbody) return;
+
+  statSelect.addEventListener("change", () => {
+    edgesTabState.currentStat = statSelect.value || "pts";
+    ensureEdgeBoardData(edgesTabState.currentStat).then(() => {
+      renderEdgesTabTable();
+    });
+  });
+
+  posSelect.addEventListener("change", () => {
+    edgesTabState.position = posSelect.value || "";
+    renderEdgesTabTable();
+  });
+
+  teamSelect.addEventListener("change", () => {
+    edgesTabState.team = teamSelect.value || "";
+    renderEdgesTabTable();
+  });
+
+  edgesTabInitialized = true;
+}
+
+function ensureEdgesTabLoaded() {
+  if (!edgesTabInitialized) {
+    setupEdgesTabView();
+  }
+  if (!teamsLoaded) {
+    loadTeams();
+  } else {
+    populateEdgesTabTeamsFilter();
+  }
+  ensureEdgeBoardData(edgesTabState.currentStat).then(() => {
+    renderEdgesTabTable();
+  });
+}
+
+function populateEdgesTabTeamsFilter() {
+  const teamSelect = document.getElementById("edges-tab-team");
+  if (!teamSelect) return;
+  if (!cachedTeams || !cachedTeams.length) return;
+
+  const opts = ['<option value="">All teams</option>'];
+  cachedTeams.forEach((t) => {
+    if (!t.team) return;
+    opts.push(
+      `<option value="${escapeHtml(t.team)}">${escapeHtml(t.team)}</option>`
+    );
+  });
+  teamSelect.innerHTML = opts.join("");
+}
+
+function renderEdgesTabTable() {
+  const stat = edgesTabState.currentStat || "pts";
+  const raw = edgeBoardState.byStat[stat] || [];
+  const posFilter = (edgesTabState.position || "").toUpperCase();
+  const teamFilter = edgesTabState.team || "";
+
+  const tbody = document.getElementById("edges-tab-rows");
+  if (!tbody) return;
+
+  if (!raw.length) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" class="muted">No edges available.</td></tr>';
+    return;
+  }
+
+  let rows = raw;
+
+  if (posFilter) {
+    rows = rows.filter((p) =>
+      (p.pos || "").toUpperCase().includes(posFilter)
+    );
+  }
+
+  if (teamFilter) {
+    rows = rows.filter((p) => p.team === teamFilter);
+  }
+
+  rows = rows.slice().sort((a, b) => (b.delta || 0) - (a.delta || 0));
+
+  const label = stat.toUpperCase();
+  const limited = rows.slice(0, 200);
+
+  if (!limited.length) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" class="muted">No edges match these filters.</td></tr>';
+    return;
+  }
+
+  const html = limited
+    .map((p) => {
+      const name = escapeHtml(p.name || "");
+      const team = escapeHtml(p.team || "");
+      const pos = escapeHtml(p.pos || "");
+      const recent = p.recent != null ? p.recent.toFixed(1) : "–";
+      const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+      const delta = p.delta != null ? p.delta.toFixed(1) : "–";
+      const id =
+        p.player_id != null
+          ? String(p.player_id)
+          : p.id != null
+          ? String(p.id)
+          : "";
+
+      return `
+        <tr data-player-id="${id}"
+            data-player-name="${name}"
+            data-player-team="${team}"
+            data-player-pos="${pos}">
+          <td class="cell-left">${name}</td>
+          <td>${team}</td>
+          <td>${pos}</td>
+          <td>${label}</td>
+          <td>${recent}</td>
+          <td>${season}</td>
+          <td>${delta}</td>
+        </tr>
+      `;
+    })
+    .join("");
+
+  tbody.innerHTML = html;
 }
 
 /* ---------------- PLAYER DETAIL MODAL (season + props) ---------------- */
