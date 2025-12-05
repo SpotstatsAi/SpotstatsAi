@@ -1,19 +1,20 @@
-// functions/api/games.js
+// functions/api/bdl/games.js
 //
-// File-backed games endpoint using schedule.json at repo root.
+// Live proxy to BallDontLie NBA games endpoint.
+// Does NOT expose your BDL_API_KEY to the client.
 //
-// Usage examples:
-//   /api/games                     -> games for "today" (UTC) if possible
-//   /api/games?date=2025-12-05     -> games on that date
-//   /api/games?team=LAL            -> games where LAL is home or away
+// Examples:
+//   /api/bdl/games
+//   /api/bdl/games?dates[]=2025-12-05
+//   /api/bdl/games?team_ids[]=14&seasons[]=2024
+//   /api/bdl/games?cursor=123
 //
-// Because schedule.json schema can vary, this function:
-//  - Tries multiple common fields for date and team abbreviations.
-//  - If it cannot detect a date field, it returns the full schedule
-//    and marks meta.dateFiltered = false.
+// It forwards all query params directly to:
+//   https://api.balldontlie.io/v1/games
+// using the Authorization header from Cloudflare env.
 
 export async function onRequest(context) {
-  const { request } = context;
+  const { request, env } = context;
 
   if (request.method !== "GET") {
     return jsonResponse(
@@ -22,75 +23,82 @@ export async function onRequest(context) {
     );
   }
 
+  const apiKey = env.BDL_API_KEY;
+  if (!apiKey) {
+    return jsonResponse(
+      { error: "BDL_API_KEY is not configured in Cloudflare Pages env" },
+      { status: 500 }
+    );
+  }
+
   try {
-    const url = new URL(request.url);
-    const searchParams = url.searchParams;
+    const incomingUrl = new URL(request.url);
 
-    // Query params
-    const dateParam = (searchParams.get("date") || "").trim(); // YYYY-MM-DD or empty
-    const teamParam = (searchParams.get("team") || "").trim().toUpperCase(); // team abbreviation or empty
+    // Correct base + path: /v1/games
+    const bdlBase = "https://api.balldontlie.io";
+    const bdlUrl = new URL("/v1/games", bdlBase);
 
-    // Determine target date (UTC yyyy-mm-dd) if not provided
-    const effectiveDate = dateParam || utcToday();
-
-    // Load schedule.json from repo root
-    const scheduleUrl = new URL("/schedule.json", url);
-
-    const scheduleRes = await fetch(scheduleUrl.toString(), {
-      cf: { cacheTtl: 60, cacheEverything: true },
+    // Forward all query params to BDL
+    incomingUrl.searchParams.forEach((value, key) => {
+      bdlUrl.searchParams.append(key, value);
     });
 
-    if (!scheduleRes.ok) {
-      throw new Error(`Failed to load schedule.json (HTTP ${scheduleRes.status})`);
+    const headers = new Headers();
+    headers.set("Authorization", apiKey);
+
+    const bdlResponse = await fetch(bdlUrl.toString(), {
+      method: "GET",
+      headers,
+      cf: {
+        cacheTtl: 5,
+        cacheEverything: false,
+      },
+    });
+
+    const text = await bdlResponse.text();
+    let json;
+    try {
+      json = JSON.parse(text);
+    } catch {
+      json = { raw: text };
     }
 
-    const raw = await scheduleRes.json();
-    const games = Array.isArray(raw) ? raw : raw.games || [];
-
-    if (!Array.isArray(games)) {
+    if (!bdlResponse.ok) {
       return jsonResponse(
-        { error: "schedule.json is not an array and has no 'games' array" },
-        { status: 500 }
+        {
+          error: "BallDontLie request failed",
+          status: bdlResponse.status,
+          upstream: json,
+        },
+        { status: 502 }
       );
     }
 
-    const { filteredGames, dateFiltered, teamFiltered, usedDateField } =
-      filterGames(games, effectiveDate, teamParam);
-
-    const meta = buildMeta({
-      allGames: games,
-      filteredGames,
-      effectiveDate,
-      dateParam,
-      teamParam,
-      dateFiltered,
-      teamFiltered,
-      usedDateField,
-    });
-
     return jsonResponse(
       {
-        data: filteredGames,
-        meta,
+        source: "balldontlie",
+        endpoint: "/v1/games",
+        forwarded_query: Object.fromEntries(incomingUrl.searchParams.entries()),
+        data: json,
       },
       {
         status: 200,
         headers: {
-          "cache-control": "public, max-age=30",
+          "cache-control": "public, max-age=5",
         },
       }
     );
   } catch (err) {
-    console.error("api/games error:", err);
+    console.error("api/bdl/games error:", err);
 
     return jsonResponse(
-      { error: "Failed to load games." },
+      { error: "Unexpected error calling BallDontLie" },
       { status: 500 }
     );
   }
 }
 
-/* ---------- helpers ---------- */
+/* ------------ helpers ------------ */
 
 function jsonResponse(body, options = {}) {
   const headers = new Headers(options.headers || {});
@@ -100,146 +108,4 @@ function jsonResponse(body, options = {}) {
     ...options,
     headers,
   });
-}
-
-// Returns "YYYY-MM-DD" in UTC
-function utcToday() {
-  const now = new Date();
-  const y = now.getUTCFullYear();
-  const m = String(now.getUTCMonth() + 1).padStart(2, "0");
-  const d = String(now.getUTCDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-}
-
-// Try to pull a YYYY-MM-DD out of various common fields.
-// Returns { dateStr, fieldName } where dateStr is e.g. "2025-12-05" or null.
-function extractGameDate(game) {
-  // Common patterns we might see
-  const candidates = [
-    "game_date",
-    "date",
-    "start_time",
-    "tipoff",
-    "start_time_utc",
-  ];
-
-  for (const field of candidates) {
-    if (!game[field]) continue;
-    const raw = String(game[field]);
-    // if looks like ISO date/datetime, first 10 chars are yyyy-mm-dd
-    if (raw.length >= 10 && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
-      return { dateStr: raw.slice(0, 10), fieldName: field };
-    }
-  }
-
-  return { dateStr: null, fieldName: null };
-}
-
-// Try to find team abbreviations for home/away.
-// Supports a few shapes but does not enforce a schema.
-function extractTeamAbbrs(game) {
-  let home = null;
-  let away = null;
-
-  // Flattened fields first
-  home = game.home_team || game.home || game.home_abbr || null;
-  away = game.away_team || game.away || game.away_abbr || null;
-
-  // Nested objects with .abbreviation
-  if (!home && game.home_team && typeof game.home_team === "object") {
-    home = game.home_team.abbreviation || game.home_team.abbr || null;
-  }
-  if (!away && game.away_team && typeof game.away_team === "object") {
-    away = game.away_team.abbreviation || game.away_team.abbr || null;
-  }
-
-  // Normalize to uppercase strings
-  home = home ? String(home).toUpperCase() : null;
-  away = away ? String(away).toUpperCase() : null;
-
-  return { home, away };
-}
-
-function filterGames(allGames, targetDate, teamAbbr) {
-  let usedDateField = null;
-  let dateFiltered = false;
-  let teamFiltered = false;
-
-  // First pass: determine which date field we can reliably use, if any.
-  // We scan until we find a game with a detectable date field.
-  for (const g of allGames) {
-    const { dateStr, fieldName } = extractGameDate(g);
-    if (dateStr && fieldName) {
-      usedDateField = fieldName;
-      break;
-    }
-  }
-
-  let games = allGames;
-
-  if (usedDateField) {
-    games = games.filter((g) => {
-      const raw = String(g[usedDateField] || "");
-      if (raw.length < 10) return false;
-      const d = raw.slice(0, 10);
-      return d === targetDate;
-    });
-    dateFiltered = true;
-  }
-
-  if (teamAbbr) {
-    games = games.filter((g) => {
-      const { home, away } = extractTeamAbbrs(g);
-      return home === teamAbbr || away === teamAbbr;
-    });
-    teamFiltered = true;
-  }
-
-  return {
-    filteredGames: games,
-    dateFiltered,
-    teamFiltered,
-    usedDateField,
-  };
-}
-
-function buildMeta({
-  allGames,
-  filteredGames,
-  effectiveDate,
-  dateParam,
-  teamParam,
-  dateFiltered,
-  teamFiltered,
-  usedDateField,
-}) {
-  const totalGames = allGames.length;
-  const filteredCount = filteredGames.length;
-
-  let homeTeams = new Set();
-  let awayTeams = new Set();
-
-  filteredGames.forEach((g) => {
-    const { home, away } = extractTeamAbbrs(g);
-    if (home) homeTeams.add(home);
-    if (away) awayTeams.add(away);
-  });
-
-  return {
-    totalGames,
-    filteredGames: filteredCount,
-    uniqueHomeTeams: homeTeams.size,
-    uniqueAwayTeams: awayTeams.size,
-    date: {
-      requested: dateParam || null,
-      effective: effectiveDate,
-      filtered: dateFiltered,
-      usedField: usedDateField,
-    },
-    filters: {
-      team: teamParam || "",
-      teamFiltered,
-    },
-    source: "schedule.json",
-  };
 }
