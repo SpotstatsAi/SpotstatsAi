@@ -908,40 +908,47 @@ async function loadOverviewEdges(stat) {
       return;
     }
 
-    const rows = data
-      .map((p) => {
-        const name = escapeHtml(p.name);
-        const team = escapeHtml(p.team || "");
-        const pos = escapeHtml(p.pos || "");
-        const delta = p.delta != null ? p.delta.toFixed(1) : "–";
-        const recent = p.recent != null ? p.recent.toFixed(1) : "–";
-        const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
-        const id =
-          p.player_id != null
-            ? String(p.player_id)
-            : p.id != null
-            ? String(p.id)
-            : "";
+const rows = data
+  .map((p) => {
+    const name = escapeHtml(p.name);
+    const team = escapeHtml(p.team || "");
+    const pos = escapeHtml(p.pos || "");
+    const deltaRaw = p.delta;
+    const delta = deltaRaw != null ? deltaRaw.toFixed(1) : "–";
+    const recent = p.recent != null ? p.recent.toFixed(1) : "–";
+    const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+    const id =
+      p.player_id != null
+        ? String(p.player_id)
+        : p.id != null
+        ? String(p.id)
+        : "";
 
-        return `
-          <div class="overview-row"
-               data-player-id="${id}"
-               data-player-name="${name}"
-               data-player-team="${team}"
-               data-player-pos="${pos}">
-            <div class="overview-row-main">
-              <span>${name}</span>
-              <span class="muted">${team}${pos ? " • " + pos : ""}</span>
-            </div>
-            <div class="overview-row-meta">
-              <div class="team-sub">Recent: ${recent}</div>
-              <div class="team-sub">Season: ${season}</div>
-              <div class="badge-soft">Δ ${delta}</div>
-            </div>
+    const tier = getEdgeTier(deltaRaw);
+
+    return `
+      <div class="overview-row"
+           data-player-id="${id}"
+           data-player-name="${name}"
+           data-player-team="${team}"
+           data-player-pos="${pos}">
+        <div class="overview-row-main">
+          <span>${name}</span>
+          <span class="muted">${team}${pos ? " • " + pos : ""}</span>
+        </div>
+        <div class="overview-row-meta">
+          <div class="team-sub">Recent: ${recent}</div>
+          <div class="team-sub">Season: ${season}</div>
+          <div class="team-sub">
+            <span class="badge-soft">Δ ${delta}</span>
+            <span class="prop-chip ${tier.cls}">${tier.label}</span>
           </div>
-        `;
-      })
-      .join("");
+        </div>
+      </div>
+    `;
+  })
+  .join("");
+
 
     el.innerHTML = `<div class="overview-list">${rows}</div>`;
   } catch (err) {
@@ -2126,6 +2133,23 @@ function escapeHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+// Classify an edge into a tier for red / yellow / green labeling
+// Uses raw numeric delta (recent - line or recent - season, depending on backend)
+function getEdgeTier(delta) {
+  if (delta == null || isNaN(delta)) {
+    return { cls: "prop-chip-na", label: "Neutral" };
+  }
+
+  const val = Number(delta);
+
+  // You can tweak these cutoffs as you like
+  if (val >= 4) return { cls: "prop-chip-high", label: "High" };     // green
+  if (val >= 2) return { cls: "prop-chip-med", label: "Medium" };    // yellow
+  if (val > 0) return { cls: "prop-chip-low", label: "Low" };        // red
+
+  return { cls: "prop-chip-na", label: "Neutral" };
 }
 
 function toNumber(v) {
