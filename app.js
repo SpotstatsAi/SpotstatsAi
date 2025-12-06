@@ -90,11 +90,7 @@ function setupGlobalSearch() {
     setTimeout(() => hideGlobalSearchResults(resultsEl), 150);
   });
 
-  resultsEl.addEventListener("click", () => {
-    hideGlobalSearchResults(resultsEl);
-  });
-
-  // click handler for results -> open player modal
+  // click on result = open player modal
   resultsEl.addEventListener("click", (evt) => {
     const item = evt.target.closest(".search-result-item");
     if (!item) return;
@@ -104,6 +100,7 @@ function setupGlobalSearch() {
     const pos = item.dataset.playerPos || "";
     if (!id) return;
     openPlayerModal({ id, name, team, pos });
+    hideGlobalSearchResults(resultsEl);
   });
 }
 
@@ -424,7 +421,7 @@ function renderPlayerCard(p) {
 
   const teamCodeRaw = p.team || "";
   const teamCode = teamCodeRaw ? teamCodeRaw.toLowerCase() : "";
-  const logoSrc = teamCode ? `/logos/${teamCode}.png` : "";
+  const logoSrc = teamCode ? `logos/${teamCode}.png` : "";
   const logoAlt = team ? `${team} logo` : "team logo";
 
   const logoHtml = logoSrc
@@ -1144,23 +1141,28 @@ function setupPlayerModal() {
 
   const closeBtn = document.getElementById("modal-close");
   const backdrop = modal.querySelector(".modal-backdrop");
+  const detailBtn =
+    document.getElementById("player-detail-btn") ||
+    document.querySelector(".player-detail-btn") ||
+    document.querySelector('[data-view-detail="true"]');
 
   if (closeBtn) closeBtn.addEventListener("click", closePlayerModal);
   if (backdrop) backdrop.addEventListener("click", closePlayerModal);
 
-  // One global click handler:
-  document.addEventListener("click", (evt) => {
-    // 1) "View Detail Page" button inside the last-10 modal
-    const detailTrigger = evt.target.closest("#player-detail-btn");
-    if (detailTrigger) {
-      evt.preventDefault();
+  // Direct listener for "View Detail Page" (previous working pattern)
+  if (detailBtn) {
+    detailBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (!currentPlayerForDetail) return;
       closePlayerModal();
       openPlayerDetailModal(currentPlayerForDetail);
-      return;
-    }
+    });
+  }
 
-    // 2) Skip when hitting pick add/remove controls
+  // Click ANYTHING with data-player-id = open last 10 modal
+  document.addEventListener("click", (evt) => {
+    // ignore picks buttons (they are handled separately)
     if (
       evt.target.closest(".picks-add-btn") ||
       evt.target.closest(".picks-remove-btn")
@@ -1168,7 +1170,6 @@ function setupPlayerModal() {
       return;
     }
 
-    // 3) Any [data-player-id] opens the last-10 modal
     const target = evt.target.closest("[data-player-id]");
     if (!target) return;
 
@@ -1209,7 +1210,7 @@ function openPlayerModal(player) {
   if (logoEl) {
     const teamCode = (player.team || "").toLowerCase();
     if (teamCode) {
-      logoEl.src = `/logos/${teamCode}.png`;
+      logoEl.src = `logos/${teamCode}.png`;
       logoEl.alt = `${player.team} logo`;
     } else {
       logoEl.removeAttribute("src");
@@ -1313,8 +1314,10 @@ function setupPlayerDetailModal() {
 
   const closeBtn = document.getElementById("player-detail-close");
   const backdrop = modal.querySelector(".modal-backdrop");
+  const altClose = modal.querySelector('[data-close="player-detail"]');
 
   if (closeBtn) closeBtn.addEventListener("click", closePlayerDetailModal);
+  if (altClose) altClose.addEventListener("click", closePlayerDetailModal);
   if (backdrop) backdrop.addEventListener("click", closePlayerDetailModal);
 }
 
@@ -1340,7 +1343,7 @@ function openPlayerDetailModal(player) {
   if (logoEl) {
     const teamCode = (player.team || "").toLowerCase();
     if (teamCode) {
-      logoEl.src = `/logos/${teamCode}.png`;
+      logoEl.src = `logos/${teamCode}.png`;
       logoEl.alt = `${player.team} logo`;
     } else {
       logoEl.removeAttribute("src");
@@ -1602,8 +1605,10 @@ function setupGameModal() {
   const closeBtn = document.getElementById("game-modal-close");
   const backdrop = modal.querySelector(".modal-backdrop");
   const statSelect = document.getElementById("game-modal-stat");
+  const altClose = modal.querySelector('[data-close="game-modal"]');
 
   if (closeBtn) closeBtn.addEventListener("click", closeGameModal);
+  if (altClose) altClose.addEventListener("click", closeGameModal);
   if (backdrop) backdrop.addEventListener("click", closeGameModal);
 
   if (statSelect) {
@@ -1814,8 +1819,10 @@ function setupEdgeBoardModal() {
   const statSelect = document.getElementById("edge-modal-stat");
   const posSelect = document.getElementById("edge-modal-position");
   const teamSelect = document.getElementById("edge-modal-team");
+  const altClose = modal.querySelector('[data-close="edge-modal"]');
 
   if (closeBtn) closeBtn.addEventListener("click", closeEdgeBoardModal);
+  if (altClose) altClose.addEventListener("click", closeEdgeBoardModal);
   if (backdrop) backdrop.addEventListener("click", closeEdgeBoardModal);
 
   if (statSelect) {
@@ -2023,8 +2030,10 @@ function setupPicksSystem() {
   document.addEventListener("click", (evt) => {
     const addBtn = evt.target.closest(".picks-add-btn");
     if (addBtn) {
-      evt.stopPropagation(); // avoid triggering player modal
+      // don't trigger player modal click
+      evt.stopPropagation();
       evt.preventDefault();
+
       const ds = addBtn.dataset;
       addPick({
         playerId: ds.pickPlayerId || "",
@@ -2061,7 +2070,6 @@ function setupPicksSystem() {
     }
   });
 
-  // initial render
   renderPicks();
 }
 
@@ -2101,7 +2109,7 @@ function renderPicks() {
       '<p class="muted">No picks yet. Click “Add” on an edge row to pin a pick here.</p>';
     summaryEl.textContent = "Add 2–6 picks to build a ticket.";
     textarea.value = "";
-    drawPicksChart(); // clear chart
+    drawPicksChart();
     return;
   }
 
@@ -2129,7 +2137,9 @@ function renderPicks() {
           <div class="picks-row-main">
             <div>${idx + 1}. ${escapeHtml(p.name)}</div>
             <div class="muted">
-              ${escapeHtml(p.team)}${p.pos ? " • " + escapeHtml(p.pos) : ""}
+              ${escapeHtml(p.team)}${
+        p.pos ? " • " + escapeHtml(p.pos) : ""
+      }
             </div>
           </div>
           <div class="picks-row-meta">
@@ -2138,7 +2148,9 @@ function renderPicks() {
           </div>
           <div class="picks-row-actions">
             <span class="prop-chip ${tier.cls}">${tier.label}</span>
-            <button class="picks-remove-btn" data-pick-key="${p.key}">Remove</button>
+            <button class="picks-remove-btn" data-pick-key="${
+              p.key
+            }">Remove</button>
           </div>
         </div>
       `;
@@ -2147,7 +2159,6 @@ function renderPicks() {
 
   listEl.innerHTML = rowsHtml;
 
-  // summary + copy text
   summaryEl.textContent = `${items.length} pick${
     items.length === 1 ? "" : "s"
   } ready.`;
