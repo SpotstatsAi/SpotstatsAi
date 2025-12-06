@@ -436,7 +436,7 @@ function renderPlayerCard(p) {
 
   const teamCodeRaw = p.team || "";
   const teamCode = teamCodeRaw ? teamCodeRaw.toLowerCase() : "";
-  const logoSrc = teamCode ? `/logos/${teamCode}.svg` : "";
+  const logoSrc = teamCode ? `/logos/${teamCode}.png` : "";
   const logoAlt = team ? `${team} logo` : "team logo";
 
   return `
@@ -1148,7 +1148,7 @@ function openPlayerModal(player) {
   if (logoEl) {
     const teamCode = (player.team || "").toLowerCase();
     if (teamCode) {
-      logoEl.src = `/logos/${teamCode}.svg`;
+      logoEl.src = `/logos/${teamCode}.png`;
       logoEl.alt = `${player.team} logo`;
     } else {
       logoEl.removeAttribute("src");
@@ -1276,7 +1276,7 @@ function openPlayerDetailModal(player) {
   if (logoEl) {
     const teamCode = (player.team || "").toLowerCase();
     if (teamCode) {
-      logoEl.src = `/logos/${teamCode}.svg`;
+      logoEl.src = `/logos/${teamCode}.png`;
       logoEl.alt = `${player.team} logo`;
     } else {
       logoEl.removeAttribute("src");
