@@ -1,16 +1,16 @@
-// app.js
-// Frontend wiring for PropsParlor dashboard with charts + prop tiers.
+// Frontend wiring for PropsParlor dashboard.
 
 document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupGlobalSearch();
   setupPlayersView();
   setupGamesView();
+  setupEdgesView();
   setupTeamsView();
   setupTrendsView();
   setupOverviewView();
-  setupEdgesView();
   setupPlayerModal();
+  setupPlayerDetailModal();
   setupGameModal();
   setupEdgeBoardModal();
   ensureOverviewLoaded();
@@ -33,12 +33,12 @@ function setupNav() {
         ensurePlayersLoaded();
       } else if (target === "games-view") {
         ensureGamesLoaded();
+      } else if (target === "edges-view") {
+        ensureEdgesLoaded();
       } else if (target === "teams-view") {
         ensureTeamsLoaded();
       } else if (target === "trends-view") {
         ensureTrendsLoaded();
-      } else if (target === "edges-view") {
-        ensureEdgesLoaded();
       } else if (target === "overview-view") {
         ensureOverviewLoaded();
       }
@@ -75,8 +75,9 @@ function setupGlobalSearch() {
       }
       const q = input.value.trim();
       if (!q) return;
-      const tab = document.querySelector('.nav-tab[data-view="players-view"]');
-      if (tab) tab.click();
+      document
+        .querySelector('.nav-tab[data-view="players-view"]')
+        .click();
       const playerSearch = document.getElementById("player-search");
       if (playerSearch) {
         playerSearch.value = q;
@@ -400,55 +401,25 @@ function renderPlayerGrid() {
 
   const cards = players.map((p) => renderPlayerCard(p)).join("");
   grid.innerHTML = cards;
-
-  const cardEls = grid.querySelectorAll(".player-card");
-  cardEls.forEach((card) => {
-    card.addEventListener("click", () => {
-      const id = card.dataset.playerId || "";
-      if (!id) return;
-      const name = card.dataset.playerName || "";
-      const team = card.dataset.playerTeam || "";
-      const pos = card.dataset.playerPos || "";
-      openPlayerModal({ id, name, team, pos });
-    });
-  });
 }
 
 function renderPlayerCard(p) {
   const name = escapeHtml(p.name || "");
   const pos = escapeHtml(p.pos || "");
   const idStr = p.id != null ? `ID ${p.id}` : "";
-  const teamAbbr = p.team || "";
-  const team = escapeHtml(teamAbbr || "");
+  const team = escapeHtml(p.team || "");
   const height = escapeHtml(p.height || "–");
   const weight = p.weight ? `${p.weight} lb` : "–";
   const jersey = p.jersey ? `#${p.jersey}` : "—";
   const id = p.id != null ? String(p.id) : "";
 
-  const logoUrl = getTeamLogoUrl(teamAbbr);
-
-  let badgeInner;
-  if (teamAbbr && logoUrl) {
-    badgeInner = `
-      <img
-        src="${logoUrl}"
-        alt="${team} logo"
-        class="player-badge-logo"
-        onerror="this.style.display='none';"
-      />
-      <span class="player-badge-text">${team}</span>
-    `;
-  } else if (teamAbbr) {
-    badgeInner = `<span class="player-badge-text">${team}</span>`;
-  } else {
-    badgeInner = `<span class="player-badge-text">FA</span>`;
-  }
+  const logoUrl = team ? `/logos/${team}.svg` : "";
 
   return `
     <div class="player-card"
          data-player-id="${id}"
          data-player-name="${name}"
-         data-player-team="${teamAbbr}"
+         data-player-team="${team}"
          data-player-pos="${pos}">
       <div class="player-card-header">
         <div>
@@ -461,9 +432,20 @@ function renderPlayerCard(p) {
           </div>
         </div>
         <div class="player-badge">
-          ${badgeInner}
+          ${team || "FA"}
         </div>
       </div>
+
+      <div class="player-logo-shell">
+        <div class="player-logo-circle">
+          ${
+            logoUrl
+              ? `<img src="${logoUrl}" alt="${team} logo" loading="lazy" />`
+              : ""
+          }
+        </div>
+      </div>
+
       <div class="player-body-row">
         <span>Height</span>
         <span>${height}</span>
@@ -561,17 +543,11 @@ function renderGameRow(g, dateStr) {
   const home = escapeHtml(homeRaw);
   const away = escapeHtml(awayRaw);
 
-  const tip =
-    g.start_time_local ||
-    g.tipoff ||
-    g.start_time ||
-    "";
+  const tip = g.start_time_local || g.tipoff || g.start_time || "";
   const tipText = tip ? String(tip).slice(11, 16) : "TBD";
 
   const gameId =
-    g.game_id ||
-    g.id ||
-    `${homeRaw}-${awayRaw}-${dateStr || ""}`;
+    g.game_id || g.id || `${homeRaw}-${awayRaw}-${dateStr || ""}`;
 
   return `
     <div class="overview-row"
@@ -601,6 +577,7 @@ function setupTeamsView() {}
 function ensureTeamsLoaded() {
   if (teamsLoaded) {
     populateEdgeBoardTeamsFilter();
+    populateEdgesTeamsFilter();
     return;
   }
   loadTeams();
@@ -656,6 +633,7 @@ async function loadTeams() {
     renderTeamsList(teams, "");
     renderTeamsOverview(teams, "");
     populateEdgeBoardTeamsFilter();
+    populateEdgesTeamsFilter();
   } catch (err) {
     console.error(err);
     list.innerHTML = `<p class="muted">Error loading teams.</p>`;
@@ -786,7 +764,7 @@ async function loadTrends(stat, pos) {
       return;
     }
 
-    const rows = data.map((p) => renderTrendRow(p, stat)).join("");
+    const rows = data.map((p) => renderTrendRow(p)).join("");
     list.innerHTML = `<div class="trends-list">${rows}</div>`;
   } catch (err) {
     console.error(err);
@@ -794,24 +772,18 @@ async function loadTrends(stat, pos) {
   }
 }
 
-function renderTrendRow(p, statKey) {
+function renderTrendRow(p) {
   const name = escapeHtml(p.name);
   const team = escapeHtml(p.team || "");
   const pos = escapeHtml(p.pos || "");
-  const stat = p.stat || statKey || "pts";
-  const scoreNum = p.score != null ? Number(p.score) : null;
-  const val = scoreNum != null && !Number.isNaN(scoreNum)
-    ? scoreNum.toFixed(1)
-    : "–";
+  const stat = p.stat || "pts";
+  const val = p.score != null ? p.score.toFixed(1) : "–";
   const id =
     p.player_id != null
       ? String(p.player_id)
       : p.id != null
       ? String(p.id)
       : "";
-
-  const strength = Math.max(0, Math.min(1, (scoreNum ?? 0) / 10)); // crude normalize
-  const widthPct = Math.round(strength * 100);
 
   return `
     <div class="trend-row"
@@ -825,12 +797,164 @@ function renderTrendRow(p, statKey) {
       </div>
       <div class="trend-meta">
         <div>${val} ${stat.toUpperCase()}</div>
-        <div class="trend-score-wrap">
-          <div class="trend-score-bar" style="width:${widthPct}%;"></div>
-        </div>
       </div>
     </div>
   `;
+}
+
+/* ---------------- EDGES TAB ---------------- */
+
+const edgesState = {
+  loaded: false,
+  rowsByStat: {}, // stat -> rows
+  currentStat: "pts",
+  position: "",
+  team: "",
+};
+
+function setupEdgesView() {
+  const statSelect = document.getElementById("edges-stat");
+  const posSelect = document.getElementById("edges-position");
+  const teamSelect = document.getElementById("edges-team");
+
+  if (statSelect) {
+    statSelect.addEventListener("change", () => {
+      edgesState.currentStat = statSelect.value || "pts";
+      ensureEdgesData(edgesState.currentStat).then(() => renderEdgesTable());
+    });
+  }
+
+  if (posSelect) {
+    posSelect.addEventListener("change", () => {
+      edgesState.position = posSelect.value || "";
+      renderEdgesTable();
+    });
+  }
+
+  if (teamSelect) {
+    teamSelect.addEventListener("change", () => {
+      edgesState.team = teamSelect.value || "";
+      renderEdgesTable();
+    });
+  }
+}
+
+function ensureEdgesLoaded() {
+  if (edgesState.loaded) {
+    renderEdgesTable();
+    return;
+  }
+  ensureTeamsLoaded();
+  ensureEdgesData(edgesState.currentStat).then(() => {
+    edgesState.loaded = true;
+    renderEdgesTable();
+  });
+}
+
+async function ensureEdgesData(stat) {
+  if (edgesState.rowsByStat[stat]) return;
+  const tbody = document.getElementById("edges-table-body");
+  if (tbody) {
+    tbody.innerHTML = `
+      <tr><td colspan="7" class="muted cell-left">Loading edge board...</td></tr>`;
+  }
+
+  try {
+    const params = new URLSearchParams();
+    params.set("stat", stat);
+    params.set("limit", "300");
+    const res = await fetch(`/api/edges?${params.toString()}`);
+    if (!res.ok) throw new Error("Failed to load edges");
+    const json = await res.json();
+    edgesState.rowsByStat[stat] = json.data || [];
+  } catch (err) {
+    console.error(err);
+    if (tbody) {
+      tbody.innerHTML =
+        '<tr><td colspan="7" class="muted cell-left">Error loading edges.</td></tr>';
+    }
+  }
+}
+
+function renderEdgesTable() {
+  const tbody = document.getElementById("edges-table-body");
+  if (!tbody) return;
+
+  const stat = edgesState.currentStat || "pts";
+  const raw = edgesState.rowsByStat[stat] || [];
+  const posFilter = (edgesState.position || "").toUpperCase();
+  const teamFilter = edgesState.team || "";
+
+  let rows = raw;
+
+  if (posFilter) {
+    rows = rows.filter((p) =>
+      (p.pos || "").toUpperCase().includes(posFilter)
+    );
+  }
+  if (teamFilter) {
+    rows = rows.filter((p) => p.team === teamFilter);
+  }
+
+  rows = rows.slice().sort((a, b) => (b.delta || 0) - (a.delta || 0));
+  const limited = rows.slice(0, 150);
+
+  if (!limited.length) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" class="muted cell-left">No edges match these filters.</td></tr>';
+    return;
+  }
+
+  const label = stat.toUpperCase();
+
+  const html = limited
+    .map((p) => {
+      const name = escapeHtml(p.name || "");
+      const team = escapeHtml(p.team || "");
+      const pos = escapeHtml(p.pos || "");
+      const recent = p.recent != null ? p.recent.toFixed(1) : "–";
+      const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
+      const delta = p.delta != null ? p.delta.toFixed(1) : "–";
+      const id =
+        p.player_id != null
+          ? String(p.player_id)
+          : p.id != null
+          ? String(p.id)
+          : "";
+
+      return `
+        <tr data-player-id="${id}"
+            data-player-name="${name}"
+            data-player-team="${team}"
+            data-player-pos="${pos}">
+          <td class="cell-left">${name}</td>
+          <td>${team}</td>
+          <td>${pos}</td>
+          <td>${label}</td>
+          <td>${recent}</td>
+          <td>${season}</td>
+          <td>${delta}</td>
+        </tr>
+      `;
+    })
+    .join("");
+
+  tbody.innerHTML = html;
+}
+
+function populateEdgesTeamsFilter() {
+  const teamSelect = document.getElementById("edges-team");
+  if (!teamSelect) return;
+  if (!cachedTeams || !cachedTeams.length) return;
+
+  const opts = ['<option value="">All teams</option>'];
+  cachedTeams.forEach((t) => {
+    if (!t.team) return;
+    opts.push(
+      `<option value="${escapeHtml(t.team)}">${escapeHtml(t.team)}</option>`
+    );
+  });
+  teamSelect.innerHTML = opts.join("");
 }
 
 /* ---------------- OVERVIEW ---------------- */
@@ -927,11 +1051,7 @@ async function loadOverviewEdges(stat) {
         const name = escapeHtml(p.name);
         const team = escapeHtml(p.team || "");
         const pos = escapeHtml(p.pos || "");
-        const deltaNum = p.delta != null ? Number(p.delta) : null;
-        const deltaText =
-          deltaNum != null && !Number.isNaN(deltaNum)
-            ? deltaNum.toFixed(1)
-            : "–";
+        const delta = p.delta != null ? p.delta.toFixed(1) : "–";
         const recent = p.recent != null ? p.recent.toFixed(1) : "–";
         const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
         const id =
@@ -940,8 +1060,6 @@ async function loadOverviewEdges(stat) {
             : p.id != null
             ? String(p.id)
             : "";
-
-        const deltaBadge = buildDeltaBadge(deltaNum, deltaText);
 
         return `
           <div class="overview-row"
@@ -956,7 +1074,7 @@ async function loadOverviewEdges(stat) {
             <div class="overview-row-meta">
               <div class="team-sub">Recent: ${recent}</div>
               <div class="team-sub">Season: ${season}</div>
-              ${deltaBadge}
+              <div class="badge-soft">Δ ${delta}</div>
             </div>
           </div>
         `;
@@ -994,20 +1112,13 @@ async function loadOverviewTrending(stat) {
         const name = escapeHtml(p.name);
         const team = escapeHtml(p.team || "");
         const pos = escapeHtml(p.pos || "");
-        const scoreNum = p.score != null ? Number(p.score) : null;
-        const scoreText =
-          scoreNum != null && !Number.isNaN(scoreNum)
-            ? scoreNum.toFixed(1)
-            : "–";
+        const score = p.score != null ? p.score.toFixed(1) : "–";
         const id =
           p.player_id != null
             ? String(p.player_id)
             : p.id != null
             ? String(p.id)
             : "";
-
-        const strength = Math.max(0, Math.min(1, (scoreNum ?? 0) / 10));
-        const widthPct = Math.round(strength * 100);
 
         return `
           <div class="overview-row"
@@ -1020,10 +1131,7 @@ async function loadOverviewTrending(stat) {
               <span class="muted">${team}${pos ? " • " + pos : ""}</span>
             </div>
             <div class="overview-row-meta">
-              <div>${scoreText} ${stat.toUpperCase()}</div>
-              <div class="trend-score-wrap">
-                <div class="trend-score-bar" style="width:${widthPct}%;"></div>
-              </div>
+              <div>${score} ${stat.toUpperCase()}</div>
             </div>
           </div>
         `;
@@ -1080,19 +1188,13 @@ async function loadOverviewEdgeBoard() {
         const statLabel = labels[p.stat] || p.stat.toUpperCase();
         const recent = p.recent != null ? p.recent.toFixed(1) : "–";
         const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
-        const deltaNum = p.delta != null ? Number(p.delta) : null;
-        const deltaText =
-          deltaNum != null && !Number.isNaN(deltaNum)
-            ? deltaNum.toFixed(1)
-            : "–";
+        const delta = p.delta != null ? p.delta.toFixed(1) : "–";
         const id =
           p.player_id != null
             ? String(p.player_id)
             : p.id != null
             ? String(p.id)
             : "";
-
-        const deltaBadge = buildDeltaBadge(deltaNum, deltaText);
 
         return `
           <div class="overview-row"
@@ -1107,7 +1209,7 @@ async function loadOverviewEdgeBoard() {
             <div class="overview-row-meta">
               <div class="team-sub">${statLabel}</div>
               <div class="team-sub">Recent: ${recent} • Season: ${season}</div>
-              ${deltaBadge}
+              <div class="badge-soft">Δ ${delta}</div>
             </div>
           </div>
         `;
@@ -1121,181 +1223,9 @@ async function loadOverviewEdgeBoard() {
   }
 }
 
-/* ---------------- EDGES TAB ---------------- */
+/* ---------------- PLAYER MODAL (LAST N) ---------------- */
 
-const edgesTabState = {
-  byStat: {},
-  currentStat: "pts",
-  position: "",
-  team: "",
-  loaded: false,
-};
-
-function setupEdgesView() {
-  const statSelect = document.getElementById("edges-stat");
-  const posSelect = document.getElementById("edges-position");
-  const teamSelect = document.getElementById("edges-team");
-
-  if (statSelect) {
-    statSelect.addEventListener("change", () => {
-      edgesTabState.currentStat = statSelect.value || "pts";
-      ensureEdgesData(edgesTabState.currentStat).then(() => {
-        renderEdgesTable();
-      });
-    });
-  }
-
-  if (posSelect) {
-    posSelect.addEventListener("change", () => {
-      edgesTabState.position = posSelect.value || "";
-      renderEdgesTable();
-    });
-  }
-
-  if (teamSelect) {
-    teamSelect.addEventListener("change", () => {
-      edgesTabState.team = teamSelect.value || "";
-      renderEdgesTable();
-    });
-  }
-}
-
-function ensureEdgesLoaded() {
-  if (edgesTabState.loaded) {
-    renderEdgesTable();
-    return;
-  }
-  const stat = edgesTabState.currentStat || "pts";
-  ensureEdgesData(stat).then(() => {
-    edgesTabState.loaded = true;
-    renderEdgesTable();
-  });
-}
-
-async function ensureEdgesData(stat) {
-  if (edgesTabState.byStat[stat]) return;
-
-  const tbody = document.getElementById("edges-rows");
-  if (tbody) {
-    tbody.innerHTML =
-      '<tr><td colspan="7" class="muted">Loading edges...</td></tr>';
-  }
-
-  try {
-    const params = new URLSearchParams();
-    params.set("stat", stat);
-    params.set("limit", "200");
-    const res = await fetch(`/api/edges?${params.toString()}`);
-    if (!res.ok) throw new Error("Failed to load edges");
-    const json = await res.json();
-    edgesTabState.byStat[stat] = json.data || [];
-
-    const teamSelect = document.getElementById("edges-team");
-    if (teamSelect && !teamSelect.dataset.populated) {
-      const teams = new Set();
-      Object.values(edgesTabState.byStat).forEach((rows) => {
-        (rows || []).forEach((r) => {
-          if (r.team) teams.add(r.team);
-        });
-      });
-      const opts = ['<option value="">All teams</option>'];
-      Array.from(teams)
-        .sort()
-        .forEach((t) => {
-          opts.push(
-            `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`
-          );
-        });
-      teamSelect.innerHTML = opts.join("");
-      teamSelect.dataset.populated = "1";
-    }
-  } catch (err) {
-    console.error(err);
-    if (tbody) {
-      tbody.innerHTML =
-        '<tr><td colspan="7" class="muted">Error loading edges.</td></tr>';
-    }
-  }
-}
-
-function renderEdgesTable() {
-  const stat = edgesTabState.currentStat || "pts";
-  const raw = edgesTabState.byStat[stat] || {};
-  const posFilter = (edgesTabState.position || "").toUpperCase();
-  const teamFilter = edgesTabState.team || "";
-
-  const tbody = document.getElementById("edges-rows");
-  if (!tbody) return;
-
-  let rows = Array.isArray(raw) ? raw : [];
-
-  if (posFilter) {
-    rows = rows.filter((p) =>
-      (p.pos || "").toUpperCase().includes(posFilter)
-    );
-  }
-
-  if (teamFilter) {
-    rows = rows.filter((p) => p.team === teamFilter);
-  }
-
-  rows = rows.slice().sort((a, b) => (b.delta || 0) - (a.delta || 0));
-  const limited = rows.slice(0, 100);
-
-  if (!limited.length) {
-    tbody.innerHTML =
-      '<tr><td colspan="7" class="muted">No edges match these filters.</td></tr>';
-    return;
-  }
-
-  const label = stat.toUpperCase();
-
-  const html = limited
-    .map((p) => {
-      const name = escapeHtml(p.name || "");
-      const teamAbbr = p.team || "";
-      const team = escapeHtml(teamAbbr || "");
-      const pos = escapeHtml(p.pos || "");
-      const recent = p.recent != null ? p.recent.toFixed(1) : "–";
-      const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
-      const deltaNum = p.delta != null ? Number(p.delta) : null;
-      const deltaText =
-        deltaNum != null && !Number.isNaN(deltaNum)
-          ? deltaNum.toFixed(1)
-          : "–";
-      const id =
-        p.player_id != null
-          ? String(p.player_id)
-          : p.id != null
-          ? String(p.id)
-          : "";
-
-      const deltaBadge = buildDeltaBadge(deltaNum, deltaText);
-
-      return `
-        <tr data-player-id="${id}"
-            data-player-name="${name}"
-            data-player-team="${teamAbbr}"
-            data-player-pos="${pos}">
-          <td class="cell-left">${name}</td>
-          <td>${team}</td>
-          <td>${pos}</td>
-          <td>${label}</td>
-          <td>${recent}</td>
-          <td>${season}</td>
-          <td>${deltaBadge}</td>
-        </tr>
-      `;
-    })
-    .join("");
-
-  tbody.innerHTML = html;
-}
-
-/* ---------------- PLAYER MODAL ---------------- */
-
-let currentPlayerModal = null;
-let currentPlayerDetailMode = 10; // 10 or 50
+let currentModalPlayer = null;
 
 function setupPlayerModal() {
   const modal = document.getElementById("player-modal");
@@ -1303,34 +1233,20 @@ function setupPlayerModal() {
 
   const closeBtn = document.getElementById("modal-close");
   const backdrop = modal.querySelector(".modal-backdrop");
-  const detailBtn = document.getElementById("player-detail-btn");
+  const detailBtn = document.getElementById("modal-view-detail");
 
   if (closeBtn) closeBtn.addEventListener("click", closePlayerModal);
   if (backdrop) backdrop.addEventListener("click", closePlayerModal);
 
   if (detailBtn) {
     detailBtn.addEventListener("click", () => {
-      if (!currentPlayerModal || !currentPlayerModal.id) return;
-      const summaryEl = document.getElementById("modal-summary");
-      const tbody = document.getElementById("modal-stats-rows");
-      currentPlayerDetailMode = currentPlayerDetailMode === 10 ? 50 : 10;
-      detailBtn.textContent =
-        currentPlayerDetailMode === 10
-          ? "View Detail Page"
-          : "Back to last 10";
-      loadPlayerStats(
-        currentPlayerModal.id,
-        summaryEl,
-        tbody,
-        currentPlayerDetailMode
-      );
+      if (!currentModalPlayer) return;
+      openPlayerDetailModal(currentModalPlayer);
     });
   }
 
-  // global click fallback for any element with data-player-id that's not a card
+  // global click handler for any element with data-player-id
   document.addEventListener("click", (evt) => {
-    if (evt.target.closest(".player-card")) return;
-
     const target = evt.target.closest("[data-player-id]");
     if (!target) return;
 
@@ -1349,69 +1265,46 @@ function openPlayerModal(player) {
   const modal = document.getElementById("player-modal");
   if (!modal) return;
 
-  currentPlayerModal = player;
-  currentPlayerDetailMode = 10;
-
+  currentModalPlayer = player;
   modal.classList.remove("hidden");
 
   const nameEl = document.getElementById("modal-player-name");
   const metaEl = document.getElementById("modal-player-meta");
   const summaryEl = document.getElementById("modal-summary");
   const tbody = document.getElementById("modal-stats-rows");
-  const detailBtn = document.getElementById("player-detail-btn");
-  const chartsContainer = document.getElementById("player-modal-charts");
+  const logoEl = document.getElementById("modal-player-logo");
 
-  if (chartsContainer) chartsContainer.innerHTML = "";
-
-  const name = player.name || "Player";
-  const teamAbbr = player.team || "";
-
-  if (nameEl) {
-    const logoUrl = getTeamLogoUrl(teamAbbr);
-    if (logoUrl) {
-      nameEl.innerHTML = `
-        <img
-          src="${logoUrl}"
-          alt="${escapeHtml(teamAbbr)} logo"
-          class="player-badge-logo"
-          style="width:20px;height:20px;margin-right:6px;"
-          onerror="this.remove();"
-        />
-        <span>${escapeHtml(name)}</span>
-      `;
-    } else {
-      nameEl.textContent = name;
-    }
-  }
-
+  if (nameEl) nameEl.textContent = player.name || "Player";
   if (metaEl) {
     const bits = [];
-    if (teamAbbr) bits.push(teamAbbr);
+    if (player.team) bits.push(player.team);
     if (player.pos) bits.push(player.pos);
     if (player.id) bits.push(`ID ${player.id}`);
     metaEl.textContent = bits.join(" • ");
+  }
+
+  if (logoEl) {
+    logoEl.src = player.team ? `/logos/${player.team}.svg` : "";
+    logoEl.alt = player.team ? `${player.team} logo` : "";
   }
 
   if (summaryEl)
     summaryEl.textContent = "Loading last games from BallDontLie...";
   if (tbody) {
     tbody.innerHTML =
-      '<tr><td colspan="6" class="muted">Loading...</td></tr>';
-  }
-  if (detailBtn) {
-    detailBtn.textContent = "View Detail Page";
+      '<tr><td colspan="6" class="muted cell-left">Loading...</td></tr>';
   }
 
   if (!player.id) {
     if (summaryEl) summaryEl.textContent = "No player id available.";
     if (tbody) {
       tbody.innerHTML =
-        '<tr><td colspan="6" class="muted">No stats to display.</td></tr>';
+        '<tr><td colspan="6" class="muted cell-left">No stats to display.</td></tr>';
     }
     return;
   }
 
-  loadPlayerStats(player.id, summaryEl, tbody, currentPlayerDetailMode);
+  loadPlayerStats(player.id, summaryEl, tbody);
 }
 
 function closePlayerModal() {
@@ -1419,11 +1312,11 @@ function closePlayerModal() {
   if (modal) modal.classList.add("hidden");
 }
 
-async function loadPlayerStats(playerId, summaryEl, tbody, lastN = 10) {
+async function loadPlayerStats(playerId, summaryEl, tbody) {
   try {
     const url = `/api/stats?player_id=${encodeURIComponent(
       playerId
-    )}&last_n=${lastN}`;
+    )}&last_n=10`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("stats fetch failed");
     const json = await res.json();
@@ -1431,21 +1324,18 @@ async function loadPlayerStats(playerId, summaryEl, tbody, lastN = 10) {
     const meta = json.meta || {};
 
     if (!rows.length) {
-      if (summaryEl)
-        summaryEl.textContent =
-          "No recent games found.";
+      if (summaryEl) summaryEl.textContent = "No recent games found.";
       if (tbody) {
         tbody.innerHTML =
-          '<tr><td colspan="6" class="muted">No rows.</td></tr>';
+          '<tr><td colspan="6" class="muted cell-left">No rows.</td></tr>';
       }
-      renderPlayerModalCharts([]);
       return;
     }
 
-    const effectiveLastN = meta.lastN || rows.length;
+    const lastN = meta.lastN || rows.length;
     const teamMeta = meta.team || meta.teamAbbr || "";
     if (summaryEl) {
-      summaryEl.textContent = `Last ${effectiveLastN} games${
+      summaryEl.textContent = `Last ${lastN} games${
         teamMeta ? ` • ${teamMeta}` : ""
       }`;
     }
@@ -1471,122 +1361,210 @@ async function loadPlayerStats(playerId, summaryEl, tbody, lastN = 10) {
       })
       .join("");
     if (tbody) tbody.innerHTML = trHtml;
-
-    renderPlayerModalCharts(rows);
   } catch (err) {
     console.error(err);
     if (summaryEl) summaryEl.textContent = "Error loading stats.";
     if (tbody) {
       tbody.innerHTML =
-        '<tr><td colspan="6" class="muted">Error loading stats.</td></tr>';
+        '<tr><td colspan="6" class="muted cell-left">Error loading stats.</td></tr>';
     }
-    renderPlayerModalCharts([]);
   }
 }
 
-function renderPlayerModalCharts(rows) {
-  const container = document.getElementById("player-modal-charts");
-  if (!container) return;
+/* ---------------- PLAYER DETAIL MODAL ---------------- */
 
-  if (!rows || !rows.length) {
-    container.innerHTML = "";
+function setupPlayerDetailModal() {
+  const modal = document.getElementById("player-detail-modal");
+  if (!modal) return;
+
+  const closeBtn = document.getElementById("player-detail-close");
+  const backdrop = modal.querySelector(".modal-backdrop");
+
+  if (closeBtn) closeBtn.addEventListener("click", closePlayerDetailModal);
+  if (backdrop) backdrop.addEventListener("click", closePlayerDetailModal);
+}
+
+function openPlayerDetailModal(player) {
+  const modal = document.getElementById("player-detail-modal");
+  if (!modal) return;
+
+  const nameEl = document.getElementById("detail-player-name");
+  const metaEl = document.getElementById("detail-player-meta");
+  const logoEl = document.getElementById("detail-player-logo");
+  const snapshotEl = document.getElementById("detail-snapshot");
+  const avgBody = document.getElementById("detail-averages-rows");
+  const gamesBody = document.getElementById("detail-games-rows");
+  const statusEl = document.getElementById("detail-status");
+
+  if (nameEl) nameEl.textContent = player.name || "Player";
+  if (metaEl) {
+    const bits = [];
+    if (player.team) bits.push(player.team);
+    if (player.pos) bits.push(player.pos);
+    if (player.id) bits.push(`ID ${player.id}`);
+    metaEl.textContent = bits.join(" • ");
+  }
+  if (logoEl) {
+    logoEl.src = player.team ? `/logos/${player.team}.svg` : "";
+    logoEl.alt = player.team ? `${player.team} logo` : "";
+  }
+
+  if (snapshotEl) snapshotEl.innerHTML = "";
+  if (avgBody) {
+    avgBody.innerHTML =
+      '<tr><td colspan="4" class="cell-left muted">Computing averages...</td></tr>';
+  }
+  if (gamesBody) {
+    gamesBody.innerHTML =
+      '<tr><td colspan="6" class="cell-left muted">Loading detail games...</td></tr>';
+  }
+  if (statusEl) statusEl.textContent = "Loading detail...";
+
+  modal.classList.remove("hidden");
+
+  if (!player.id) {
+    if (statusEl) statusEl.textContent = "No player id available.";
     return;
   }
 
-  const sample = rows.slice(0, 15).reverse();
-  const series = { pts: [], reb: [], ast: [] };
-
-  sample.forEach((r) => {
-    const pts = r.pts != null ? Number(r.pts) : null;
-    const rebRaw = r.reb != null ? r.reb : r.reb_tot;
-    const reb = rebRaw != null ? Number(rebRaw) : null;
-    const ast = r.ast != null ? Number(r.ast) : null;
-
-    if (pts != null && !Number.isNaN(pts)) series.pts.push(pts);
-    if (reb != null && !Number.isNaN(reb)) series.reb.push(reb);
-    if (ast != null && !Number.isNaN(ast)) series.ast.push(ast);
-  });
-
-  container.innerHTML = `
-    <div class="player-modal-charts-title">
-      Recent trend (last ${sample.length} games)
-    </div>
-    <div class="player-modal-chart-row">
-      <span class="player-modal-chart-label">PTS</span>
-      <canvas class="player-modal-chart-canvas" data-stat="pts"></canvas>
-    </div>
-    <div class="player-modal-chart-row">
-      <span class="player-modal-chart-label">REB</span>
-      <canvas class="player-modal-chart-canvas" data-stat="reb"></canvas>
-    </div>
-    <div class="player-modal-chart-row">
-      <span class="player-modal-chart-label">AST</span>
-      <canvas class="player-modal-chart-canvas" data-stat="ast"></canvas>
-    </div>
-  `;
-
-  const canvases = container.querySelectorAll(".player-modal-chart-canvas");
-  canvases.forEach((canvas) => {
-    const stat = canvas.dataset.stat;
-    const values = series[stat] || [];
-    drawSparkline(canvas, values);
-  });
+  loadPlayerDetailStats(player.id);
 }
 
-function drawSparkline(canvas, values) {
-  const ctx = canvas.getContext("2d");
-  const logicalWidth = canvas.clientWidth || 160;
-  const logicalHeight = canvas.clientHeight || 52;
-  const dpr = window.devicePixelRatio || 1;
+function closePlayerDetailModal() {
+  const modal = document.getElementById("player-detail-modal");
+  if (modal) modal.classList.add("hidden");
+}
 
-  canvas.width = logicalWidth * dpr;
-  canvas.height = logicalHeight * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, logicalWidth, logicalHeight);
+async function loadPlayerDetailStats(playerId) {
+  const snapshotEl = document.getElementById("detail-snapshot");
+  const avgBody = document.getElementById("detail-averages-rows");
+  const gamesBody = document.getElementById("detail-games-rows");
+  const statusEl = document.getElementById("detail-status");
 
-  if (!values || !values.length) return;
+  try {
+    const url = `/api/stats?player_id=${encodeURIComponent(
+      playerId
+    )}&last_n=50`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("stats fetch failed");
+    const json = await res.json();
+    const rows = json.data || [];
+    const meta = json.meta || {};
 
-  const max = Math.max(...values);
-  const min = Math.min(...values);
-  const span = max - min || 1;
+    if (!rows.length) {
+      if (statusEl) statusEl.textContent = "No games found.";
+      if (gamesBody) {
+        gamesBody.innerHTML =
+          '<tr><td colspan="6" class="cell-left muted">No rows.</td></tr>';
+      }
+      if (avgBody) {
+        avgBody.innerHTML =
+          '<tr><td colspan="4" class="cell-left muted">No averages.</td></tr>';
+      }
+      return;
+    }
 
-  const paddingX = 6;
-  const paddingY = 6;
-  const w = logicalWidth - paddingX * 2;
-  const h = logicalHeight - paddingY * 2;
+    const teamMeta = meta.team || meta.teamAbbr || "";
+    if (snapshotEl) {
+      const gp = rows.length;
+      const mins = average(rows.map((r) => numOrZero(r.min || r.minutes)));
+      const pts = average(rows.map((r) => numOrZero(r.pts)));
+      const reb = average(
+        rows.map((r) => numOrZero(r.reb != null ? r.reb : r.reb_tot))
+      );
+      const ast = average(rows.map((r) => numOrZero(r.ast)));
 
-  const stepX =
-    values.length > 1 ? w / (values.length - 1) : 0;
+      snapshotEl.innerHTML = `
+        <div class="detail-snapshot-row"><span>Team</span><span>${escapeHtml(
+          teamMeta || ""
+        )}</span></div>
+        <div class="detail-snapshot-row"><span>Games in sample</span><span>${gp}</span></div>
+        <div class="detail-snapshot-row"><span>Minutes</span><span>${mins.toFixed(
+          1
+        )}</span></div>
+        <div class="detail-snapshot-row"><span>Points</span><span>${pts.toFixed(
+          1
+        )}</span></div>
+        <div class="detail-snapshot-row"><span>Rebounds</span><span>${reb.toFixed(
+          1
+        )}</span></div>
+        <div class="detail-snapshot-row"><span>Assists</span><span>${ast.toFixed(
+          1
+        )}</span></div>
+      `;
+    }
 
-  ctx.beginPath();
-  values.forEach((v, i) => {
-    const norm = (v - min) / span;
-    const x = paddingX + i * stepX;
-    const y = paddingY + (1 - norm) * h;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = "#ffb74d";
-  ctx.stroke();
+    const last10 = rows.slice(-10);
+    const last5 = rows.slice(-5);
 
-  ctx.beginPath();
-  values.forEach((v, i) => {
-    const norm = (v - min) / span;
-    const x = paddingX + i * stepX;
-    const y = paddingY + (1 - norm) * h;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  ctx.lineTo(paddingX + (values.length - 1) * stepX, paddingY + h);
-  ctx.lineTo(paddingX, paddingY + h);
-  ctx.closePath();
+    const seasonPts = average(rows.map((r) => numOrZero(r.pts)));
+    const l10Pts = average(last10.map((r) => numOrZero(r.pts)));
+    const l5Pts = average(last5.map((r) => numOrZero(r.pts)));
 
-  const grad = ctx.createLinearGradient(0, paddingY, 0, paddingY + h);
-  grad.addColorStop(0, "rgba(255,183,77,0.35)");
-  grad.addColorStop(1, "rgba(255,183,77,0)");
-  ctx.fillStyle = grad;
-  ctx.fill();
+    const seasonReb = average(
+      rows.map((r) => numOrZero(r.reb != null ? r.reb : r.reb_tot))
+    );
+    const l10Reb = average(
+      last10.map((r) => numOrZero(r.reb != null ? r.reb : r.reb_tot))
+    );
+    const l5Reb = average(
+      last5.map((r) => numOrZero(r.reb != null ? r.reb : r.reb_tot))
+    );
+
+    const seasonAst = average(rows.map((r) => numOrZero(r.ast)));
+    const l10Ast = average(last10.map((r) => numOrZero(r.ast)));
+    const l5Ast = average(last5.map((r) => numOrZero(r.ast)));
+
+    if (avgBody) {
+      avgBody.innerHTML = `
+        <tr>
+          <td class="cell-left">PTS</td>
+          <td>${seasonPts.toFixed(1)}</td>
+          <td>${l10Pts.toFixed(1)}</td>
+          <td>${l5Pts.toFixed(1)}</td>
+        </tr>
+        <tr>
+          <td class="cell-left">REB</td>
+          <td>${seasonReb.toFixed(1)}</td>
+          <td>${l10Reb.toFixed(1)}</td>
+          <td>${l5Reb.toFixed(1)}</td>
+        </tr>
+        <tr>
+          <td class="cell-left">AST</td>
+          <td>${seasonAst.toFixed(1)}</td>
+          <td>${l10Ast.toFixed(1)}</td>
+          <td>${l5Ast.toFixed(1)}</td>
+        </tr>
+      `;
+    }
+
+    const gamesHtml = rows
+      .map((r) => {
+        const date = r.game_date || r.date || "";
+        const opp = r.opponent || r.opp || "";
+        const min =
+          r.min != null ? r.min : r.minutes != null ? r.minutes : "";
+        const pts = r.pts != null ? r.pts : "";
+        const reb = r.reb != null ? r.reb : r.reb_tot != null ? r.reb_tot : "";
+        const ast = r.ast != null ? r.ast : "";
+
+        return `<tr>
+          <td class="cell-left">${escapeHtml(String(date).slice(5))}</td>
+          <td class="cell-left">${escapeHtml(opp)}</td>
+          <td>${escapeHtml(min)}</td>
+          <td>${escapeHtml(pts)}</td>
+          <td>${escapeHtml(reb)}</td>
+          <td>${escapeHtml(ast)}</td>
+        </tr>`;
+      })
+      .join("");
+
+    if (gamesBody) gamesBody.innerHTML = gamesHtml;
+    if (statusEl) statusEl.textContent = "Detail loaded.";
+  } catch (err) {
+    console.error(err);
+    if (statusEl) statusEl.textContent = "Error loading detail.";
+  }
 }
 
 /* ---------------- GAME MODAL ---------------- */
@@ -1646,9 +1624,12 @@ function openGameModal(info) {
     metaEl.textContent = bits.join(" • ");
   }
 
-  const stat = statSelect?.value || "pts";
-  if (statSelect && !statSelect.value) statSelect.value = stat;
-  loadGameContext(info, stat);
+  if (statSelect) {
+    if (!statSelect.value) statSelect.value = "pts";
+    loadGameContext(info, statSelect.value || "pts");
+  } else {
+    loadGameContext(info, "pts");
+  }
 }
 
 function closeGameModal() {
@@ -1708,21 +1689,15 @@ async function loadGameContext(gameInfo, stat) {
             const name = escapeHtml(p.name);
             const team = escapeHtml(p.team || "");
             const pos = escapeHtml(p.pos || "");
+            const delta = p.delta != null ? p.delta.toFixed(1) : "–";
             const recent = p.recent != null ? p.recent.toFixed(1) : "–";
             const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
-            const deltaNum = p.delta != null ? Number(p.delta) : null;
-            const deltaText =
-              deltaNum != null && !Number.isNaN(deltaNum)
-                ? deltaNum.toFixed(1)
-                : "–";
             const id =
               p.player_id != null
                 ? String(p.player_id)
                 : p.id != null
                 ? String(p.id)
                 : "";
-
-            const deltaBadge = buildDeltaBadge(deltaNum, deltaText);
 
             return `
               <div class="overview-row"
@@ -1736,7 +1711,7 @@ async function loadGameContext(gameInfo, stat) {
                 </div>
                 <div class="overview-row-meta">
                   <div class="team-sub">Recent: ${recent} • Season: ${season}</div>
-                  ${deltaBadge}
+                  <div class="badge-soft">Δ ${delta}</div>
                 </div>
               </div>
             `;
@@ -1795,7 +1770,7 @@ async function loadGameContext(gameInfo, stat) {
 /* ---------------- EDGE BOARD MODAL ---------------- */
 
 const edgeBoardState = {
-  byStat: {},
+  byStat: {}, // stat -> raw rows
   currentStat: "pts",
   position: "",
   team: "",
@@ -1847,7 +1822,6 @@ function openEdgeBoardModal() {
 
   const stat = statSelect?.value || edgeBoardState.currentStat || "pts";
   edgeBoardState.currentStat = stat;
-  if (statSelect && !statSelect.value) statSelect.value = stat;
   ensureEdgeBoardData(stat).then(() => {
     renderEdgeBoardTable();
   });
@@ -1864,7 +1838,7 @@ async function ensureEdgeBoardData(stat) {
   const tbody = document.getElementById("edge-modal-rows");
   if (tbody) {
     tbody.innerHTML =
-      '<tr><td colspan="7" class="muted">Loading edge board...</td></tr>';
+      '<tr><td colspan="7" class="muted cell-left">Loading edge board...</td></tr>';
   }
 
   try {
@@ -1879,7 +1853,7 @@ async function ensureEdgeBoardData(stat) {
     console.error(err);
     if (tbody) {
       tbody.innerHTML =
-        '<tr><td colspan="7" class="muted">Error loading edge board.</td></tr>';
+        '<tr><td colspan="7" class="muted cell-left">Error loading edge board.</td></tr>';
     }
   }
 }
@@ -1911,7 +1885,7 @@ function renderEdgeBoardTable() {
 
   if (!limited.length) {
     tbody.innerHTML =
-      '<tr><td colspan="7" class="muted">No edges match these filters.</td></tr>';
+      '<tr><td colspan="7" class="muted cell-left">No edges match these filters.</td></tr>';
     return;
   }
 
@@ -1920,16 +1894,11 @@ function renderEdgeBoardTable() {
   const html = limited
     .map((p) => {
       const name = escapeHtml(p.name || "");
-      const teamAbbr = p.team || "";
-      const team = escapeHtml(teamAbbr || "");
+      const team = escapeHtml(p.team || "");
       const pos = escapeHtml(p.pos || "");
       const recent = p.recent != null ? p.recent.toFixed(1) : "–";
       const season = p.seasonAvg != null ? p.seasonAvg.toFixed(1) : "–";
-      const deltaNum = p.delta != null ? Number(p.delta) : null;
-      const deltaText =
-        deltaNum != null && !Number.isNaN(deltaNum)
-          ? deltaNum.toFixed(1)
-          : "–";
+      const delta = p.delta != null ? p.delta.toFixed(1) : "–";
       const id =
         p.player_id != null
           ? String(p.player_id)
@@ -1937,12 +1906,10 @@ function renderEdgeBoardTable() {
           ? String(p.id)
           : "";
 
-      const deltaBadge = buildDeltaBadge(deltaNum, deltaText);
-
       return `
         <tr data-player-id="${id}"
             data-player-name="${name}"
-            data-player-team="${teamAbbr}"
+            data-player-team="${team}"
             data-player-pos="${pos}">
           <td class="cell-left">${name}</td>
           <td>${team}</td>
@@ -1950,7 +1917,7 @@ function renderEdgeBoardTable() {
           <td>${label}</td>
           <td>${recent}</td>
           <td>${season}</td>
-          <td>${deltaBadge}</td>
+          <td>${delta}</td>
         </tr>
       `;
     })
@@ -1975,75 +1942,6 @@ function populateEdgeBoardTeamsFilter() {
 }
 
 /* ---------------- UTIL ---------------- */
-
-const TEAM_LOGO_SLUGS = {
-  ATL: "atl",
-  BKN: "bkn",
-  BOS: "bos",
-  CHA: "cha",
-  CHI: "chi",
-  CLE: "cle",
-  DAL: "dal",
-  DEN: "den",
-  DET: "det",
-  GSW: "gs",
-  HOU: "hou",
-  IND: "ind",
-  LAC: "lac",
-  LAL: "lal",
-  MEM: "mem",
-  MIA: "mia",
-  MIL: "mil",
-  MIN: "min",
-  NOP: "no",
-  NYK: "ny",
-  OKC: "okc",
-  ORL: "orl",
-  PHI: "phi",
-  PHX: "phx",
-  POR: "por",
-  SAC: "sac",
-  SAS: "sa",
-  TOR: "tor",
-  UTA: "utah",
-  WAS: "wsh",
-};
-
-function getTeamLogoUrl(teamAbbr) {
-  if (!teamAbbr) return null;
-  const key = String(teamAbbr).toUpperCase();
-  const slug = TEAM_LOGO_SLUGS[key];
-  if (!slug) return null;
-  return `/logos/${slug}.png`;
-}
-
-function getPropTierClass(deltaRaw) {
-  const d = Number(deltaRaw);
-  if (!Number.isFinite(d)) return "prop-pill-neutral";
-
-  if (d >= 4) return "prop-pill-green";
-  if (d >= 2) return "prop-pill-yellow";
-  return "prop-pill-red";
-}
-
-function getDeltaBarWidth(deltaRaw) {
-  const d = Math.abs(Number(deltaRaw));
-  if (!Number.isFinite(d)) return 20;
-  const max = 6;
-  const pct = Math.max(10, Math.min(100, (d / max) * 100));
-  return Math.round(pct);
-}
-
-function buildDeltaBadge(deltaNum, deltaText) {
-  const tierClass = getPropTierClass(deltaNum);
-  const widthPct = getDeltaBarWidth(deltaNum);
-  return `
-    <div class="delta-badge-wrap">
-      <div class="delta-bar" style="width:${widthPct}%;"></div>
-      <span class="prop-pill ${tierClass} delta-pill-inner">Δ ${deltaText}</span>
-    </div>
-  `;
-}
 
 function buildDate(range) {
   const today = new Date();
@@ -2071,4 +1969,16 @@ function escapeHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function numOrZero(v) {
+  if (v == null || v === "") return 0;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function average(arr) {
+  if (!arr.length) return 0;
+  const sum = arr.reduce((acc, v) => acc + v, 0);
+  return sum / arr.length;
 }
