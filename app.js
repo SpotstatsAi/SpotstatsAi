@@ -427,6 +427,12 @@ function renderPlayerCard(p) {
   const logoSrc = teamCode ? `/logos/${teamCode}.png` : "";
   const logoAlt = team ? `${team} logo` : "team logo";
 
+  const logoHtml = logoSrc
+    ? `<img src="${logoSrc}" alt="${escapeHtml(
+        logoAlt
+      )}" class="player-card-logo-img" />`
+    : "";
+
   return `
     <div class="player-card"
          data-player-id="${id}"
@@ -443,19 +449,9 @@ function renderPlayerCard(p) {
             Always available • Player-only view
           </div>
         </div>
-        <div class="player-team-pill">
-          ${team || "FA"}
-        </div>
-      </div>
-      <div class="player-card-logo-row">
-        <div class="player-card-logo-circle">
-          ${
-            logoSrc
-              ? `<img src="${logoSrc}" alt="${escapeHtml(
-                  logoAlt
-                )}" class="player-card-logo-img" />`
-              : ""
-          }
+        <div class="player-badge">
+          ${logoHtml}
+          <span>${team || "FA"}</span>
         </div>
       </div>
       <div class="player-body-row">
@@ -1148,22 +1144,23 @@ function setupPlayerModal() {
 
   const closeBtn = document.getElementById("modal-close");
   const backdrop = modal.querySelector(".modal-backdrop");
-  const detailBtn = document.getElementById("player-detail-btn");
 
   if (closeBtn) closeBtn.addEventListener("click", closePlayerModal);
   if (backdrop) backdrop.addEventListener("click", closePlayerModal);
 
-  if (detailBtn) {
-    detailBtn.addEventListener("click", () => {
+  // One global click handler:
+  document.addEventListener("click", (evt) => {
+    // 1) "View Detail Page" button inside the last-10 modal
+    const detailTrigger = evt.target.closest("#player-detail-btn");
+    if (detailTrigger) {
+      evt.preventDefault();
       if (!currentPlayerForDetail) return;
       closePlayerModal();
       openPlayerDetailModal(currentPlayerForDetail);
-    });
-  }
+      return;
+    }
 
-  // global click for any element with data-player-id (player cards, trends, overview, etc.)
-  document.addEventListener("click", (evt) => {
-    // Don't intercept when clicking explicit pick add/remove buttons
+    // 2) Skip when hitting pick add/remove controls
     if (
       evt.target.closest(".picks-add-btn") ||
       evt.target.closest(".picks-remove-btn")
@@ -1171,6 +1168,7 @@ function setupPlayerModal() {
       return;
     }
 
+    // 3) Any [data-player-id] opens the last-10 modal
     const target = evt.target.closest("[data-player-id]");
     if (!target) return;
 
